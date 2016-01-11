@@ -31,20 +31,20 @@
 {
     self.newImageV = [UIImageView new];
 //    self.newImageV.backgroundColor = [UIColor yellowColor];
-    self.newImageV.image = [UIImage imageNamed:@"kafei"];
     self.newImageV.layer.cornerRadius = 10;
+    self.newImageV.image = [UIImage imageNamed:@"kafei"];
     [self addSubview:self.newImageV];
     
     self.earlyImageV = [UIImageView new];
 //    self.earlyImageV.backgroundColor = [UIColor magentaColor];
-    self.earlyImageV.image = [UIImage imageNamed:@"kafei"];
     self.earlyImageV.layer.cornerRadius = 10;
+    self.earlyImageV.image = [UIImage imageNamed:@"kafei"];
     [self addSubview:self.earlyImageV];
     
     self.nightImageV = [UIImageView new];
+    self.nightImageV.layer.cornerRadius = 10;
 //    self.nightImageV.backgroundColor = [UIColor orangeColor];
     self.nightImageV.image = [UIImage imageNamed:@"kafei"];
-    self.nightImageV.layer.cornerRadius = 10;
     [self addSubview:self.nightImageV];
     
     [self.newImageV mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -179,7 +179,6 @@
 //        WLZ_Movies_TableViewCell *cell = (WLZ_Movies_TableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
         WLZ_Radios_Model *model = self.radiosArr[indexPath.row];
         detailsVC.ScenicID = model.radioid;
-        NSLog(@"**********%@", model.radioid);
         [self.navigationController pushViewController:detailsVC animated:YES];
     }
         
@@ -250,7 +249,6 @@
 //            NSMutableArray * d = [WLZ_Base_Model baseModelWithDic:dic];
 //        }
         self.radiosArr = [WLZ_Radios_Model baseModelWithArr:alllistArr];
-        NSLog(@"%@", self.radiosArr);
         [self.tableV reloadData];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
