@@ -26,7 +26,6 @@
 @implementation WLZReadListHotCell
 - (void)dealloc
 {
-    [_start release];
     [_dic release];
     [_docArr release];
     [_hud release];
@@ -80,9 +79,10 @@
         [self createNewData];
     }];
     [self.tableView.mj_header beginRefreshing];
-    __block NSInteger index = 10;
+    
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
+        self.start += 10;
+        [self createNewData];
         
     }];
     
@@ -93,7 +93,10 @@
     self.dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"addtime", @"sort", 0, @"start", @"2", @"client", @"1", @"typeid", @"10", @"list", nil];
     [self.dic setObject:self.typleId forKey:@"typeid"];
     [self.dic setObject:self.sort forKey:@"sort"];
-    self.docArr = [NSMutableArray array];
+    [self.dic setObject:[NSString stringWithFormat:@"%ld", self.start] forKey:@"start"];
+    if (self.start == 0) {
+       self.docArr = [NSMutableArray array];
+    }
     [LQQAFNetTool postNetWithURL:READURL body:self.dic bodyStyle:LQQRequestJSON headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableDictionary *dic = [responseObject objectForKey:@"data"];
         NSMutableArray *arr = [dic objectForKey:@"list"];
@@ -107,6 +110,9 @@
             [self.hud removeFromSuperview];
             [self.hud release];
             self.hud = nil;
+            
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
         }
         
         

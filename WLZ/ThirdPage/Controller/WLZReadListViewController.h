@@ -10,8 +10,5 @@
 
 @interface WLZReadListViewController : WLZBaseViewController
 @property (nonatomic, copy) NSString *typle;
-
-
 @property (nonatomic, copy) NSString *name;
-
 @end

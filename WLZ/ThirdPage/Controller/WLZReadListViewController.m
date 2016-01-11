@@ -63,6 +63,8 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
 }
+#pragma 界面随着按键动
+
 - (void)buttonAction:(UIButton *)sender
 {
     
@@ -114,6 +116,7 @@
     [self.collectV registerClass:[WLZReadListHotCell class] forCellWithReuseIdentifier:@"new"];
     [self.collectV registerClass:[WLZReadListHotCell class] forCellWithReuseIdentifier:@"hot"];
 }
+#pragma 按键随着界面动
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSInteger index = scrollView.contentOffset.x / WIDTH;
