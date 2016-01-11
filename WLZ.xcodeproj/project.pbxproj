@@ -11,6 +11,10 @@
 		490050E21C40FAF4008BF2D5 /* WLZVideoRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490050E11C40FAF4008BF2D5 /* WLZVideoRootViewController.m */; };
 		490050E51C40FB0D008BF2D5 /* WLZReadRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490050E41C40FB0D008BF2D5 /* WLZReadRootViewController.m */; };
 		490050E81C40FB25008BF2D5 /* WLZUserRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490050E71C40FB25008BF2D5 /* WLZUserRootViewController.m */; };
+		4943D1AF1C43CD4300471A45 /* WLZ_Dance_detailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943D1AE1C43CD4300471A45 /* WLZ_Dance_detailViewController.m */; };
+		4943D1B21C43CD7400471A45 /* WLZ_Dance_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943D1B11C43CD7400471A45 /* WLZ_Dance_Model.m */; };
+		4943D1B51C43CD8C00471A45 /* WLZ_Dance_ListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943D1B41C43CD8C00471A45 /* WLZ_Dance_ListModel.m */; };
+		4943D1B81C43CE2600471A45 /* WLZ_DanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4943D1B71C43CE2600471A45 /* WLZ_DanceTableViewCell.m */; };
 		496B36351C3FCF5400DC214F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 496B36341C3FCF5400DC214F /* main.m */; };
 		496B36381C3FCF5400DC214F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 496B36371C3FCF5400DC214F /* AppDelegate.m */; };
 		496B363E1C3FCF5400DC214F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 496B363C1C3FCF5400DC214F /* Main.storyboard */; };
@@ -73,6 +77,14 @@
 		490050E41C40FB0D008BF2D5 /* WLZReadRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZReadRootViewController.m; sourceTree = "<group>"; };
 		490050E61C40FB25008BF2D5 /* WLZUserRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZUserRootViewController.h; sourceTree = "<group>"; };
 		490050E71C40FB25008BF2D5 /* WLZUserRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZUserRootViewController.m; sourceTree = "<group>"; };
+		4943D1AD1C43CD4300471A45 /* WLZ_Dance_detailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_detailViewController.h; sourceTree = "<group>"; };
+		4943D1AE1C43CD4300471A45 /* WLZ_Dance_detailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_detailViewController.m; sourceTree = "<group>"; };
+		4943D1B01C43CD7400471A45 /* WLZ_Dance_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_Model.h; sourceTree = "<group>"; };
+		4943D1B11C43CD7400471A45 /* WLZ_Dance_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_Model.m; sourceTree = "<group>"; };
+		4943D1B31C43CD8C00471A45 /* WLZ_Dance_ListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_ListModel.h; sourceTree = "<group>"; };
+		4943D1B41C43CD8C00471A45 /* WLZ_Dance_ListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_ListModel.m; sourceTree = "<group>"; };
+		4943D1B61C43CE2600471A45 /* WLZ_DanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLZ_DanceTableViewCell.h; path = WLZ/FirstPage/Model/WLZ_DanceTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		4943D1B71C43CE2600471A45 /* WLZ_DanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLZ_DanceTableViewCell.m; path = WLZ/FirstPage/Model/WLZ_DanceTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		496B36301C3FCF5400DC214F /* WLZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WLZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		496B36341C3FCF5400DC214F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		496B36361C3FCF5400DC214F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -305,6 +317,8 @@
 			children = (
 				490050DD1C40FAB3008BF2D5 /* WLZRadioRootViewController.h */,
 				490050DE1C40FAB3008BF2D5 /* WLZRadioRootViewController.m */,
+				4943D1AD1C43CD4300471A45 /* WLZ_Dance_detailViewController.h */,
+				4943D1AE1C43CD4300471A45 /* WLZ_Dance_detailViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -458,6 +472,10 @@
 			children = (
 				49D66C031C434ADF00139AF7 /* WLZ_DD_Model.h */,
 				49D66C041C434ADF00139AF7 /* WLZ_DD_Model.m */,
+				4943D1B01C43CD7400471A45 /* WLZ_Dance_Model.h */,
+				4943D1B11C43CD7400471A45 /* WLZ_Dance_Model.m */,
+				4943D1B31C43CD8C00471A45 /* WLZ_Dance_ListModel.h */,
+				4943D1B41C43CD8C00471A45 /* WLZ_Dance_ListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -465,6 +483,8 @@
 		49D66C061C434AFD00139AF7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4943D1B61C43CE2600471A45 /* WLZ_DanceTableViewCell.h */,
+				4943D1B71C43CE2600471A45 /* WLZ_DanceTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -678,6 +698,7 @@
 				496B36381C3FCF5400DC214F /* AppDelegate.m in Sources */,
 				49A5896C1C4380EB005017A6 /* WLZReadListHotCell.m in Sources */,
 				49D2D3231C422627001ED63D /* WLZBaseCollectionView.m in Sources */,
+				4943D1B81C43CE2600471A45 /* WLZ_DanceTableViewCell.m in Sources */,
 				49C93B031C422F8F00898F22 /* WLZReadHomeCarouselModel.m in Sources */,
 				496B36351C3FCF5400DC214F /* main.m in Sources */,
 				49D66C051C434ADF00139AF7 /* WLZ_DD_Model.m in Sources */,
@@ -688,10 +709,13 @@
 				49A589661C4371A9005017A6 /* WLZReadListViewController.m in Sources */,
 				49C93B0C1C42326400898F22 /* WLZBaseLabel.m in Sources */,
 				49C93B061C42319200898F22 /* WLZBaseCollectionViewCell.m in Sources */,
+				4943D1B21C43CD7400471A45 /* WLZ_Dance_Model.m in Sources */,
 				490050E81C40FB25008BF2D5 /* WLZUserRootViewController.m in Sources */,
 				49A589631C4358D2005017A6 /* WLZReadHeadCycleView.m in Sources */,
 				49A589691C437922005017A6 /* WLZReadListModel.m in Sources */,
 				92A545D41C41EFFA00A60D7D /* WLZ_Details_TableViewCell.m in Sources */,
+				4943D1B51C43CD8C00471A45 /* WLZ_Dance_ListModel.m in Sources */,
+				4943D1AF1C43CD4300471A45 /* WLZ_Dance_detailViewController.m in Sources */,
 				92A545D11C41DEC900A60D7D /* WLZ_Details_ViewController.m in Sources */,
 				49A5896F1C43838A005017A6 /* WLZReadTableViewCell.m in Sources */,
 				92A545D71C41F8B700A60D7D /* WLZ_Details_Model.m in Sources */,
