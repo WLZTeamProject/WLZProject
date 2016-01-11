@@ -222,9 +222,9 @@
 		4966E1211C43DDEF009CFE51 /* SecondPage */ = {
 			isa = PBXGroup;
 			children = (
+				4966E1221C43DDEF009CFE51 /* Controller */,
 				4966E1651C43DEA8009CFE51 /* Model */,
 				4966E14C1C43DE80009CFE51 /* View */,
-				4966E1221C43DDEF009CFE51 /* Controller */,
 			);
 			path = SecondPage;
 			sourceTree = "<group>";
@@ -232,12 +232,12 @@
 		4966E1221C43DDEF009CFE51 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				4966E1271C43DDEF009CFE51 /* WLZVideoRootViewController.h */,
+				4966E1281C43DDEF009CFE51 /* WLZVideoRootViewController.m */,
 				4966E1231C43DDEF009CFE51 /* WLZ_Details_ViewController.h */,
 				4966E1241C43DDEF009CFE51 /* WLZ_Details_ViewController.m */,
 				4966E1251C43DDEF009CFE51 /* WLZ_Music_ViewController.h */,
 				4966E1261C43DDEF009CFE51 /* WLZ_Music_ViewController.m */,
-				4966E1271C43DDEF009CFE51 /* WLZVideoRootViewController.h */,
-				4966E1281C43DDEF009CFE51 /* WLZVideoRootViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
