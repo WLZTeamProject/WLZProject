@@ -68,12 +68,20 @@
     self.tableV.rowHeight = [[UIScreen mainScreen] bounds].size.height / 3.0;
     //设置上拉刷新
     self.tableV.mj_footer = [MJRefreshAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
     
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    WLZ_Dance_detailViewController *wlzDanceVC = [[WLZ_Dance_detailViewController alloc] init];
+//    [self.navigationController pushViewController:wlzDanceVC animated:YES];
+    [self presentViewController:wlzDanceVC animated:YES completion:^{
+        
+        
+    }];
+    [wlzDanceVC release];
     
 }
 
@@ -105,9 +113,6 @@
     
     static NSString *cellStr = @"cell";
     WLZ_DanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
-    if (nil == cell) {
-        cell = [[WLZ_DanceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
-    }
     cell.titleL.text = wlzlist.item_title;
     cell.personL.text = [NSString stringWithFormat:@"%@人在学",wlzlist.item_click];
     [cell.imageV sd_setImageWithURL:[NSURL URLWithString:wlzlist.item_image]];
@@ -134,6 +139,7 @@
     }];
     
 }
+
 //获取轮播图数据
 - (void)getData
 {

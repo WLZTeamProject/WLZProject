@@ -9,5 +9,6 @@
 #import "WLZBaseViewController.h"
 
 @interface WLZ_Dance_detailViewController : WLZBaseViewController
+@property (nonatomic, copy) NSString *urlStr;
 
 @end
