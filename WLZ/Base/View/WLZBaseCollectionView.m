@@ -11,17 +11,4 @@
 @implementation WLZBaseCollectionView
 
 
-
-- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout
-{
-    self =[super initWithFrame:frame collectionViewLayout:layout];
-    if (self) {
-        [self createSubviews];
-    }
-    return self;
-}
-- (void)createSubviews
-{
-    self.backgroundColor = [UIColor whiteColor];
-}
 @end

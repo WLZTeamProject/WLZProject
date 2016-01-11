@@ -14,8 +14,12 @@
 
 @property (nonatomic, copy) NSString *title;
 
+@property (nonatomic, copy) NSString *tingid;
+
 @property (nonatomic, copy) NSString *musicVisit;
 
 @property (nonatomic, copy) NSString *musicUrl;
+
+@property (nonatomic, retain) NSDictionary *playInfo;
 
 @end

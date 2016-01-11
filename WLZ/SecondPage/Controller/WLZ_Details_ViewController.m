@@ -10,6 +10,7 @@
 #import "WLZ_PCH.pch"
 #import "WLZ_Details_TableViewCell.h"
 #import "WLZ_Details_Model.h"
+#import "WLZ_Music_ViewController.h"
 @interface WLZ_Details_ViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) UITableView *tableV;
@@ -89,21 +90,28 @@
             self.detailsCell = [[WLZ_Details_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celld];
         }
     if (0 != self.radioArr.count) {
-//        WLZ_Radios_Model *model = self.radiosArr[indexPath.row];
-//        self.moviesCell.model = [self.radiosArr objectAtIndex:indexPath.row];
-//        [self.moviesCell.RadiosImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
         WLZ_Details_Model *model = self.radioArr[indexPath.row];
         self.detailsCell.model = [self.radioArr objectAtIndex:indexPath.row];
         [self.detailsCell.coverimgImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
         self.detailsCell.titleL.text = model.title;
         self.detailsCell.musicVisitL.text = model.musicVisit;
         self.detailsCell.musicVisitL.font = [UIFont systemFontOfSize:11];
-
-        NSLog(@"&&&&&&&&&&%@", model.title);
-
     }
     
             return self.detailsCell;
+}
+
+//选中跳转界面
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WLZ_Music_ViewController *musicVC = [[[WLZ_Music_ViewController alloc] init] autorelease];
+    //传值model
+    WLZ_Details_Model *model = self.radioArr[indexPath.row];
+    musicVC.coving = model.coverimg;
+    musicVC.tingid = model.tingid;
+    musicVC.playInfo = [model.playInfo objectForKey:@"webview_url"];
+    musicVC.titleM = self.radioArr;
+    [self.navigationController pushViewController:musicVC animated:YES];
 }
 
 - (void)creatHeaderView
@@ -129,7 +137,7 @@
     NSDictionary *dic = [NSDictionary dictionaryWithObject:@"PHPSESSID=clljgnbjaqsueqdinkv8366sj3" forKey:@"Cookie"];
     NSString *body = [NSString stringWithFormat:@"auth=&client=1&deviceid=FC88C466-6C29-47E4-B464-AAA1DA196931&radioid=%@&version=3.0.6", self.ScenicID];
     [LQQAFNetTool postNetWithURL:url body:body bodyStyle:LQQRequestNSString headFile:dic responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSLog(@"!!!!!!!!!%@", responseObject);
+
         NSDictionary *dataDic = [responseObject objectForKey:@"data"];
         //头图片
         NSDictionary *radioInfoDic = [dataDic objectForKey:@"radioInfo"];
