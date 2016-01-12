@@ -31,15 +31,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //创建视图
     [self createSubviews];
    
 }
 - (void)createSubviews
 {
     self.navigationItem.title = self.name;
-    self.tabBarController.tabBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = YES;//隐藏tabBar
     self.tabBarController.tabBar.translucent = YES;
+    //底层collectionView
     [self createCollectionView];
+    //按键
     [self createRightButton];
  
 }
@@ -48,6 +51,7 @@
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 }
+#pragma 视图切换按键
 - (void)createRightButton
 {
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
@@ -98,7 +102,7 @@
     
      sender.selected = !sender.selected;
 }
-
+#pragma 创建视图
 - (void)createCollectionView
 {
     UICollectionViewFlowLayout *fwl = [[UICollectionViewFlowLayout alloc] init];

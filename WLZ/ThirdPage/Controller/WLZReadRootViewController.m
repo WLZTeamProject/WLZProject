@@ -17,7 +17,7 @@
 #import <UIImageView+WebCache.h>
 #import <SDCycleScrollView.h>
 #import "WLZReadHeadCycleView.h"
-
+#import "WLZReadWebViewController.h"
 #import "WLZReadListViewController.h"
 @interface WLZReadRootViewController () <UICollectionViewDelegate, UICollectionViewDataSource, SDCycleScrollViewDelegate>
 @property (nonatomic, retain) WLZBaseCollectionView *collectionV;
@@ -122,6 +122,8 @@
         self.cycleSV.bannerImageViewContentMode = UIViewContentModeScaleToFill;
         self.cycleSV.imageURLStringsGroup = arr;
         [view addSubview:self.cycleSV];
+        
+        
         [self.cycleSV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(UIWIDTH - 16);
             make.height.mas_equalTo(UIWIDTH / 3 * 2 - 40);
@@ -164,7 +166,13 @@
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
+    WLZReadHomeCarouselModel *carouselModel = [self.carouselArr objectAtIndex:index];
     
+    WLZReadWebViewController *webVC = [[WLZReadWebViewController alloc] init];
+    webVC.mId = [carouselModel.url substringFromIndex:17];
+//    NSLog(@"%@", webVC.mId);
+    [self.navigationController pushViewController:webVC animated:YES];
+    [webVC release];
     
 }
 - (void)didReceiveMemoryWarning {
