@@ -140,13 +140,15 @@
     if (nil == cell) {
         cell = [[WLZReadTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
     }
-    
-    WLZReadListModel *model = [self.docArr objectAtIndex:indexPath.row];
-    cell.nameLabel.text = model.title;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg] placeholderImage:[UIImage imageNamed:@"kafei"]];
-    cell.contentLabel.text = model.content;
-    return cell;
+    if (self.docArr.count != 0) {
+        WLZReadListModel *model = [self.docArr objectAtIndex:indexPath.row];
+        cell.nameLabel.text = model.title;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg] placeholderImage:[UIImage imageNamed:@"kafei"]];
+        cell.contentLabel.text = model.content;
+        return cell;
+    }
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

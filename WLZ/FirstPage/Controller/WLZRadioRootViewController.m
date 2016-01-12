@@ -110,6 +110,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+//    if (0 != self.danceArr.count) {
+    return self.danceArr.count;
+//    }
+//    return 2;
+
 //    NSLog(@"%ld", self.danceArr.count);
 //    if (self.danceArr == nil) {
 //        return 0;
@@ -118,6 +123,8 @@
 //    }
     return self.danceArr.count;
     
+    
+
     
 }
 

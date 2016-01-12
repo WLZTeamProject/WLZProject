@@ -110,6 +110,7 @@
     musicVC.coving = model.coverimg;
     musicVC.tingid = model.tingid;
     musicVC.playInfo = [model.playInfo objectForKey:@"webview_url"];
+    musicVC.titlePlay = [model.playInfo objectForKey:@"title"];
     musicVC.titleM = self.radioArr;
     [self.navigationController pushViewController:musicVC animated:YES];
 }

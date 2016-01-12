@@ -18,6 +18,8 @@
 
 @property (nonatomic, retain) NSString *playInfo;
 
+@property (nonatomic, copy) NSString *titlePlay;
+
 @property (nonatomic, copy) NSString *tingid;
 
 @property (nonatomic, retain) WLZ_Details_Model *model1;
