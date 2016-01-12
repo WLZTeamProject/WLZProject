@@ -23,7 +23,6 @@
     self.coverimgImageV = [UIImageView new];
     self.coverimgImageV.layer.cornerRadius = 10;
     self.coverimgImageV.image = [UIImage imageNamed:@"kafei"];
-    //    self.RadiosImageV.backgroundColor = [UIColor blueColor];
     [self addSubview:self.coverimgImageV];
     
     [self.coverimgImageV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -34,7 +33,6 @@
     }];
     
     self.titleL = [UILabel new];
-    //    self.titleL.backgroundColor = [UIColor magentaColor];
     [self addSubview:self.titleL];
     
     [self.titleL mas_makeConstraints:^(MASConstraintMaker *make) {

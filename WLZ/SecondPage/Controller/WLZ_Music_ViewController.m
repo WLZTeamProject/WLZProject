@@ -200,32 +200,16 @@
             [cell.originalImageV sd_setImageWithURL:[NSURL URLWithString:model1.icon]];
             WLZ_Other_Model *modelR = self.radionameArr[indexPath.section];
             cell.comfromL.text = modelR.radioname;
-;
-//            NSArray *arr = [NSArray arrayWithObjects:cell.imageOne, cell.imageTwo, cell.imageThree, cell.imageFore, cell.imageFive, cell.imageSix, nil];
-
-
             WLZ_Other_Model *modelM = self.coverimgArr[indexPath.section];
-//            [cell.imageOne sd_setImageWithURL:[NSURL URLWithString:[self.coverimgArr[0] objectForKey:@"coverimg"]]];
-//            [cell.imageTwo sd_setImageWithURL:[NSURL URLWithString:modelM.coverimg]];
-//            [cell.imageThree sd_setImageWithURL:[NSURL URLWithString:modelM.coverimg]];
-//            [cell.imageFore sd_setImageWithURL:[NSURL URLWithString:modelM.coverimg]];
-//            [cell.imageFive sd_setImageWithURL:[NSURL URLWithString:modelM.coverimg]];
-//            [cell.imageSix sd_setImageWithURL:[NSURL URLWithString:modelM.coverimg]];
-            
             NSLog(@"%@", modelM.coverimg);
         }
         return cell;
     }
-//    [self.collectionV reloadData];
     return nil;
 }
 
 - (void)playAction
 {
-    
-
-//    STKAudioPlayerOptions playerOptions = {YES, YES, {50, 100, 200, 400, 800, 1600, 2600, 16000}};
-//    self.player = [[STKAudioPlayer alloc] initWithOptions:playerOptions];
     if (STKAudioPlayerStatePlaying == self.player.state) {
         //暂停
         [self.player pause];
@@ -237,8 +221,6 @@
     } else{
         //播放
         [self.player stop];
-//        STKAudioPlayerOptions playerOptions = {YES, YES, {50, 100, 200, 400, 800, 1600, 2600, 16000}};
-//        self.player = [[STKAudioPlayer alloc] initWithOptions:playerOptions];
         [self.player play:self.url];
 
         self.playB.selected = YES;
@@ -262,7 +244,6 @@
         NSMutableDictionary *dataDic = [responseObject objectForKey:@"data"];
         NSMutableDictionary *userinfoDic = [dataDic objectForKey:@"userinfo"];
         NSMutableDictionary *authorinfoDic = [dataDic objectForKey:@"authorinfo"];
-//        NSMutableDictionary *radionameDic = [dataDic objectForKey:@"radioname"];
        WLZ_Other_Model *model = [WLZ_Other_Model baseModelWithDic:userinfoDic];
         WLZ_OtherO_Model *model1 = [WLZ_OtherO_Model baseModelWithDic:authorinfoDic];
         WLZ_Other_Model *modelR = [WLZ_Other_Model baseModelWithDic:dataDic];
@@ -275,7 +256,6 @@
             WLZ_Other_Model * modelM = [WLZ_Other_Model baseModelWithDic:dic];
             [self.coverimgArr addObject:modelM];
         }
-//        WLZ_Other_Model *modelM = [WLZ_Other_Model baseModelWithArr:moretingArr];
         
         [self.collectionV reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -289,15 +269,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
