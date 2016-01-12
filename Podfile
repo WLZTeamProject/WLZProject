@@ -6,3 +6,4 @@ pod 'FMDB’
 pod 'MMDrawerController'
 pod 'SDCycleScrollView'
 pod 'Masonry'
+pod 'StreamingKit'

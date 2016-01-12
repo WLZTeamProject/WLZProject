@@ -94,7 +94,7 @@ typedef enum {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  自定义样式接口
 
-/** 轮播图片的ContentMode */
+/** 轮播图片的ContentMode，默认为 UIViewContentModeScaleToFill */
 @property (nonatomic, assign) UIViewContentMode bannerImageViewContentMode;
 
 /** 占位图，用于网络未加载到图片时 */
@@ -145,14 +145,13 @@ typedef enum {
 
 
 
-// 网络图片轮播初始化方式
-
+/** 初始轮播图（推荐使用） */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<SDCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage;
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLStringsGroup;
 
 
-// 本地图片轮播初始化方式
+/** 本地图片轮播初始化方式 */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageNamesGroup:(NSArray *)imageNamesGroup;
 
 

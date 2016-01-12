@@ -32,11 +32,12 @@ PODS:
     - MMDrawerController/Core
   - MMDrawerController/Subclass (0.6.0):
     - MMDrawerController/Core
-  - SDCycleScrollView (1.5):
+  - SDCycleScrollView (1.6):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.7.4):
     - SDWebImage/Core (= 3.7.4)
   - SDWebImage/Core (3.7.4)
+  - StreamingKit (0.1.29)
 
 DEPENDENCIES:
   - AFNetworking
@@ -47,6 +48,7 @@ DEPENDENCIES:
   - MMDrawerController
   - SDCycleScrollView
   - SDWebImage
+  - StreamingKit
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
@@ -55,7 +57,8 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
   MMDrawerController: e3a54a5570388463ad3b36975251575b50c4e1a0
-  SDCycleScrollView: b0b3c612e48a3a7f8ac01d2272d6a94cbdbfedd9
+  SDCycleScrollView: 436ccec76258f9f280365af5c07b289a71382601
   SDWebImage: 247edd7dd80dd6124197b0d6a17846fe9d1df968
+  StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
 
 COCOAPODS: 0.39.0

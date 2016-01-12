@@ -18,10 +18,21 @@
 
 @property (nonatomic, retain) NSString *playInfo;
 
+@property (nonatomic, copy) NSString *url;
+
 @property (nonatomic, copy) NSString *titlePlay;
 
 @property (nonatomic, copy) NSString *tingid;
 
 @property (nonatomic, retain) WLZ_Details_Model *model1;
 
+@property (nonatomic, retain) UIButton *playBefor;
+
+@property (nonatomic, retain) UIButton *playB;
+
+@property (nonatomic, retain) UIButton *playNext;
+
+@property (nonatomic, retain) STKAudioPlayer *player;
+
++ (instancetype)sharePlayPageVC;
 @end

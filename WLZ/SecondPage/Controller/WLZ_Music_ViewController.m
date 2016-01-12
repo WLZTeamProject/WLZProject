@@ -16,6 +16,9 @@
 #import "WLZ_Other_Model.h"
 #import "WLZ_OtherO_Model.h"
 @interface WLZ_Music_ViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+
+
+
 @property (nonatomic, retain) NSMutableArray *userinfoArr;
 
 @property (nonatomic, retain) NSMutableArray *authorinfoArr;
@@ -35,14 +38,31 @@
     [_radionameArr release];
     [super dealloc];
 }
+#pragma 播放器单例
++ (instancetype)sharePlayPageVC
+{
+    static WLZ_Music_ViewController *playPVC = nil;
+    
+    static dispatch_once_t one;
+    dispatch_once(&one, ^{
+        if (nil == playPVC) {
+            playPVC = [[WLZ_Music_ViewController alloc] init];
+        }
+    });
+    
+    return playPVC;
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor cyanColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     //创建
     [self creatView];
     [self getData];
+    [self playAction];
 }
 
 //创建视图
@@ -67,10 +87,11 @@
     }];
     
     
-    UIButton *PlayB =[UIButton new];
-    [PlayB setImage:[UIImage imageNamed:@"bofang"] forState:UIControlStateNormal];
-    [PlayB addTarget:self action:@selector(playAction) forControlEvents:UIControlEventTouchUpInside];
-    [imageV addSubview:PlayB];
+    self.playB =[UIButton new];
+    [self.playB setImage:[UIImage imageNamed:@"bofang"] forState:UIControlStateNormal];
+    [self.playB setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
+    [self.playB addTarget:self action:@selector(playAction) forControlEvents:UIControlEventTouchUpInside];
+    [imageV addSubview:self.playB];
     
     UIButton *PlayBefor =[UIButton new];
     [PlayBefor setImage:[UIImage imageNamed:@"shangyiqu"] forState:UIControlStateNormal];
@@ -82,26 +103,27 @@
     [PlayNext addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventValueChanged];
     [imageV addSubview:PlayNext];
     
-    
+    STKAudioPlayerOptions playerOptions = {YES, YES, {50, 100, 200, 400, 800, 1600, 2600, 16000}};
+    self.player = [[[STKAudioPlayer alloc] initWithOptions:playerOptions] autorelease];
     
     [PlayBefor mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imageV).with.offset(20);
         make.bottom.equalTo(imageV).with.offset(-20);
         make.left.equalTo(imageV).with.offset(90);
-        make.right.equalTo(PlayB).with.offset(-90);
+        make.right.equalTo(self.playB).with.offset(-90);
         make.height.mas_equalTo(PlayBefor.mas_width);
     }];
     
-    [PlayB mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.playB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imageV).with.offset(15);
         make.bottom.equalTo(imageV).with.offset(-15);
-        make.width.equalTo(PlayB.mas_height);
+        make.width.equalTo(self.playB.mas_height);
         
     }];
     [PlayNext mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imageV).with.offset(20);
         make.bottom.equalTo(imageV).with.offset(-20);
-        make.left.equalTo(PlayB).with.offset(90);
+        make.left.equalTo(self.playB).with.offset(90);
         make.right.equalTo(imageV).with.offset(-90);
         make.height.mas_equalTo(PlayNext.mas_width);
 
@@ -142,7 +164,7 @@
 // 注册cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (0 == indexPath.row) {
+    if (1 == indexPath.row) {
 
         WLZ_List_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         cell.backgroundColor = [UIColor greenColor];
@@ -152,7 +174,7 @@
         
         return cell;
     }
-    if (1 == indexPath.row) {
+    if (0 == indexPath.row) {
         
         WLZ_Play_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
 //        cell.backgroundColor = [UIColor blueColor];
@@ -204,8 +226,27 @@
 
 - (void)playAction
 {
+    
+
 //    self.view.backgroundColor = [UIColor redColor];
-    NSLog(@"11111111111");
+//    NSLog(@"11111111111");
+//    self.playB.selected = YES;
+    if (STKAudioPlayerStatePlaying == self.player.state) {
+        //暂停
+        [self.player pause];
+        self.playB.selected = NO;
+    } else if (STKAudioPlayerStatePaused == self.player.state){
+        //继续
+        [self.player resume];
+        self.playB.selected = YES;
+    } else{
+        //播放
+        [self.player play:self.url];
+//        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(traclAction) userInfo:nil repeats:YES];
+        self.playB.selected = YES;
+    }
+
+    
 }
 
 
