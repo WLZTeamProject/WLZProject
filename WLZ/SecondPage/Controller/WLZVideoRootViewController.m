@@ -12,7 +12,9 @@
 #import "WLZ_Featured_TableViewCell.h"
 #import "WLZ_Radios_Model.h"
 #import "WLZ_Details_ViewController.h"
-@interface WLZVideoRootViewController () <UITableViewDelegate, UITableViewDataSource>
+#define FIRESTURL @"http://api2.pianke.me/ting/radio"
+#define AGEGINURL @"http://api2.pianke.me/ting/radio_list"
+@interface WLZVideoRootViewController () <UITableViewDelegate, UITableViewDataSource, SDCycleScrollViewDelegate, WLZ_Featured_TableViewCellDelegate>
 
 @property (nonatomic, retain) SDCycleScrollView *scrollView;
 
@@ -28,12 +30,20 @@
 
 @property (nonatomic, retain) NSMutableArray *radiosArr;
 
+@property (nonatomic, retain) NSMutableArray *radioidArr;
+
+@property (nonatomic, assign) NSInteger index;
+
+
+@property (nonatomic, retain) NSMutableDictionary *bodyDic;
+
 @end
 
 @implementation WLZVideoRootViewController
 
 - (void)dealloc
 {
+    [_bodyDic release];
     [_scrollView release];
     [_tableV release];
     [_moviesCell release];
@@ -51,7 +61,6 @@
    //创建视图
     [self creatView];
     [self addHeaderRefresh];
-    [self addFooterRefresh];
     
     // hahalalala
 }
@@ -68,10 +77,10 @@
 //创建TableView
 - (void)creatTableView
 {
+    self.navigationItem.title = @"电台";
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
-//    self.tableV.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.tableV];
     [_tableV release];
     [self.tableV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -83,43 +92,27 @@
 
 - (void)addHeaderRefresh
 {
+    self.bodyDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1",@"client",@"9", @"limit", @"0", @"start", @"3.0.6", @"version", nil];
     self.tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         //获取数据
-        [self getData];
-        NSLog(@"下拉");
+        [self getData:FIRESTURL body:self.bodyDic];
     }];
     [self.tableV.mj_header beginRefreshing];
-}
-
-- (void)addFooterRefresh
-{
+    
+    self.index = 0;
     self.tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-//        NSLog(@"%@", self.string);
-//        self.number = 1;
-        [self getData];
-        NSLog(@"上拉");
+        self.index += 9;
+        NSString *str = [NSString stringWithFormat:@"%ld", self.index];
+        [self.bodyDic setObject:str forKey:@"start"];
+        [self getData:AGEGINURL body:self.bodyDic];
     }];
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return 100;
-//}
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    return 3;
-//    
-//}
 //行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (0 == indexPath.section) {
         return (WIDTH - 40) / 3;
-        
-    } //else
-//        if (1 == indexPath.section) {
-//            return 200;
-//        }
+    }
     return 100;
     
 }
@@ -135,11 +128,10 @@
 {
     if (0 == section) {
         return 1;
-    }
-    if (0 != self.radiosArr.count) {
+    } else {
         return self.radiosArr.count;
     }
-    return 3;
+    return 0;
     
 }
 //区标题高度
@@ -154,11 +146,14 @@
     if (0 == indexPath.section) {
         static NSString *celld = @"celld";
         self.featuredCell = [tableView dequeueReusableCellWithIdentifier:celld];
+           self.featuredCell.delegate = self;
         if (nil == self.featuredCell) {
             self.featuredCell = [[WLZ_Featured_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celld];
+         
         }
         if (0 != self.featuredArr.count) {
             [self.featuredCell.newImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[0]]];
+            
             [self.featuredCell.earlyImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[1]]];
             [self.featuredCell.nightImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[2]]];
         }
@@ -172,7 +167,6 @@
         self.moviesCell = [[WLZ_Movies_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celldf];
     }
     if (0 != self.radiosArr.count) {
-//
     WLZ_Radios_Model *model = self.radiosArr[indexPath.row];
     self.moviesCell.model = [self.radiosArr objectAtIndex:indexPath.row];
         [self.moviesCell.RadiosImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
@@ -186,69 +180,64 @@
     
 }
 
+- (void)exchange1
+{
+    WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
+    detailsVC.ScenicID = self.radioidArr[0];
+    [self.navigationController pushViewController:detailsVC animated:YES];
+}
+- (void)exchange2
+{
+    WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
+    detailsVC.ScenicID = self.radioidArr[1];
+    
+    [self.navigationController pushViewController:detailsVC animated:YES];
+}
+- (void)exchange3
+{
+    WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
+    detailsVC.ScenicID = self.radioidArr[2];
+
+    [self.navigationController pushViewController:detailsVC animated:YES];
+}
+
+
 //选中跳转界面
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     if (0 == indexPath.section)
     {
+ 
+
         
-        
-    }
-    else
-    {
+    } else {
         WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
-//        WLZ_Movies_TableViewCell *cell = (WLZ_Movies_TableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
         WLZ_Radios_Model *model = self.radiosArr[indexPath.row];
         detailsVC.ScenicID = model.radioid;
         [self.navigationController pushViewController:detailsVC animated:YES];
     }
-        
-        
-        
-//    {
-//        WN_Travel_Details_ViewController *travelDVC = [[WN_Travel_Details_ViewController alloc] init];
-//        //        travelDVC.mid = [NSString stringWithFormat:@"%@", self.dArr[indexPath.row]];
-//        travelDVC.url = [NSString stringWithFormat:@"%@", self.dArr[indexPath.row]];
-//        
-//        WN_Travel_Model *model = self.dArr[indexPath.row];
-//#warning block传值1 - 定义block,并通过调用secondVC的方法将block地址传递过去
-//        __unsafe_unretained WN_Recommend_ViewController *rootVC = self;
-//        [travelDVC sendBlock:^(UIColor *myColor) {
-//            rootVC.view.backgroundColor = myColor;
-//        } str:model.view_url];
-//        [self.navigationController pushViewController:travelDVC animated:YES];
-//        
-//    }
 }
 
 //建立轮播图
 - (void)wheelView
 {
     self.scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height / 3) delegate:self placeholderImage:[UIImage imageNamed:@"kafei"]];
-    
     self.tableV.tableHeaderView = self.scrollView;
-    
-//    [self.tableV setTableHeaderView:self.scrollView];
-//    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.tableV);
-//        make.height.equalTo(@250);
-//        make.width.equalTo(self.view);
-        
-//    }];
-    
     [self.tableV reloadData];
 }
 
 
 //获取数据
-- (void)getData
+- (void)getData:(NSString *)url body:(NSMutableDictionary *)body
 {
-    self.imgArr = [NSMutableArray array];
-    self.featuredArr = [NSMutableArray array];
-    self.radiosArr = [NSMutableArray array];
-    NSString *url = @"http://api2.pianke.me/ting/radio";
-    [LQQAFNetTool postNetWithURL:url body:nil bodyStyle:LQQRequestJSON headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
+    if ([url isEqualToString:FIRESTURL]) {
+        self.imgArr = [NSMutableArray array];
+        self.featuredArr = [NSMutableArray array];
+        self.radiosArr = [NSMutableArray array];
+        self.radioidArr = [NSMutableArray array];
+    }
+    [LQQAFNetTool postNetWithURL:url body:body bodyStyle:LQQRequestJSON headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dataDic = [responseObject objectForKey:@"data"];
         //轮播图数据解析
         NSArray *carouselArr = [dataDic objectForKey:@"carousel"];
@@ -263,18 +252,29 @@
         NSArray *hotlistArr = [dataDic objectForKey:@"hotlist"];
         for (NSDictionary *dic in hotlistArr) {
             [self.featuredArr addObject:[dic objectForKey:@"coverimg"]];
+            [self.radioidArr addObject:[dic objectForKey:@"radioid"]];
         }
         
-        //全部电台解析数据
-        NSMutableArray *alllistArr = [dataDic objectForKey:@"alllist"];
-//        for (NSMutableDictionary *dic in alllistArr) {
-//            NSMutableArray * d = [WLZ_Base_Model baseModelWithDic:dic];
-//        }
-        self.radiosArr = [WLZ_Radios_Model baseModelWithArr:alllistArr];
-        [self.tableV reloadData];
+        NSMutableArray *listArr = nil;
+        if ([url isEqualToString:AGEGINURL]) {
+            listArr = [dataDic objectForKey:@"list"];
+        } else {
+            //全部电台解析数据
+            listArr = [dataDic objectForKey:@"alllist"];
+        }
+       
+    
+        for (NSMutableDictionary *tempDic in listArr) {
+            WLZ_Radios_Model *model = [WLZ_Radios_Model baseModelWithDic:tempDic];
+            [self.radiosArr addObject:model];
+        }
+        if (self.radiosArr.count != 0) {
+           [self.tableV reloadData];
+            [self.tableV.mj_footer endRefreshing];
+            [self.tableV.mj_header endRefreshing];
+        }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"$$$$$$$$$$$$$");
         
     }];
     [self.tableV.mj_header endRefreshing];
