@@ -19,8 +19,10 @@
 @property (nonatomic, retain) UISlider *timeS;
 @property (nonatomic, retain) NSTimer *timer;
 @property (nonatomic, retain) AVPlayerItem *playerItem;
-@property (nonatomic, retain) IBOutlet UIProgressView *progress;
+
 @property (nonatomic, retain) UIButton *backBut;
+@property (nonatomic, retain) UIButton *startBut;
+@property (nonatomic, retain) UIButton *screenBut;
 @end
 
 @implementation WLZ_Dance_detailViewController
@@ -50,8 +52,8 @@
     [_timeS release];
     [_playerItem release];
     [_sliderView release];
-    [_progress release];
     [_backBut release];
+    [_startBut release];
     [super dealloc];
     
 }
@@ -76,34 +78,43 @@
     
     
     AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-    playerLayer.frame = self.container.bounds;
+    playerLayer.frame = self.container.frame;
+    
+    //填充模式
+    playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     [self.container.layer addSublayer:playerLayer];
     //播放
     [self.player play];
     
     self.sliderView = [[UIView alloc] initWithFrame:CGRectMake(0, self.container.frame.size.height / 6 * 5 + self.container.frame.origin.y, self.container.frame.size.width, self.container.frame.size.height / 6)];
-    self.sliderView.backgroundColor = [UIColor grayColor];
-//    [self.sliderView setAlpha:0.5];
+    self.sliderView.backgroundColor = [UIColor blackColor];
+    [self.sliderView setAlpha:0.5];
     [self.view addSubview:self.sliderView];
     [_sliderView release];
-    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width / 5, self.sliderView.frame.size.height)];
-    self.timeLabel.text = @"00:00";
-    [_timeLabel release];
-    [self.sliderView addSubview:self.timeLabel];
+//    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width / 5, self.sliderView.frame.size.height)];
+//    self.timeLabel.text = @"00:00";
+//    [_timeLabel release];
+//    [self.sliderView addSubview:self.timeLabel];
     
-    self.timeS = [[UISlider alloc] initWithFrame:CGRectMake(self.timeLabel.frame.size.width, 0, self.sliderView.frame.size.width / 5 * 3, self.sliderView.frame.size.height)];
+    self.timeS = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width, 0)];
     [self.timeS addTarget:self action:@selector(timeAction) forControlEvents:UIControlEventValueChanged];
+    [self.timeS setThumbImage:[UIImage imageNamed:@"roundimage"] forState:UIControlStateNormal];
     [self.sliderView addSubview:self.timeS];
     [_timeS release];
     
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width / 3, self.sliderView.frame.size.height)];
+    self.timeLabel.textColor = [UIColor whiteColor];
+    self.timeLabel.text = @"00:00/00:00";
+    [_timeLabel release];
+    [self.sliderView addSubview:self.timeLabel];
     
+    self.startBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.startBut.frame = CGRectMake(self.timeLabel.frame.size.width, 0, self.sliderView.frame.size.width / 3, self.sliderView.frame.size.height);
+    [self.startBut setImage:[UIImage imageNamed:@"stopImage"] forState:UIControlStateNormal];
+    [self.startBut setImage:[UIImage imageNamed:@"startImage"] forState:UIControlStateSelected];
+    [self.startBut addTarget:self action:@selector(playClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.sliderView addSubview:self.startBut];
     
-    self.totalTimeL = [[UILabel alloc] initWithFrame:CGRectMake(self.timeS.frame.size.width + self.timeS.frame.origin.x, 0, self.sliderView.frame.size.width / 5, self.sliderView.frame.size.height)];
-    self.totalTimeL.text = @"00:00";
-    self.totalTimeL.textAlignment = NSTextAlignmentRight;
-//    self.totalTimeL.backgroundColor = [UIColor blueColor];
-    [self.sliderView addSubview:self.totalTimeL];
-    [_totalTimeL release];
     
     self.backBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.backBut.frame = CGRectMake(10, 10, [[UIScreen mainScreen] bounds].size.width / 11, [[UIScreen mainScreen] bounds].size.width / 11);
@@ -114,12 +125,37 @@
     [self.backBut addTarget:self action:@selector(backButAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backBut];
     
+    self.screenBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.screenBut.frame = CGRectMake(self.sliderView.frame.size.width - self.sliderView.frame.size.height, 0, self.sliderView.frame.size.height, self.sliderView.frame.size.height);
+    [self.screenBut setImage:[UIImage imageNamed:@"screenImage"] forState:UIControlStateNormal];
+    [self.screenBut addTarget:self action:@selector(screenButAction) forControlEvents:UIControlEventTouchUpInside];
     
-    
+    [self.sliderView addSubview:self.screenBut];
+
+}
+
+//横屏方法
+- (void)screenButAction
+{
+//    WLZ_Dance_detailViewController *wlzDanceVC = [WLZ_Dance_detailViewController new];
+//    CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI / 2);
+//    wlzDanceVC.view.transform = transform;
 
     
 }
 
+- (void)playClick
+{
+    //暂停时
+    if (self.player.rate == 0) {
+        self.startBut.selected = NO;
+        [self.player play];
+    } else if (self.player.rate == 1) {
+        self.startBut.selected = YES;
+        [self.player pause];
+    }
+}
+//返回主界面
 - (void)backButAction
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -137,17 +173,17 @@
 - (void)addTimeobserver
 {
     AVPlayerItem *playerItem = self.player.currentItem;
-    UIProgressView *progress = self.progress;
+
+    
+    
     [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         CGFloat total = CMTimeGetSeconds([playerItem duration]);
         CGFloat current = CMTimeGetSeconds(time);
         self.timeS.value = current;
-        self.timeLabel.text = [self changeTimer:current];
-        self.totalTimeL.text = [self changeTimer:total];
+        NSString *newtime = [self changeTimer:current];
+        NSString *totaltime = [self changeTimer:total];
+        self.timeLabel.text = [NSString stringWithFormat:@"%@/%@",  newtime, totaltime];
         self.timeS.maximumValue = total;
-        if (current) {
-            [progress setProgress:(current / total) animated:YES];
-        }
         
     }];
     
