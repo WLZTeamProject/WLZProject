@@ -42,8 +42,6 @@
     //创建
     [self creatView];
     [self getData];
-    
-    NSLog(@"$$$$$$$%@", self.titleM);
 }
 
 //创建视图

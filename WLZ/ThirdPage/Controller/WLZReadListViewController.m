@@ -10,7 +10,9 @@
 
 
 #import "WLZReadListHotCell.h"
-@interface WLZReadListViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+#import "WLZReadWebViewController.h"
+#import "WLZReadListModel.h"
+@interface WLZReadListViewController () <UICollectionViewDelegate, UICollectionViewDataSource, WLZReadListHotCellDelegate>
 @property (nonatomic, retain) UICollectionView *collectV;
 @property (nonatomic, retain) UIButton *hotButton;
 @property (nonatomic, retain) UIButton *newsButton;
@@ -138,8 +140,10 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     WLZReadListHotCell *newcell = [collectionView dequeueReusableCellWithReuseIdentifier:@"new" forIndexPath:indexPath];
+    newcell.delegate = self;
     
     WLZReadListHotCell *hotcell = [collectionView dequeueReusableCellWithReuseIdentifier:@"hot" forIndexPath:indexPath];
+    hotcell.delegate = self;
     if (0 == indexPath.row) {
         newcell.sort = @"addtime";
         newcell.typleId = self.typle;
@@ -152,6 +156,13 @@
   
 }
 
+- (void)didSelectedHandle:(WLZReadListModel *)model
+{
+    WLZReadWebViewController *webVC = [[WLZReadWebViewController alloc] init];
+    webVC.mId = model.mId;
+    [self.navigationController pushViewController:webVC animated:YES];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
