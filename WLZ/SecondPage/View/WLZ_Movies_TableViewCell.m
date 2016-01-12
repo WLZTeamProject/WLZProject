@@ -21,11 +21,9 @@
 
 - (void)creatSubViews
 {
-//    self.backgroundColor = [UIColor yellowColor];
     self.RadiosImageV = [UIImageView new];
     self.RadiosImageV.layer.cornerRadius = 10;
     self.RadiosImageV.image = [UIImage imageNamed:@"kafei"];
-//    self.RadiosImageV.backgroundColor = [UIColor blueColor];
     [self addSubview:self.RadiosImageV];
     
     [self.RadiosImageV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -36,7 +34,6 @@
     }];
     
     self.titleL = [UILabel new];
-//    self.titleL.backgroundColor = [UIColor magentaColor];
     [self addSubview:self.titleL];
     
     [self.titleL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -48,7 +45,6 @@
     }];
     
     self.unameL = [UILabel new];
-//    self.unameL.backgroundColor = [UIColor redColor];
     [self addSubview:self.unameL];
     
     [self.unameL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -60,7 +56,6 @@
     }];
     
     self.descL = [UILabel new];
-//    self.descL.backgroundColor = [UIColor blueColor];
     [self addSubview:self.descL];
     
     [self.descL mas_makeConstraints:^(MASConstraintMaker *make) {

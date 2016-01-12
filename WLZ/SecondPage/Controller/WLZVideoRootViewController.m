@@ -14,7 +14,7 @@
 #import "WLZ_Details_ViewController.h"
 #define FIRESTURL @"http://api2.pianke.me/ting/radio"
 #define AGEGINURL @"http://api2.pianke.me/ting/radio_list"
-@interface WLZVideoRootViewController () <UITableViewDelegate, UITableViewDataSource, SDCycleScrollViewDelegate>
+@interface WLZVideoRootViewController () <UITableViewDelegate, UITableViewDataSource, SDCycleScrollViewDelegate, WLZ_Featured_TableViewCellDelegate>
 
 @property (nonatomic, retain) SDCycleScrollView *scrollView;
 
@@ -29,6 +29,8 @@
 @property (nonatomic, retain) NSMutableArray *featuredArr;
 
 @property (nonatomic, retain) NSMutableArray *radiosArr;
+
+@property (nonatomic, retain) NSMutableArray *radioidArr;
 
 @property (nonatomic, assign) NSInteger index;
 
@@ -75,6 +77,7 @@
 //创建TableView
 - (void)creatTableView
 {
+    self.navigationItem.title = @"电台";
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
@@ -143,11 +146,14 @@
     if (0 == indexPath.section) {
         static NSString *celld = @"celld";
         self.featuredCell = [tableView dequeueReusableCellWithIdentifier:celld];
+           self.featuredCell.delegate = self;
         if (nil == self.featuredCell) {
             self.featuredCell = [[WLZ_Featured_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celld];
+         
         }
         if (0 != self.featuredArr.count) {
             [self.featuredCell.newImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[0]]];
+            
             [self.featuredCell.earlyImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[1]]];
             [self.featuredCell.nightImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[2]]];
         }
@@ -174,13 +180,36 @@
     
 }
 
+- (void)exchange1
+{
+    WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
+    detailsVC.ScenicID = self.radioidArr[0];
+    [self.navigationController pushViewController:detailsVC animated:YES];
+}
+- (void)exchange2
+{
+    WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
+    detailsVC.ScenicID = self.radioidArr[1];
+    
+    [self.navigationController pushViewController:detailsVC animated:YES];
+}
+- (void)exchange3
+{
+    WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
+    detailsVC.ScenicID = self.radioidArr[2];
+
+    [self.navigationController pushViewController:detailsVC animated:YES];
+}
+
+
 //选中跳转界面
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     if (0 == indexPath.section)
     {
-        
+ 
+
         
     } else {
         WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
@@ -206,6 +235,7 @@
         self.imgArr = [NSMutableArray array];
         self.featuredArr = [NSMutableArray array];
         self.radiosArr = [NSMutableArray array];
+        self.radioidArr = [NSMutableArray array];
     }
     [LQQAFNetTool postNetWithURL:url body:body bodyStyle:LQQRequestJSON headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dataDic = [responseObject objectForKey:@"data"];
@@ -222,6 +252,7 @@
         NSArray *hotlistArr = [dataDic objectForKey:@"hotlist"];
         for (NSDictionary *dic in hotlistArr) {
             [self.featuredArr addObject:[dic objectForKey:@"coverimg"]];
+            [self.radioidArr addObject:[dic objectForKey:@"radioid"]];
         }
         
         NSMutableArray *listArr = nil;

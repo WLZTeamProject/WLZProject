@@ -17,4 +17,7 @@
 @property (nonatomic, copy) NSString *radioname;
 
 @property (nonatomic, copy) NSString *coverimg;
+
+//@property (nonatomic, retain) NSDictionary *coverimg;
+
 @end

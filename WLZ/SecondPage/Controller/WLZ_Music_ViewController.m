@@ -189,7 +189,6 @@
     if (3 == indexPath.row) {
         
         WLZ_Other_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell3" forIndexPath:indexPath];
-        cell.backgroundColor = [UIColor magentaColor];
         if (0 != self.userinfoArr.count) {
             
         WLZ_Other_Model *model = self.userinfoArr[indexPath.section];
@@ -202,6 +201,20 @@
             cell.comfromL.text = modelR.radioname;
             WLZ_Other_Model *modelM = self.coverimgArr[indexPath.section];
             NSLog(@"%@", modelM.coverimg);
+            if (0 != self.coverimgArr.count) {
+                WLZ_Other_Model *modelM1 = self.coverimgArr[0];
+                WLZ_Other_Model *modelM2 = self.coverimgArr[1];
+                WLZ_Other_Model *modelM3 = self.coverimgArr[2];
+                WLZ_Other_Model *modelM4 = self.coverimgArr[3];
+                WLZ_Other_Model *modelM5 = self.coverimgArr[4];
+                WLZ_Other_Model *modelM6 = self.coverimgArr[5];
+                [cell.imageOne sd_setImageWithURL:[NSURL URLWithString:modelM1.coverimg]];
+                [cell.imageTwo sd_setImageWithURL:[NSURL URLWithString:modelM2.coverimg]];
+                [cell.imageThree sd_setImageWithURL:[NSURL URLWithString:modelM3.coverimg]];
+                [cell.imageFore sd_setImageWithURL:[NSURL URLWithString:modelM4.coverimg]];
+                [cell.imageFive sd_setImageWithURL:[NSURL URLWithString:modelM5.coverimg]];
+                [cell.imageSix sd_setImageWithURL:[NSURL URLWithString:modelM6.coverimg]];
+        }
         }
         return cell;
     }
