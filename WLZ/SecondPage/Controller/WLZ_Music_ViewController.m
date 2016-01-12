@@ -165,25 +165,19 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (1 == indexPath.row) {
-
         WLZ_List_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         cell.backgroundColor = [UIColor greenColor];
-//        cell.delegate = self;
         cell.titleML = self.titleM;
         cell.musicVisitML = self.musicVisitM;
-        
         return cell;
     }
     if (0 == indexPath.row) {
         
         WLZ_Play_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
-//        cell.backgroundColor = [UIColor blueColor];
         [cell.headImageV sd_setImageWithURL:[NSURL URLWithString:self.coving]];
         cell.headImageV.layer.cornerRadius = (WIDTH - 60) / 2;
         cell.titleL.text = self.titlePlay;
         cell.titleL.font = [UIFont systemFontOfSize:27];
-//        CGFloat angle = M_PI_4 / 60;
-//        cell.headImageV.transform = CGAffineTransformRotate(self.im.transform, angle);
         return cell;
     }
     if (2 == indexPath.row) {

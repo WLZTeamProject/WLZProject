@@ -207,7 +207,6 @@
         self.featuredArr = [NSMutableArray array];
         self.radiosArr = [NSMutableArray array];
     }
-    NSLog(@"%@", body);
     [LQQAFNetTool postNetWithURL:url body:body bodyStyle:LQQRequestJSON headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dataDic = [responseObject objectForKey:@"data"];
         //轮播图数据解析
