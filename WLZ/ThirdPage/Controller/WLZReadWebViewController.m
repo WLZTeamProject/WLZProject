@@ -180,7 +180,9 @@
     
 //    //字体大小
 //     [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName(‘body‘)[0].style.webkitTextSizeAdjust=‘200%‘"];
-//
+    
+    
+    
 ////    获取title
 //    [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     [self.view bringSubviewToFront:self.mytoolbar];
