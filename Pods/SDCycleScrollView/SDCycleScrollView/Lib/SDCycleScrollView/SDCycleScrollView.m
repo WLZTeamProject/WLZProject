@@ -89,7 +89,7 @@ NSString * const ID = @"cycleCell";
     _hidesForSinglePage = YES;
     _currentPageDotColor = [UIColor whiteColor];
     _pageDotColor = [UIColor lightGrayColor];
-    _bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+    _bannerImageViewContentMode = UIViewContentModeScaleToFill;
     
     self.backgroundColor = [UIColor lightGrayColor];
     
@@ -479,6 +479,7 @@ NSString * const ID = @"cycleCell";
         cell.titleLabelTextFont = self.titleLabelTextFont;
         cell.hasConfigured = YES;
         cell.imageView.contentMode = self.bannerImageViewContentMode;
+        cell.clipsToBounds = YES;
     }
     
     return cell;
