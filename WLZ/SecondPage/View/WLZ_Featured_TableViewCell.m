@@ -29,21 +29,23 @@
 
 - (void)creatSubView
 {
+    self.userInteractionEnabled = YES;
+//    self.contentView.userInteractionEnabled = NO;
     self.newImageV = [UIImageView new];
-//    self.newImageV.backgroundColor = [UIColor yellowColor];
     self.newImageV.layer.cornerRadius = 10;
+    self.newImageV.tag = 1000;
     self.newImageV.image = [UIImage imageNamed:@"kafei"];
     [self addSubview:self.newImageV];
     
     self.earlyImageV = [UIImageView new];
-//    self.earlyImageV.backgroundColor = [UIColor magentaColor];
     self.earlyImageV.layer.cornerRadius = 10;
+    self.earlyImageV.tag = 1001;
     self.earlyImageV.image = [UIImage imageNamed:@"kafei"];
     [self addSubview:self.earlyImageV];
     
     self.nightImageV = [UIImageView new];
     self.nightImageV.layer.cornerRadius = 10;
-//    self.nightImageV.backgroundColor = [UIColor orangeColor];
+    self.nightImageV.tag = 1002;
     self.nightImageV.image = [UIImage imageNamed:@"kafei"];
     [self addSubview:self.nightImageV];
     
@@ -71,9 +73,46 @@
         make.width.mas_equalTo(@[self.newImageV, self.earlyImageV]);
         
     }];
+    
+    //轻拍手势
+    UITapGestureRecognizer *tapGR1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction1:)];
+    //为某一视图添加手势
+    self.newImageV.userInteractionEnabled = YES;
+    [self.newImageV addGestureRecognizer:tapGR1];
+    [tapGR1 release];
+    
+    //轻拍手势
+    UITapGestureRecognizer *tapGR2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction2:)];
+    //为某一视图添加手势
+    self.earlyImageV.userInteractionEnabled = YES;
+
+    [self.earlyImageV addGestureRecognizer:tapGR2];
+    [tapGR2 release];
+    
+    //轻拍手势
+    UITapGestureRecognizer *tapGR3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction3:)];
+    //为某一视图添加手势
+    self.nightImageV.userInteractionEnabled = YES;
+    [self.nightImageV addGestureRecognizer:tapGR3];
+    [tapGR3 release];
+    
 
 }
-
+- (void)tapAction1:(UITapGestureRecognizer *)sender
+{
+    [self.delegate exchange1];
+    NSLog(@"jjjjjjj");
+}
+- (void)tapAction2:(UITapGestureRecognizer *)sender
+{
+    [self.delegate exchange2];
+    
+}
+- (void)tapAction3:(UITapGestureRecognizer *)sender
+{
+    [self.delegate exchange3];
+    
+}
 
 - (void)awakeFromNib {
     // Initialization code

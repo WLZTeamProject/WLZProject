@@ -138,7 +138,7 @@
         make.top.equalTo(originalL.mas_bottom).with.offset(30);
         make.left.equalTo(comfromL.mas_right).with.offset(10);
         make.height.equalTo(@20);
-        make.width.equalTo(@100);
+        make.width.equalTo(@300);
     }];
     
     [otherL mas_makeConstraints:^(MASConstraintMaker *make) {
