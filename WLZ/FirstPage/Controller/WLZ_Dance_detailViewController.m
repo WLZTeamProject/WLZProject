@@ -14,10 +14,13 @@
 @property (nonatomic, retain) AVPlayer *player;
 @property (nonatomic, retain) UIView *container;
 @property (nonatomic, retain) UILabel *timeLabel;
+@property (nonatomic, retain) UILabel *totalTimeL;
 @property (nonatomic, retain) UIView *sliderView;
 @property (nonatomic, retain) UISlider *timeS;
 @property (nonatomic, retain) NSTimer *timer;
 @property (nonatomic, retain) AVPlayerItem *playerItem;
+@property (nonatomic, retain) IBOutlet UIProgressView *progress;
+@property (nonatomic, retain) UIButton *backBut;
 @end
 
 @implementation WLZ_Dance_detailViewController
@@ -42,10 +45,13 @@
     [_player release];
     [_container release];
     [_timeLabel release];
+    [_totalTimeL release];
     [_timer release];
     [_timeS release];
     [_playerItem release];
     [_sliderView release];
+    [_progress release];
+    [_backBut release];
     [super dealloc];
     
 }
@@ -62,7 +68,7 @@
 }
 - (void)createPlayerView
 {
-    self.container = [[UIView alloc] initWithFrame:CGRectMake(0, 50, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3)];
+    self.container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3)];
     self.container.backgroundColor = [UIColor magentaColor];
     [self.view addSubview:self.container];
     [_container release];
@@ -89,24 +95,59 @@
     [self.timeS addTarget:self action:@selector(timeAction) forControlEvents:UIControlEventValueChanged];
     [self.sliderView addSubview:self.timeS];
     [_timeS release];
+    
+    
+    
+    self.totalTimeL = [[UILabel alloc] initWithFrame:CGRectMake(self.timeS.frame.size.width + self.timeS.frame.origin.x, 0, self.sliderView.frame.size.width / 5, self.sliderView.frame.size.height)];
+    self.totalTimeL.text = @"00:00";
+    self.totalTimeL.textAlignment = NSTextAlignmentRight;
+//    self.totalTimeL.backgroundColor = [UIColor blueColor];
+    [self.sliderView addSubview:self.totalTimeL];
+    [_totalTimeL release];
+    
+    self.backBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backBut.frame = CGRectMake(10, 10, [[UIScreen mainScreen] bounds].size.width / 11, [[UIScreen mainScreen] bounds].size.width / 11);
+    [self.backBut setImage:[UIImage imageNamed:@"backImage"] forState:UIControlStateNormal];
+    self.backBut.backgroundColor = [UIColor blackColor];
+    [self.backBut setAlpha:0.5];
+    self.backBut.layer.cornerRadius = self.backBut.frame.size.width / 2;
+    [self.backBut addTarget:self action:@selector(backButAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backBut];
+    
+    
+    
 
     
 }
 
+- (void)backButAction
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.player pause];
+//    [self removeN];
+}
+//进度条
 - (void)timeAction
 {
     
 }
 
+
 - (void)addTimeobserver
 {
+    AVPlayerItem *playerItem = self.player.currentItem;
+    UIProgressView *progress = self.progress;
     [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-        
+        CGFloat total = CMTimeGetSeconds([playerItem duration]);
         CGFloat current = CMTimeGetSeconds(time);
         self.timeS.value = current;
-//        NSLog(@"哈哈哈哈哈哈%.2f",self.timeS.value);
         self.timeLabel.text = [self changeTimer:current];
-//        self.timeS.value 
+        self.totalTimeL.text = [self changeTimer:total];
+        self.timeS.maximumValue = total;
+        if (current) {
+            [progress setProgress:(current / total) animated:YES];
+        }
         
     }];
     
@@ -138,14 +179,14 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    self.playerItem = object;
+    AVPlayerItem *playerItem = object;
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerStatusReadyToPlay) {
             NSLog(@"正在播放........");
         }
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
-        NSArray *array = self.playerItem.loadedTimeRanges;
+        NSArray *array = playerItem.loadedTimeRanges;
         CMTimeRange timeRange = [array.firstObject CMTimeRangeValue];
         float startSecond = CMTimeGetSeconds(timeRange.start);
         float durationSeconds = CMTimeGetSeconds(timeRange.duration);
@@ -164,8 +205,7 @@
         NSURL *url = [NSURL URLWithString:str];
         self.playerItem = [AVPlayerItem playerItemWithURL:url];
         _player = [AVPlayer playerWithPlayerItem:self.playerItem];
-        
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(trackAction) userInfo:nil repeats:YES];
+
         [self addobserverToplayerItem:self.playerItem];
         [self addTimeobserver];
         
@@ -173,17 +213,6 @@
     return _player;
 }
 
-- (void)trackAction
-{
-//    NSLog(@"当前分钟%ld, 当前秒:%ld", (NSInteger)self.player.progress / 60,  (NSInteger)self.player.progress % 60);
-//    self.timeS.value = self.player.
-    self.timeS.maximumValue = self.playerItem.duration.value;
-//    NSLog(@"嘟嘟嘟嘟嘟嘟嘟嘟%.2f", self.timeS.maximumValue);
-}
-
-
-
-//- (void)
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

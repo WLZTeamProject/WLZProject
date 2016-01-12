@@ -86,11 +86,8 @@
     WLZ_Dance_ListModel *wlzdance = [self.danceArr objectAtIndex:indexPath.row];
     WLZ_Dance_detailViewController *wlzDanceVC = [[WLZ_Dance_detailViewController alloc] init];
     [self.navigationController pushViewController:wlzDanceVC animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     wlzDanceVC.zyDance = wlzdance;
-//    [self presentViewController:wlzDanceVC animated:YES completion:^{
-//        
-//        
-//    }];
     [wlzDanceVC release];
     
 }
