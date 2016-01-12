@@ -22,75 +22,60 @@
 {
     UILabel *mainL = [UILabel new];
     mainL.text = @"主播:";
-//    mainL.backgroundColor = [UIColor blueColor];
     [self addSubview:mainL];
     
     self.mainImageV = [UIImageView new];
-//    self.mainImageV.backgroundColor = [UIColor orangeColor];
     self.mainImageV.layer.cornerRadius = 20;
     [self addSubview:self.mainImageV];
     
     self.mainL = [UILabel new];
-//    self.mainL.backgroundColor = [UIColor blueColor];
     [self addSubview:self.mainL];
     
     UILabel *originalL = [UILabel new];
     originalL.text = @"原文:";
-//    originalL.backgroundColor = [UIColor blueColor];
     [self addSubview:originalL];
     
     self.originalImageV = [UIImageView new];
-//    self.originalImageV.backgroundColor = [UIColor orangeColor];
     self.originalImageV.layer.cornerRadius = 20;
     [self addSubview:self.originalImageV];
     
     self.originalL = [UILabel new];
-//    self.originalL.backgroundColor = [UIColor blueColor];
     [self addSubview:self.originalL];
     
     UILabel *comfromL = [UILabel new];
     comfromL.text = @"来自电台:";
-//    comfromL.backgroundColor = [UIColor blueColor];
     [self addSubview:comfromL];
     
     self.comfromL = [UILabel new];
-//    self.comfromL.backgroundColor = [UIColor blueColor];
     [self addSubview:self.comfromL];
     
     UILabel *otherL = [UILabel new];
     otherL.text = @"主播其他作品";
     otherL.font = [UIFont systemFontOfSize:27];
-    otherL.backgroundColor = [UIColor blueColor];
     [self addSubview:otherL];
     
     self.imageOne = [UIImageView new];
     self.imageOne.layer.cornerRadius = 10;
-    self.imageOne.backgroundColor = [UIColor redColor];
     [self addSubview:self.imageOne];
     
     self.imageTwo = [UIImageView new];
     self.imageTwo.layer.cornerRadius = 10;
-    self.imageTwo.backgroundColor = [UIColor greenColor];
     [self addSubview:self.imageTwo];
     
     self.imageThree = [UIImageView new];
     self.imageThree.layer.cornerRadius = 10;
-    self.imageThree.backgroundColor = [UIColor blueColor];
     [self addSubview:self.imageThree];
     
     self.imageFore = [UIImageView new];
     self.imageFore.layer.cornerRadius = 10;
-    self.imageFore.backgroundColor = [UIColor redColor];
     [self addSubview:self.imageFore];
     
     self.imageFive = [UIImageView new];
     self.imageFive.layer.cornerRadius = 10;
-    self.imageFive.backgroundColor = [UIColor greenColor];
     [self addSubview:self.imageFive];
     
     self.imageSix = [UIImageView new];
     self.imageSix.layer.cornerRadius = 10;
-    self.imageSix.backgroundColor = [UIColor blueColor];
     [self addSubview:self.imageSix];
     
     [mainL mas_makeConstraints:^(MASConstraintMaker *make) {
