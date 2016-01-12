@@ -52,7 +52,6 @@
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
-    //    self.tableV.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.tableV];
     [_tableV release];
     [self.tableV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -66,7 +65,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 80;
-    
 }
 
 // 区数
@@ -100,13 +98,15 @@
         self.detailsCell.musicVisitL.font = [UIFont systemFontOfSize:11];
     }
     
-            return self.detailsCell;
+    return self.detailsCell;
 }
 
 //选中跳转界面
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WLZ_Music_ViewController *musicVC = [[[WLZ_Music_ViewController alloc] init] autorelease];
+    
+    
+    WLZ_Music_ViewController *musicVC = [WLZ_Music_ViewController sharePlayPageVC];
     //传值model
     WLZ_Details_Model *model = self.radioArr[indexPath.row];
     musicVC.coving = model.coverimg;
@@ -114,14 +114,7 @@
     musicVC.playInfo = [model.playInfo objectForKey:@"webview_url"];
     musicVC.titlePlay = [model.playInfo objectForKey:@"title"];
     musicVC.titleM = self.radioArr;
-//    if (STKAudioPlayerStatePlaying == [WLZ_Music_ViewController sharePlayPageVC].player.state) {
-        [[WLZ_Music_ViewController sharePlayPageVC].player stop];
-    
-        NSLog(@"------999999999999------");
-//    }
     musicVC.url = [model.playInfo objectForKey:@"musicUrl"];
-  
-    
     [self.navigationController pushViewController:musicVC animated:YES];
 }
 
@@ -130,16 +123,6 @@
     self.headerImageV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT / 3)];
     self.headerImageV.image = [UIImage imageNamed:@"kafei"];
     [self.tableV setTableHeaderView:self.headerImageV];
-//    [self.headerImageV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.tableV.tableHeaderView);
-//        make.width.equalTo(self.view);
-//        make.height.equalTo(@50);
-//        make.bottom.equalTo(self.tableV.tableHeaderView);
-//        
-//    }];
-//    self.newImageV.image = [UIImage imageNamed:@"kafei"];
-//    self.newImageV.layer.cornerRadius = 10;
-//    [self addSubview:self.newImageV];
 }
 
 - (void)getData
@@ -148,7 +131,6 @@
     NSDictionary *dic = [NSDictionary dictionaryWithObject:@"PHPSESSID=clljgnbjaqsueqdinkv8366sj3" forKey:@"Cookie"];
     NSString *body = [NSString stringWithFormat:@"auth=&client=1&deviceid=FC88C466-6C29-47E4-B464-AAA1DA196931&radioid=%@&version=3.0.6", self.ScenicID];
     [LQQAFNetTool postNetWithURL:url body:body bodyStyle:LQQRequestNSString headFile:dic responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
-
         NSDictionary *dataDic = [responseObject objectForKey:@"data"];
         //头图片
         NSDictionary *radioInfoDic = [dataDic objectForKey:@"radioInfo"];
@@ -157,8 +139,6 @@
         //音乐接口
         NSMutableArray *listlArr = [dataDic objectForKey:@"list"];
         self.radioArr = [WLZ_Details_Model baseModelWithArr:listlArr];
-
-        
         [self.tableV reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
@@ -170,15 +150,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
