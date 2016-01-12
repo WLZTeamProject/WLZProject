@@ -59,7 +59,49 @@
 //    self.webView.scalesPageToFit = YES;
     self.webView.delegate = self;
     
+    
+
+
+//    [self createToolBar];
+    
 }
+- (void)createToolBar
+{
+    NSMutableArray *toolBarItems = [NSMutableArray array];
+    UIToolbar *mytoolbar = [[UIToolbar alloc] init];
+    [self.view addSubview:mytoolbar];
+    
+    
+    [mytoolbar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.height.mas_equalTo(40);
+        
+    }];
+    
+    //占位键:指定宽度
+    UIBarButtonItem *spaceButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    spaceButton.width = 50;
+    [toolBarItems addObject:spaceButton];
+    //收藏键
+    UIButton *collectB = [UIButton buttonWithType:UIButtonTypeCustom];
+    [collectB setTitle:@"收藏" forState:UIControlStateNormal];
+    [collectB setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [collectB addTarget:self action:@selector(toolbarAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *collectButton = [[UIBarButtonItem alloc] initWithCustomView:collectB];
+    [toolBarItems addObject:collectButton];
+    
+    [mytoolbar setItems:toolBarItems animated:YES];
+    //字体键
+//    [self.navigationController.toolbar setItems:toolBarItems animated:YES];
+}
+- (void)toolbarAction:(UIButton *)sender
+{
+    
+    
+    
+}
+
 #pragma 创建视图
 - (void)createViews
 {
@@ -80,8 +122,8 @@
     
     //页面背景色
     [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.background='#2E2E2E'"];
-    //获取title
-    NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+//    获取title
+    [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 
     
 }
