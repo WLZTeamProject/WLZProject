@@ -8,8 +8,14 @@
 
 #import "WLZBaseCollectionViewCell.h"
 
-@interface WLZReadListHotCell : WLZBaseCollectionViewCell
+@class WLZReadListModel;
+@protocol WLZReadListHotCellDelegate <NSObject>
 
+- (void)didSelectedHandle:(WLZReadListModel *)model;
+
+@end
+@interface WLZReadListHotCell : WLZBaseCollectionViewCell
+@property (nonatomic, assign) id<WLZReadListHotCellDelegate>delegate;
 @property (nonatomic, copy) NSString *typleId;
 @property (nonatomic, copy) NSString *sort;
 @end

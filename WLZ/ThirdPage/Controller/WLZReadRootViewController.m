@@ -147,7 +147,7 @@
 {
     WLZReadHomeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     WLZReadHomeModel *model = [self.listArr objectAtIndex:indexPath.row];
-    [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
+    [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg] placeholderImage:[UIImage imageNamed:@"kafei"]];
     cell.nameLabel.text = [NSString stringWithFormat:@"%@%@", model.name, model.enname];
     return cell;
 }

@@ -34,7 +34,7 @@
 
 - (void)dealloc
 {
-//    self 
+    [self removeObserverFromPlayerItem:self.player.currentItem];
     [_player release];
     [_container release];
     [_timeLabel release];
@@ -58,30 +58,91 @@
     [self.view addSubview:self.container];
     [_container release];
     
-//    self.sliderView = [[UIView alloc] initWithFrame:CGRectMake(0, self., self.container.frame.size.width, <#CGFloat height#>)];
-    
+    self.sliderView = [[UIView alloc] initWithFrame:CGRectMake(0, self.container.frame.size.height / 6 * 5, self.container.frame.size.width, self.container.frame.size.height / 6)];
+    self.sliderView.backgroundColor = [UIColor grayColor];
+    [_sliderView release];
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width / 5, self.sliderView.frame.size.height)];
+    self.timeLabel.text = @"00:00";
+    [_timeLabel release];
+    [self.sliderView addSubview:self.timeLabel];
+
     
     AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     playerLayer.frame = self.container.frame;
     [self.container.layer addSublayer:playerLayer];
     [self.player play];
+    [_player release];
+    
 }
-//初始化播放器
-//- (AVPlayer *)player
-//{
-//    if (!_player) {
-//        NSString *str = @"";
-//        NSURL *url = [NSURL URLWithString:str];
-//        AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:url];
-//        _player = [AVPlayer playerWithPlayerItem:playerItem];
-////        self.view 
-//    }
-//}
 
-- (void)removeObserverFromPlayerItem:(AVPlayerItem *)player
+- (void)addTimeobserver
 {
-//    playerItem remo
+    [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        CGFloat current = CMTimeGetSeconds(time);
+        self.timeLabel.text = [self changeTimer:current];
+        
+        
+    }];
+    
 }
+
+- (NSString *)changeTimer:(CGFloat)time
+{
+    NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:time];
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    [formater setDateFormat:@"mm:ss"];
+    NSString *dataStr = [formater stringFromDate:date];
+    return dataStr;
+}
+//kvo
+- (void)addobserverToplayerItem:(AVPlayerItem *)playeritem
+{
+    //监控状态属性
+    [playeritem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    //监控网络加载情况属性
+    [playeritem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)removeObserverFromPlayerItem:(AVPlayerItem *)playerItem
+{
+    [playerItem removeObserver:self forKeyPath:@"status"];
+    [playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
+    
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    AVPlayerItem *playerItem = object;
+    if ([keyPath isEqualToString:@"status"]) {
+        AVPlayerStatus status = [[change objectForKey:@"new"] intValue];
+        if (status == AVPlayerStatusReadyToPlay) {
+            NSLog(@"正在播放........");
+        }
+    } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
+        NSArray *array = playerItem.loadedTimeRanges;
+        CMTimeRange timeRange = [array.firstObject CMTimeRangeValue];
+        float startSecond = CMTimeGetSeconds(timeRange.start);
+        float durationSeconds = CMTimeGetSeconds(timeRange.duration);
+        NSTimeInterval totalBuffer = startSecond + durationSeconds;
+        NSLog(@"一共缓存多少秒%0.2f", totalBuffer);
+    }
+}
+
+//初始化播放器
+- (AVPlayer *)player
+{
+    if (!_player) {
+        NSString *str = @"";
+        NSURL *url = [NSURL URLWithString:str];
+        AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:url];
+        _player = [AVPlayer playerWithPlayerItem:playerItem];
+        [self addobserverToplayerItem:playerItem];
+        [self addTimeobserver];
+    }
+    return _player;
+}
+
+
 
 //- (void)
 

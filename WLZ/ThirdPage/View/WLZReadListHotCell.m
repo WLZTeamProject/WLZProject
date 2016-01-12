@@ -149,4 +149,11 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WLZReadListModel *model = [self.docArr objectAtIndex:indexPath.row];
+    //代理方法,将model传给VC
+    [self.delegate didSelectedHandle:model];
+    
+}
 @end
