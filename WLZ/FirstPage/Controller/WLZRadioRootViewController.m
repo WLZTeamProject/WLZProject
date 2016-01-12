@@ -13,6 +13,7 @@
 #import "WLZ_DanceTableViewCell.h"
 #import "MJRefresh.h"
 #import "WLZ_Dance_detailViewController.h"
+#import "WLZ_Dance_videoModel.h"
 @interface WLZRadioRootViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, retain) NSMutableArray *danceLunboArr;
 @property (nonatomic, retain) NSMutableArray *danceArr;
@@ -80,8 +81,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    WLZ_Dance_ListModel *wlzdance = [self.danceArr objectAtIndex:indexPath.row];
     WLZ_Dance_detailViewController *wlzDanceVC = [[WLZ_Dance_detailViewController alloc] init];
 //    [self.navigationController pushViewController:wlzDanceVC animated:YES];
+    wlzDanceVC.zyDance = wlzdance;
     [self presentViewController:wlzDanceVC animated:YES completion:^{
         
         
@@ -147,11 +150,17 @@
     NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/type?&page=%ld&perpage=10&type=normal&word=", self.page];
     [LQQAFNetTool getNetWithURL:urlStr body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
-        NSMutableArray *newArr = [WLZ_Dance_ListModel baseModelWithArr:resultArr];
-        for (WLZ_Dance_ListModel *wlzList in newArr) {
-            [self.danceArr addObject:wlzList];
+        for (NSMutableDictionary *tempDic in resultArr) {
+            WLZ_Dance_ListModel *wlzdance = [WLZ_Dance_ListModel baseModelWithDic:tempDic];
+            wlzdance.item_videos = [NSMutableArray array];
+            NSMutableArray *arr = [tempDic objectForKey:@"item_videos"];
+            for (NSMutableDictionary *newDic in arr) {
+                WLZ_Dance_videoModel *zyvideo = [WLZ_Dance_videoModel baseModelWithDic:newDic];
+                [wlzdance.item_videos addObject:zyvideo];
+            }
+            [self.danceArr addObject:wlzdance];
+       
         }
-        //        NSLog(@"呵呵呵呵呵呵呵%@", self.danceArr);
         [self.tableV reloadData];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
