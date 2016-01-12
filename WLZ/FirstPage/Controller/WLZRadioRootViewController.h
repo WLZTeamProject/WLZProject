@@ -9,5 +9,5 @@
 #import "WLZBaseViewController.h"
 
 @interface WLZRadioRootViewController : WLZBaseViewController
-
+@property (nonatomic, copy) NSString *urlStr;
 @end

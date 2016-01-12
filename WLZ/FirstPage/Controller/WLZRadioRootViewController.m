@@ -38,7 +38,9 @@
     [_danceLunboArr release];
     [_danceArr release];
     [_tableV release];
+    [_urlStr release];
     [super dealloc];
+    
 }
 
 - (void)viewDidLoad {
@@ -68,7 +70,10 @@
     self.tableV.rowHeight = [[UIScreen mainScreen] bounds].size.height / 3.0;
     //设置上拉刷新
     self.tableV.mj_footer = [MJRefreshAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
-    [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
+    
+//    if (self.danceArr.count != 0) {
+        [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
+//    }
     
     
 }
@@ -102,22 +107,45 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%ld", self.danceArr.count);
+//    if (0 != self.danceArr.count) {
     return self.danceArr.count;
+//    }
+//    return 2;
+
+//    NSLog(@"%ld", self.danceArr.count);
+//    if (self.danceArr == nil) {
+//        return 0;
+//    } else {
+//        return self.danceArr.count;
+//    }
+    return self.danceArr.count;
+    
+    
+
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WLZ_Dance_ListModel *wlzlist = [self.danceArr objectAtIndex:indexPath.row];
-    
-    static NSString *cellStr = @"cell";
-    WLZ_DanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
-    cell.titleL.text = wlzlist.item_title;
-    cell.personL.text = [NSString stringWithFormat:@"%@人在学",wlzlist.item_click];
-    [cell.imageV sd_setImageWithURL:[NSURL URLWithString:wlzlist.item_image]];
-    return cell;
-    
+    if (self.danceArr.count != 0) {
+        WLZ_Dance_ListModel *wlzlist = [self.danceArr objectAtIndex:indexPath.row];
+        static NSString *cellStr = @"cell";
+        WLZ_DanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
+        cell.titleL.text = wlzlist.item_title;
+        cell.personL.text = [NSString stringWithFormat:@"%@人在学",wlzlist.item_click];
+        [cell.imageV sd_setImageWithURL:[NSURL URLWithString:wlzlist.item_image]];
+        return cell;
+    }
+//    else {
+//        static NSString *cellStr = @"cell2";
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
+//        if (nil == cell) {
+//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
+//        }
+//        return cell;
+//    }
+   
+    return 0;
 }
 
 //获取tableView数据

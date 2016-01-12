@@ -21,6 +21,7 @@
 @property (nonatomic, retain) NSMutableArray *authorinfoArr;
 @property (nonatomic, retain) UICollectionView *collectionV;
 @property (nonatomic, retain) NSMutableArray *radionameArr;
+@property (nonatomic, retain) NSMutableArray *coverimgArr;
 
 @end
 
@@ -48,6 +49,66 @@
 - (void)creatView
 {
     [self creatCollectionView];
+    [self creatPlayer];
+}
+
+- (void)creatPlayer
+{
+    UIView *imageV = [UIView new];
+    imageV.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:imageV];
+    
+    
+    [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.height.equalTo(@60);
+        make.width.equalTo(@(WIDTH));
+        
+    }];
+    
+    
+    UIButton *PlayB =[UIButton new];
+    [PlayB setImage:[UIImage imageNamed:@"bofang"] forState:UIControlStateNormal];
+    [PlayB addTarget:self action:@selector(playAction) forControlEvents:UIControlEventTouchUpInside];
+    [imageV addSubview:PlayB];
+    
+    UIButton *PlayBefor =[UIButton new];
+    [PlayBefor setImage:[UIImage imageNamed:@"shangyiqu"] forState:UIControlStateNormal];
+    [PlayBefor addTarget:self action:@selector(beforAction) forControlEvents:UIControlEventValueChanged];
+    [imageV addSubview:PlayBefor];
+    
+    UIButton *PlayNext =[UIButton new];
+    [PlayNext setImage:[UIImage imageNamed:@"xiayiqu"] forState:UIControlStateNormal];
+    [PlayNext addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventValueChanged];
+    [imageV addSubview:PlayNext];
+    
+    
+    
+    [PlayBefor mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(imageV).with.offset(20);
+        make.bottom.equalTo(imageV).with.offset(-20);
+        make.left.equalTo(imageV).with.offset(90);
+        make.right.equalTo(PlayB).with.offset(-90);
+        make.height.mas_equalTo(PlayBefor.mas_width);
+    }];
+    
+    [PlayB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(imageV).with.offset(15);
+        make.bottom.equalTo(imageV).with.offset(-15);
+        make.width.equalTo(PlayB.mas_height);
+        
+    }];
+    [PlayNext mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(imageV).with.offset(20);
+        make.bottom.equalTo(imageV).with.offset(-20);
+        make.left.equalTo(PlayB).with.offset(90);
+        make.right.equalTo(imageV).with.offset(-90);
+        make.height.mas_equalTo(PlayNext.mas_width);
+
+        
+    }];
+    
+
 }
 
 //创建collectionView
@@ -94,25 +155,23 @@
     if (1 == indexPath.row) {
         
         WLZ_Play_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
-        cell.backgroundColor = [UIColor blueColor];
+//        cell.backgroundColor = [UIColor blueColor];
         [cell.headImageV sd_setImageWithURL:[NSURL URLWithString:self.coving]];
         cell.headImageV.layer.cornerRadius = (WIDTH - 60) / 2;
+        cell.titleL.text = self.titlePlay;
+        cell.titleL.font = [UIFont systemFontOfSize:27];
         return cell;
     }
     if (2 == indexPath.row) {
         
         WLZ__Introduce_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell2" forIndexPath:indexPath];
-//        cell.backgroundColor = [UIColor redColor];
-        //        cell.delegate = self;
         cell.url = self.playInfo;
-        NSLog(@"*********%@", cell.url);
         return cell;
     }
     if (3 == indexPath.row) {
         
         WLZ_Other_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell3" forIndexPath:indexPath];
         cell.backgroundColor = [UIColor magentaColor];
-        //        cell.delegate = self;
         if (0 != self.userinfoArr.count) {
             
         WLZ_Other_Model *model = self.userinfoArr[indexPath.section];
@@ -123,23 +182,44 @@
             [cell.originalImageV sd_setImageWithURL:[NSURL URLWithString:model1.icon]];
             WLZ_Other_Model *modelR = self.radionameArr[indexPath.section];
             cell.comfromL.text = modelR.radioname;
+;
+//            NSArray *arr = [NSArray arrayWithObjects:cell.imageOne, cell.imageTwo, cell.imageThree, cell.imageFore, cell.imageFive, cell.imageSix, nil];
+
+
+            WLZ_Other_Model *modelM = self.coverimgArr[indexPath.section];
+//            [cell.imageOne sd_setImageWithURL:[NSURL URLWithString:[self.coverimgArr[0] objectForKey:@"coverimg"]]];
+//            [cell.imageTwo sd_setImageWithURL:[NSURL URLWithString:modelM.coverimg]];
+//            [cell.imageThree sd_setImageWithURL:[NSURL URLWithString:modelM.coverimg]];
+//            [cell.imageFore sd_setImageWithURL:[NSURL URLWithString:modelM.coverimg]];
+//            [cell.imageFive sd_setImageWithURL:[NSURL URLWithString:modelM.coverimg]];
+//            [cell.imageSix sd_setImageWithURL:[NSURL URLWithString:modelM.coverimg]];
+            
+            NSLog(@"%@", modelM.coverimg);
         }
         return cell;
     }
 //    [self.collectionV reloadData];
     return nil;
 }
+
+- (void)playAction
+{
+//    self.view.backgroundColor = [UIColor redColor];
+    NSLog(@"11111111111");
+}
+
+
 //获取数据
 - (void)getData
 {
     self.userinfoArr = [NSMutableArray array];
     self.authorinfoArr = [NSMutableArray array];
     self.radionameArr = [NSMutableArray array];
+    self.coverimgArr = [NSMutableArray array];
     NSString *url = @"http://api2.pianke.me/ting/info";
     NSDictionary *dic = [NSDictionary dictionaryWithObject:@"PHPSESSID=9k56q745e4pr1anujo0fis8p10" forKey:@"Cookie"];
     NSString *body = [NSString stringWithFormat:@"auth=&client=1&deviceid=FC88C466-6C29-47E4-B464-AAA1DA196931&tingid=%@&version=3.0.6", self.tingid];
     [LQQAFNetTool postNetWithURL:url body:body bodyStyle:LQQRequestNSString headFile:dic responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
-
         NSMutableDictionary *dataDic = [responseObject objectForKey:@"data"];
         NSMutableDictionary *userinfoDic = [dataDic objectForKey:@"userinfo"];
         NSMutableDictionary *authorinfoDic = [dataDic objectForKey:@"authorinfo"];
@@ -150,6 +230,14 @@
         [self.userinfoArr addObject:model];
         [self.authorinfoArr addObject:model1];
         [self.radionameArr addObject:modelR];
+        
+        NSMutableArray *moretingArr = [dataDic objectForKey:@"moreting"];
+        for (NSMutableDictionary *dic in moretingArr) {
+            WLZ_Other_Model * modelM = [WLZ_Other_Model baseModelWithDic:dic];
+            [self.coverimgArr addObject:modelM];
+        }
+//        WLZ_Other_Model *modelM = [WLZ_Other_Model baseModelWithArr:moretingArr];
+        
         [self.collectionV reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
