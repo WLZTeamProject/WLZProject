@@ -7,8 +7,8 @@
 //
 
 #import "WLZBaseViewController.h"
-
+@class WLZ_Dance_ListModel;
 @interface WLZ_Dance_detailViewController : WLZBaseViewController
 @property (nonatomic, copy) NSString *urlStr;
-
+@property (nonatomic, retain) WLZ_Dance_ListModel *zyDance;
 @end
