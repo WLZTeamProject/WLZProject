@@ -15,4 +15,9 @@
 //@property (nonatomic, copy) NSString *item_videos;
 //观看人数
 @property (nonatomic, retain) NSNumber *item_click;
+@property (nonatomic, copy) NSString *item_summary;
+@property (nonatomic, copy) NSString *item_catalog;
+@property (nonatomic, copy) NSString *item_group;
+@property (nonatomic, copy) NSString *item_group_gender;
+//@property (nonatomic, copy) NSString *
 @end
