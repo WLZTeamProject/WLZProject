@@ -26,6 +26,9 @@
 //    self.headImageV.image = [UIImage imageNamed:@"kafei"];
     
     self.headImageV.layer.cornerRadius = (VHEIGHT - 60) / 4;
+    self.headImageV.layer.masksToBounds = YES;
+
+
     [self addSubview:self.headImageV];
     
     [self.headImageV mas_makeConstraints:^(MASConstraintMaker *make) {

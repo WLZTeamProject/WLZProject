@@ -27,6 +27,9 @@
 @property (nonatomic, retain) UIWebView *webView;
 @property (nonatomic, retain) MBProgressHUD *hud;
 @property (nonatomic, retain) UIToolbar *mytoolbar;
+
+
+@property (nonatomic, assign) NSInteger indexSize;
 @end
 
 @implementation WLZReadWebViewController
@@ -47,7 +50,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self createSubviews];
-    
+    self.indexSize = 100;
     
     
 }
@@ -69,18 +72,25 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
     //重置滑动返回手势
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
-    //设置navBar背景色和字体颜色
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.298 green:0.298 blue:0.298 alpha:1.0];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
     //创建toolBar
     [self createToolBar];
     
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.tabBarController.tabBar.hidden = YES;
+    self.tabBarController.tabBar.translucent = YES;
+    //设置navBar背景色和字体颜色
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.298 green:0.298 blue:0.298 alpha:1.0];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 - (void)leftAction
 {
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+#pragma 创建toolbar
 - (void)createToolBar
 {
     NSMutableArray *toolBarItems = [NSMutableArray array];
@@ -96,11 +106,11 @@
     }];
     //占位键:指定宽度
     UIBarButtonItem *spaceButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    spaceButton.width = 50;
+    spaceButton.width = UIWIDTH / 9;
     [toolBarItems addObject:spaceButton];
     //收藏键
     UIButton *collectB = [UIButton buttonWithType:UIButtonTypeCustom];
-    collectB.frame = CGRectMake(0, 0, 50, 50);
+    collectB.frame = CGRectMake(0, 0, 40, 40);
     collectB.selected = NO;
     [collectB setImage:[UIImage imageNamed:@"tool_collect"] forState:UIControlStateNormal];
     [collectB setImage:[UIImage imageNamed:@"tool_collect_red"] forState:UIControlStateSelected];
@@ -113,7 +123,7 @@
     
     //夜间模式
     UIButton *nightB = [UIButton buttonWithType:UIButtonTypeCustom];
-    nightB.frame = CGRectMake(0, 0, 50, 50);
+    nightB.frame = CGRectMake(0, 0, 40, 40);
     nightB.selected = NO;
     [nightB setImage:[UIImage imageNamed:@"tool_day"] forState:UIControlStateNormal];
     [nightB setImage:[UIImage imageNamed:@"tool_night-1"] forState:UIControlStateSelected];
@@ -121,16 +131,26 @@
     [nightB setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     [nightB addTarget:self action:@selector(toolbarAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *nightButton = [[UIBarButtonItem alloc] initWithCustomView:nightB];
+
     //占位按键
     [toolBarItems addObject:spaceButton];
     [toolBarItems addObject:nightButton];
 
-    
+    //字体
+    UIButton *fontaddB = [UIButton buttonWithType:UIButtonTypeCustom];
+    fontaddB.frame = CGRectMake(0, 0, 40, 40);
+    fontaddB.selected = NO;
+    [fontaddB setImage:[UIImage imageNamed:@"tool_top"] forState:UIControlStateNormal];
+    fontaddB.tag = 10002;
+    [fontaddB setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [fontaddB addTarget:self action:@selector(toolbarAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *fontButton = [[UIBarButtonItem alloc] initWithCustomView:fontaddB];
+    //占位按键
+    [toolBarItems addObject:spaceButton];
+    [toolBarItems addObject:fontButton];
     
     [self.mytoolbar setItems:toolBarItems animated:YES];
     [self.view bringSubviewToFront:self.mytoolbar];
-    //字体键
-//    [self.navigationController.toolbar setItems:toolBarItems animated:YES];
 }
 - (void)toolbarAction:(UIButton *)sender
 {
@@ -152,6 +172,12 @@
         }
         sender.selected = !sender.selected;
     }
+    //字体增大
+    if (10002 == sender.tag) {
+        NSLog(@"返回顶部");
+        self.webView.scrollView.contentOffset = CGPointMake(0, 0);
+    }
+    
 }
 
 #pragma 创建视图
@@ -162,29 +188,49 @@
     //    self.webView.scalesPageToFit = YES;
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
-    [self.webView loadHTMLString:self.model.html baseURL:nil];
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.left.equalTo(self.view);
-        make.height.mas_equalTo(UIHEIGHT - 100);
+        make.top.equalTo(self.view);
+        make.left.equalTo(self.view.mas_left).offset(0);
+        make.right.equalTo(self.view.mas_right).offset(0);
+        make.height.mas_equalTo(UIHEIGHT);
     }];
     
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"· · ·" style:UIBarButtonItemStyleDone target:self action:@selector(rightAction)];
+    
+    
 }
+- (void)rightAction
+{
+    NSLog(@"分享");
+    
+}
+
+#pragma 协议方法
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     //禁止用户选择
     [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect=‘none‘"];
     //禁止长按弹出
       [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout=‘none‘"];
-    
+    //更改网页中图片的大小以适应窗口
     [self changeWebImage];
     
-//    //字体大小
-//     [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName(‘body‘)[0].style.webkitTextSizeAdjust=‘200%‘"];
-//
-////    获取title
-//    [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    
+
+    //将toolBar移动最前面
     [self.view bringSubviewToFront:self.mytoolbar];
 }
+- (void)changeFont:(NSInteger)indexSize
+{
+//    NSLog(@"%ld", indexSize);
+    NSString *size = [NSString stringWithFormat:@"document.getElementsByTagName(‘body‘)[0].style.webkitTextSizeAdjust=‘%ld%%‘", indexSize];
+    NSLog(@"%@", size);
+        //字体大小
+    [self.webView stringByEvaluatingJavaScriptFromString:size];
+}
+
+
 #pragma 修改图片的大小
 - (void)changeWebImage
 {
@@ -242,11 +288,10 @@
             [self.hud removeFromSuperview];
             [self.hud release];
             self.hud = nil;
-//            [self.webView reload];
-            
-            [self createViews];
+            [self.webView loadHTMLString:self.model.html baseURL:nil];
+            self.navigationItem.title = self.shareInfoModel.title;
         }
-//        NSLog(@"%@", self.model.html);
+
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         

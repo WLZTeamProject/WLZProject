@@ -50,8 +50,8 @@
     self.view.backgroundColor = [UIColor orangeColor];
    //创建视图
     [self creatView];
-    //获取数据
-    [self getData];
+    [self addHeaderRefresh];
+    [self addFooterRefresh];
     
     // hahalalala
 }
@@ -78,6 +78,26 @@
         make.edges.equalTo(self.view);
         make.top.equalTo(self.view).with.offset(150);
         
+    }];
+}
+
+- (void)addHeaderRefresh
+{
+    self.tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //获取数据
+        [self getData];
+        NSLog(@"下拉");
+    }];
+    [self.tableV.mj_header beginRefreshing];
+}
+
+- (void)addFooterRefresh
+{
+    self.tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        NSLog(@"%@", self.string);
+//        self.number = 1;
+        [self getData];
+        NSLog(@"上拉");
     }];
 }
 
@@ -257,6 +277,9 @@
         NSLog(@"$$$$$$$$$$$$$");
         
     }];
+    [self.tableV.mj_header endRefreshing];
+    [self.tableV.mj_footer endRefreshing];
+
 }
 
 

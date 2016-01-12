@@ -9,6 +9,7 @@
 #import "WLZ_List_CollectionViewCell.h"
 #import "WLZ_List_TableViewCell.h"
 #import "WLZ_Details_Model.h"
+#import "WLZ_Music_ViewController.h"
 @interface WLZ_List_CollectionViewCell ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, retain) WLZ_List_TableViewCell *listCell;
 
@@ -32,10 +33,9 @@
     [self addSubview:self.tableV];
     [_tableV release];
     [self.tableV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(VHEIGHT - 60));
+        make.height.equalTo(@(VHEIGHT - 120));
         make.top.equalTo(self);
         make.width.equalTo(@(VWIDTH));
-//        make.edges.equalTo(self);
     }];
 
 }
@@ -70,6 +70,26 @@
     self.listCell.musicVisitL.text = [NSString stringWithFormat:@"%@%@", @"by: ", model.musicVisit];
        return self.listCell;
 
+}
+
+//选中跳转界面
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    [[WLZ_Music_ViewController sharePlayPageVC].player stop];
+    WLZ_Details_Model *model = self.titleML[indexPath.row];
+    [WLZ_Music_ViewController sharePlayPageVC].url = model.musicUrl;
+    NSLog(@"^^^^^^^^^^^%@", model.musicUrl);
+    [self.tableV reloadData];
+    
+    [self buttonAction];
+
+    
+}
+
+- (void)buttonAction
+{
+    [self.delegate changeVCColor];
+    
 }
 
 @end

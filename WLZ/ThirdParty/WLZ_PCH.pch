@@ -18,6 +18,8 @@
 #import <Masonry.h>
 #import "LQQAFNetTool.h"
 #import "UIImageView+WebCache.h"
+#import <STKAudioPlayer.h>
+#import <MJRefresh.h>
 
 #define HEIGHT self.view.frame.size.height
 #define WIDTH self.view.frame.size.width

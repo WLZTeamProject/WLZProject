@@ -13,6 +13,8 @@
 #import "WLZ_Music_ViewController.h"
 @interface WLZ_Details_ViewController () <UITableViewDelegate, UITableViewDataSource>
 
+//@property (nonatomic, retain) STKAudioPlayer *player;
+
 @property (nonatomic, retain) UITableView *tableV;
 
 @property (nonatomic, retain) WLZ_Details_TableViewCell *detailsCell;
@@ -112,6 +114,14 @@
     musicVC.playInfo = [model.playInfo objectForKey:@"webview_url"];
     musicVC.titlePlay = [model.playInfo objectForKey:@"title"];
     musicVC.titleM = self.radioArr;
+//    if (STKAudioPlayerStatePlaying == [WLZ_Music_ViewController sharePlayPageVC].player.state) {
+        [[WLZ_Music_ViewController sharePlayPageVC].player stop];
+    
+        NSLog(@"------999999999999------");
+//    }
+    musicVC.url = [model.playInfo objectForKey:@"musicUrl"];
+  
+    
     [self.navigationController pushViewController:musicVC animated:YES];
 }
 
