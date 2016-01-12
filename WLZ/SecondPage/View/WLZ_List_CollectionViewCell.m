@@ -9,6 +9,7 @@
 #import "WLZ_List_CollectionViewCell.h"
 #import "WLZ_List_TableViewCell.h"
 #import "WLZ_Details_Model.h"
+#import "WLZ_Music_ViewController.h"
 @interface WLZ_List_CollectionViewCell ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, retain) WLZ_List_TableViewCell *listCell;
 
@@ -69,6 +70,26 @@
     self.listCell.musicVisitL.text = [NSString stringWithFormat:@"%@%@", @"by: ", model.musicVisit];
        return self.listCell;
 
+}
+
+//选中跳转界面
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    [[WLZ_Music_ViewController sharePlayPageVC].player stop];
+    WLZ_Details_Model *model = self.titleML[indexPath.row];
+    [WLZ_Music_ViewController sharePlayPageVC].url = model.musicUrl;
+    NSLog(@"^^^^^^^^^^^%@", model.musicUrl);
+    [self.tableV reloadData];
+    
+    [self buttonAction];
+
+    
+}
+
+- (void)buttonAction
+{
+    [self.delegate changeVCColor];
+    
 }
 
 @end

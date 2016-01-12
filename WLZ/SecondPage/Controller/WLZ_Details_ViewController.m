@@ -116,6 +116,7 @@
     musicVC.titleM = self.radioArr;
 //    if (STKAudioPlayerStatePlaying == [WLZ_Music_ViewController sharePlayPageVC].player.state) {
         [[WLZ_Music_ViewController sharePlayPageVC].player stop];
+    
         NSLog(@"------999999999999------");
 //    }
     musicVC.url = [model.playInfo objectForKey:@"musicUrl"];

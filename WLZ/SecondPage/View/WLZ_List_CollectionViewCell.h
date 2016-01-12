@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RootViewDelegate <NSObject>
+
+- (void)changeVCColor;
+
+@end
+
 @interface WLZ_List_CollectionViewCell : UICollectionViewCell
+
+@property (nonatomic, assign) id<RootViewDelegate> delegate;
 
 @property (nonatomic, retain) UITableView *tableV;
 

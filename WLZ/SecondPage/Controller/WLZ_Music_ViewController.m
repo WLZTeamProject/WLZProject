@@ -46,7 +46,7 @@
     static dispatch_once_t one;
     dispatch_once(&one, ^{
         if (nil == playPVC) {
-            playPVC = [[WLZ_Music_ViewController alloc] init];
+            playPVC = [WLZ_Music_ViewController new];
         }
     });
     
@@ -182,6 +182,8 @@
         cell.headImageV.layer.cornerRadius = (WIDTH - 60) / 2;
         cell.titleL.text = self.titlePlay;
         cell.titleL.font = [UIFont systemFontOfSize:27];
+//        CGFloat angle = M_PI_4 / 60;
+//        cell.headImageV.transform = CGAffineTransformRotate(self.im.transform, angle);
         return cell;
     }
     if (2 == indexPath.row) {
@@ -228,9 +230,8 @@
 {
     
 
-//    self.view.backgroundColor = [UIColor redColor];
-//    NSLog(@"11111111111");
-//    self.playB.selected = YES;
+//    STKAudioPlayerOptions playerOptions = {YES, YES, {50, 100, 200, 400, 800, 1600, 2600, 16000}};
+//    self.player = [[STKAudioPlayer alloc] initWithOptions:playerOptions];
     if (STKAudioPlayerStatePlaying == self.player.state) {
         //暂停
         [self.player pause];
@@ -241,12 +242,15 @@
         self.playB.selected = YES;
     } else{
         //播放
+        [self.player stop];
+//        STKAudioPlayerOptions playerOptions = {YES, YES, {50, 100, 200, 400, 800, 1600, 2600, 16000}};
+//        self.player = [[STKAudioPlayer alloc] initWithOptions:playerOptions];
         [self.player play:self.url];
-//        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(traclAction) userInfo:nil repeats:YES];
+
         self.playB.selected = YES;
     }
 
-    
+    [self.collectionV reloadData];
 }
 
 
