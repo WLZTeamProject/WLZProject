@@ -36,6 +36,30 @@
         
     }];
     
+    self.titleL = [UILabel new];
+    self.titleL.textAlignment = NSTextAlignmentCenter;
+//    self.titleL.backgroundColor = [UIColor redColor];
+    self.titleL.text = @"ddd";
+    [self addSubview:self.titleL];
+    
+    [self.titleL mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+        make.top.equalTo(self.headImageV.mas_bottom).with.offset(50);
+//        make.center.equalTo(self);
+        make.left.equalTo(self);
+        make.height.equalTo(@50);
+        make.width.equalTo(@(VWIDTH));
+    }];
+    
+    self.slider = [UISlider new];
+    [self addSubview:self.slider];
+    
+    [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.titleL).with.offset(80);
+        make.left.equalTo(@100);
+        make.width.equalTo(@(VWIDTH - 200));
+        
+    }];
     
 
 }

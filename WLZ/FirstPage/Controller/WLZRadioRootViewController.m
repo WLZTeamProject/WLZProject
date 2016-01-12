@@ -102,9 +102,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%ld", self.danceArr.count);
+//    if (0 != self.danceArr.count) {
     return self.danceArr.count;
-    
+//    }
+//    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

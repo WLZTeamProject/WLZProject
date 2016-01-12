@@ -12,4 +12,8 @@
 
 @property (nonatomic, retain) UIImageView *headImageV;
 
+@property (nonatomic, retain) UILabel *titleL;
+
+@property (nonatomic, retain) UISlider *slider;
+
 @end
