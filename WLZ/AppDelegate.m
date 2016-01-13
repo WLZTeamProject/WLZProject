@@ -11,6 +11,7 @@
 #import "WLZVideoRootViewController.h"
 #import "WLZReadRootViewController.h"
 #import "WLZUserRootViewController.h"
+#import "WLZNewRootViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -22,6 +23,15 @@
     // Override point for customization after application launch.
     
     NSMutableArray *arr = [NSMutableArray array];//存放VC
+    WLZNewRootViewController *newRootVC = [[WLZNewRootViewController alloc] init];
+    UINavigationController *newNC = [[[UINavigationController alloc] initWithRootViewController:newRootVC] autorelease];
+    newNC.navigationBar.translucent = NO;
+    newNC.tabBarItem.title = @"新闻";
+    newNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
+    [arr addObject:newNC];
+    [newRootVC release];
+    
+    
     //音频VC
     WLZRadioRootViewController *radioRootVC =[[WLZRadioRootViewController alloc] init];
     UINavigationController *radioNC = [[[UINavigationController alloc] initWithRootViewController:radioRootVC] autorelease];

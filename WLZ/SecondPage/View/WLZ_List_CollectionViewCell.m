@@ -75,7 +75,6 @@
 //选中跳转界面
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     WLZ_Details_Model *model = self.titleML[indexPath.row];
     [WLZ_Music_ViewController sharePlayPageVC].url = model.musicUrl;
     [WLZ_Music_ViewController sharePlayPageVC].titleM = self.titleML;

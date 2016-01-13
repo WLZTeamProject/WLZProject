@@ -231,6 +231,8 @@
             [cell.originalImageV sd_setImageWithURL:[NSURL URLWithString:model1.icon]];
             WLZ_Other_Model *modelR = self.radionameArr[indexPath.section];
             cell.comfromL.text = modelR.radioname;
+            WLZ_Other_Model *modelM = self.coverimgArr[indexPath.section];
+            NSLog(@"%@", modelM.coverimg);
             if (0 != self.coverimgArr.count) {
                 WLZ_Other_Model *modelM1 = self.coverimgArr[0];
                 WLZ_Other_Model *modelM2 = self.coverimgArr[1];
@@ -248,7 +250,6 @@
         }
         return cell;
     }
-//    [self.collectionV reloadData];
     return nil;
 }
 
@@ -315,7 +316,6 @@
         NSMutableDictionary *dataDic = [responseObject objectForKey:@"data"];
         NSMutableDictionary *userinfoDic = [dataDic objectForKey:@"userinfo"];
         NSMutableDictionary *authorinfoDic = [dataDic objectForKey:@"authorinfo"];
-//        NSMutableDictionary *radionameDic = [dataDic objectForKey:@"radioname"];
        WLZ_Other_Model *model = [WLZ_Other_Model baseModelWithDic:userinfoDic];
         WLZ_OtherO_Model *model1 = [WLZ_OtherO_Model baseModelWithDic:authorinfoDic];
         WLZ_Other_Model *modelR = [WLZ_Other_Model baseModelWithDic:dataDic];
@@ -342,15 +342,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
