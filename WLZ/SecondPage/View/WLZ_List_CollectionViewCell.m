@@ -75,10 +75,10 @@
 //选中跳转界面
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    [[WLZ_Music_ViewController sharePlayPageVC].player stop];
     WLZ_Details_Model *model = self.titleML[indexPath.row];
     [WLZ_Music_ViewController sharePlayPageVC].url = model.musicUrl;
-    NSLog(@"^^^^^^^^^^^%@", model.musicUrl);
+    [WLZ_Music_ViewController sharePlayPageVC].titleM = self.titleML;
+    [WLZ_Music_ViewController sharePlayPageVC].row = indexPath.row;
     [self.tableV reloadData];
     
     [self buttonAction];
@@ -89,7 +89,6 @@
 - (void)buttonAction
 {
     [self.delegate changeVCColor];
-    
 }
 
 @end

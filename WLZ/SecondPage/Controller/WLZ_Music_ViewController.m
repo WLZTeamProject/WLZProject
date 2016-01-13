@@ -15,7 +15,8 @@
 #import "WLZ_List_Model.h"
 #import "WLZ_Other_Model.h"
 #import "WLZ_OtherO_Model.h"
-@interface WLZ_Music_ViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
+#import "WLZ_Details_Model.h"
+@interface WLZ_Music_ViewController () <UICollectionViewDelegate, UICollectionViewDataSource, RootViewDelegate>
 
 
 
@@ -53,7 +54,24 @@
     return playPVC;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+ 
+//    [self playAction];
+    if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
+    {
+        [self changeVCColor];
+        
+    }
+    else
+    {
+        [self playAction];
+    }
 
+    self.row = self.rowBegin;
+       [self.collectionV reloadData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,7 +80,18 @@
     //创建
     [self creatView];
     [self getData];
-    [self playAction];
+//    [self playAction];
+    if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
+    {
+        [self changeVCColor];
+        
+    }
+    else
+    {
+        [self playAction];
+    }
+    [self.collectionV reloadData];
+    
 }
 
 //创建视图
@@ -95,12 +124,12 @@
     
     UIButton *PlayBefor =[UIButton new];
     [PlayBefor setImage:[UIImage imageNamed:@"shangyiqu"] forState:UIControlStateNormal];
-    [PlayBefor addTarget:self action:@selector(beforAction) forControlEvents:UIControlEventValueChanged];
+    [PlayBefor addTarget:self action:@selector(beforAction) forControlEvents:UIControlEventTouchUpInside];
     [imageV addSubview:PlayBefor];
     
     UIButton *PlayNext =[UIButton new];
     [PlayNext setImage:[UIImage imageNamed:@"xiayiqu"] forState:UIControlStateNormal];
-    [PlayNext addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventValueChanged];
+    [PlayNext addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
     [imageV addSubview:PlayNext];
     
     STKAudioPlayerOptions playerOptions = {YES, YES, {50, 100, 200, 400, 800, 1600, 2600, 16000}};
@@ -167,6 +196,7 @@
     if (1 == indexPath.row) {
         WLZ_List_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         cell.backgroundColor = [UIColor greenColor];
+        cell.delegate = self;
         cell.titleML = self.titleM;
         cell.musicVisitML = self.musicVisitM;
         return cell;
@@ -174,16 +204,18 @@
     if (0 == indexPath.row) {
         
         WLZ_Play_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
-        [cell.headImageV sd_setImageWithURL:[NSURL URLWithString:self.coving]];
+        WLZ_Details_Model *model = self.titleM[self.row];
+        [cell.headImageV sd_setImageWithURL:[NSURL URLWithString:[model.playInfo objectForKey:@"imgUrl"]]];
         cell.headImageV.layer.cornerRadius = (WIDTH - 60) / 2;
-        cell.titleL.text = self.titlePlay;
+        cell.titleL.text = [model.playInfo objectForKey:@"title"];
         cell.titleL.font = [UIFont systemFontOfSize:27];
         return cell;
     }
     if (2 == indexPath.row) {
         
         WLZ__Introduce_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell2" forIndexPath:indexPath];
-        cell.url = self.playInfo;
+        WLZ_Details_Model *model = self.titleM[self.row];
+        cell.url = [model.playInfo objectForKey:@"webview_url"];
         return cell;
     }
     if (3 == indexPath.row) {
@@ -199,6 +231,8 @@
             [cell.originalImageV sd_setImageWithURL:[NSURL URLWithString:model1.icon]];
             WLZ_Other_Model *modelR = self.radionameArr[indexPath.section];
             cell.comfromL.text = modelR.radioname;
+            WLZ_Other_Model *modelM = self.coverimgArr[indexPath.section];
+            NSLog(@"%@", modelM.coverimg);
             if (0 != self.coverimgArr.count) {
                 WLZ_Other_Model *modelM1 = self.coverimgArr[0];
                 WLZ_Other_Model *modelM2 = self.coverimgArr[1];
@@ -216,8 +250,21 @@
         }
         return cell;
     }
-//    [self.collectionV reloadData];
     return nil;
+}
+
+- (void)changeVCColor
+{
+    [self.player stop];
+    
+    STKAudioPlayerOptions playerOptions = {YES, YES, {50, 100, 200, 400, 800, 1600, 2600, 16000}};
+    self.player = [[[STKAudioPlayer alloc] initWithOptions:playerOptions] autorelease];
+
+    WLZ_Details_Model *model = self.titleM[self.row];
+    [self.player play:model.musicUrl];
+    
+    self.playB.selected = YES;
+    [self.collectionV reloadData];
 }
 
 - (void)playAction
@@ -233,7 +280,9 @@
     } else{
         //播放
         [self.player stop];
-        [self.player play:self.url];
+//        [self.player play:self.url];
+        WLZ_Details_Model *model = self.titleM[self.rowBegin];
+        [self.player play:model.musicUrl];
 
         self.playB.selected = YES;
     }
@@ -241,6 +290,17 @@
     [self.collectionV reloadData];
 }
 
+- (void)nextAction
+{
+    self.row = (self.row + 1) % self.titleM.count;
+    [self changeVCColor];
+}
+
+- (void)beforAction
+{
+    self.row = (self.row - 1 + self.titleM.count) % self.titleM.count;
+    [self changeVCColor];
+}
 
 //获取数据
 - (void)getData
@@ -256,7 +316,6 @@
         NSMutableDictionary *dataDic = [responseObject objectForKey:@"data"];
         NSMutableDictionary *userinfoDic = [dataDic objectForKey:@"userinfo"];
         NSMutableDictionary *authorinfoDic = [dataDic objectForKey:@"authorinfo"];
-//        NSMutableDictionary *radionameDic = [dataDic objectForKey:@"radioname"];
        WLZ_Other_Model *model = [WLZ_Other_Model baseModelWithDic:userinfoDic];
         WLZ_OtherO_Model *model1 = [WLZ_OtherO_Model baseModelWithDic:authorinfoDic];
         WLZ_Other_Model *modelR = [WLZ_Other_Model baseModelWithDic:dataDic];
@@ -271,6 +330,7 @@
         }
         
         [self.collectionV reloadData];
+        [self playAction];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         
@@ -282,15 +342,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -33,7 +33,7 @@
 
 - (void)createSubviews
 {
-    self.webV = [[UIWebView alloc] initWithFrame:self.bounds];
+    self.webV = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 120)];
     self.webV.dataDetectorTypes = UIDataDetectorTypeAll;
     [self addSubview:self.webV];
     [_webV release];
