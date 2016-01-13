@@ -61,6 +61,7 @@
     [self createTableView];
     
 }
+#pragma 获取数据
 - (void)createData
 {
     [self createFirstData];
@@ -113,6 +114,8 @@
 
     }];
 }
+
+#pragma 通过一级数据获取二级数据
 - (void)createFirstToSecond
 {
     self.itemDic = [NSMutableDictionary dictionary];
@@ -149,13 +152,14 @@
     
     
 }
-
+#pragma 创建tableView视图
 - (void)createTableView
 {
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
 
     self.tableV.delegate =self;
     self.tableV.dataSource =self;
+    self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UIWIDTH, UIWIDTH / 3 *2)];
     self.tableV.tableHeaderView = headerView;
   
@@ -187,10 +191,12 @@
 #pragma 轮播图点击调用方法
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
+    
+    
     NSLog(@"你点击了第%ld张图片", index);
 }
 
-
+#pragma 自定义Header,即自定义区头
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     WLZNewsFirstItemListModel *model = [self.itemListArr objectAtIndex:section];
@@ -199,9 +205,10 @@
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, UIWIDTH / 2, 40)];
     headerLabel.text = model.title;
     [view addSubview:headerLabel];
+    //当moreUrl为空得时候,不显示更多按钮
     if (![model.moreUrl isEqualToString:@""]) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(UIWIDTH - 60, 0, 40, 40);
+        button.frame = CGRectMake(UIWIDTH - 60, 5, 30, 30);
         [button setImage:[UIImage imageNamed:@"more_2"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         button.tag = 10000 + section;
@@ -213,25 +220,26 @@
 - (void)buttonAction:(UIButton *)sender
 {
     WLZNewsListViewController *listVC = [[WLZNewsListViewController alloc] init];
-    
     WLZNewsFirstItemListModel *model = [self.itemListArr objectAtIndex:sender.tag - 10000];
     listVC.url = model.moreUrl;
     listVC.mytitle = model.title;
     [self.navigationController pushViewController:listVC animated:YES];
     [listVC release];
 }
+#pragma 区标题高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 40;
 }
 
-//分区个数
+#pragma 分区个数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     
     return self.itemDic.count;
     
 }
+#pragma 动态设置行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *key = [NSString stringWithFormat:@"%ld", indexPath.section + 1];
@@ -239,6 +247,7 @@
     return arr.count * (UIWIDTH - 60) / 2 / 4 * 3 / 2;
     
 }
+#pragma 每个区只有一行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
