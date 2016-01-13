@@ -22,6 +22,8 @@
 @property (nonatomic, retain) UISlider *timeS;
 @property (nonatomic, retain) UIButton *startBut;
 
+@property (nonatomic, retain) NSTimer *timer;
+
 
 
 
@@ -102,6 +104,10 @@
     
     [self.player play];
     
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    [self.container addGestureRecognizer:tapGR];
+    [tapGR release];
+    
     self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.container.frame.size.width, self.container.frame.size.height / 7)];
     self.backView.backgroundColor = [UIColor blackColor];
     [self.backView setAlpha:0.5];
@@ -145,6 +151,30 @@
     
     
 }
+
+- (void)tapAction
+{
+    NSLog(@"#######");
+    if (NO == self.sliderView.hidden && NO == self.backView.hidden) {
+        [self.sliderView setHidden:YES];
+        [self.backView setHidden:YES];
+        
+    } else if (YES == self.sliderView.hidden && YES == self.backView.hidden) {
+        
+        [self.sliderView setHidden:NO];
+        [self.backView setHidden:NO];
+        self.timer  = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(timerAction) userInfo:nil repeats:NO];
+    }
+    
+}
+
+//过3sview自动消失
+- (void)timerAction
+{
+    [self.sliderView setHidden:YES];
+    [self.backView setHidden:YES];
+}
+
 //暂停/播放
 - (void)playClick
 {
@@ -219,8 +249,6 @@
         float startSecond = CMTimeGetSeconds(timeRange.start);
         float durationSeconds = CMTimeGetSeconds(timeRange.duration);
         NSTimeInterval totalBuffer = startSecond + durationSeconds;
-        NSLog(@"一共缓存多少秒%0.2f", totalBuffer);
-        
     }
 }
 - (AVPlayer *)player
@@ -242,17 +270,5 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

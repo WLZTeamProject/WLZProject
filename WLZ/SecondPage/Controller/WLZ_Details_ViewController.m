@@ -40,10 +40,34 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor magentaColor];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"fanhui"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
+
     //创建TableView
     [self creatTableView];
     [self creatHeaderView];
-    [self getData];
+    [self addHeaderRefresh];
+}
+
+- (void)leftAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.tabBarController.tabBar setHidden:NO];
+    self.navigationController.navigationBarHidden = NO;
+
+}
+- (void)addHeaderRefresh
+{
+    self.tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //获取数据
+        [self getData];
+
+
+    }];
+    [self.tableV.mj_header beginRefreshing];
+    
+    self.tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+      
+    }];
 }
 
 //创建TableView
@@ -149,6 +173,8 @@
         NSMutableArray *listlArr = [dataDic objectForKey:@"list"];
         self.radioArr = [WLZ_Details_Model baseModelWithArr:listlArr];
         [self.tableV reloadData];
+        [self.tableV.mj_header endRefreshing];
+        [self.tableV.mj_footer endRefreshing];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         
