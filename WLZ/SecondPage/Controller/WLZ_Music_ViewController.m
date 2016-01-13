@@ -71,6 +71,7 @@
 
     self.row = self.rowBegin;
        [self.collectionV reloadData];
+    
 }
 
 - (void)viewDidLoad {
@@ -80,6 +81,7 @@
     //创建
     [self creatView];
     [self getData];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"fanhui"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
 //    [self playAction];
     if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
     {
@@ -93,6 +95,15 @@
     [self.collectionV reloadData];
     
 }
+
+- (void)leftAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.tabBarController.tabBar setHidden:NO];
+    self.navigationController.navigationBarHidden = NO;
+    
+}
+
 
 //创建视图
 - (void)creatView
@@ -138,23 +149,24 @@
     [PlayBefor mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imageV).with.offset(20);
         make.bottom.equalTo(imageV).with.offset(-20);
-        make.left.equalTo(imageV).with.offset(90);
-        make.right.equalTo(self.playB).with.offset(-90);
+        make.left.equalTo(imageV.mas_left).with.offset(70);
+//        make.right.equalTo(self.playB);
         make.height.mas_equalTo(PlayBefor.mas_width);
     }];
     
     [self.playB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imageV).with.offset(15);
         make.bottom.equalTo(imageV).with.offset(-15);
-        make.width.equalTo(self.playB.mas_height);
+        make.width.equalTo(@30);
+        make.left.equalTo(PlayBefor).with.offset((WIDTH / 2 - 90));
         
     }];
     [PlayNext mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imageV).with.offset(20);
         make.bottom.equalTo(imageV).with.offset(-20);
-        make.left.equalTo(self.playB).with.offset(90);
-        make.right.equalTo(imageV).with.offset(-90);
-        make.height.mas_equalTo(PlayNext.mas_width);
+        make.left.equalTo(self.playB).with.offset((WIDTH / 2 - 70));
+        make.right.equalTo(imageV.mas_right).with.offset(-70);
+        make.height.mas_equalTo(@20);
 
         
     }];
