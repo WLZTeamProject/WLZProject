@@ -24,6 +24,15 @@
 @property (nonatomic, retain) UIButton *backBut;
 @property (nonatomic, retain) UIButton *startBut;
 @property (nonatomic, retain) UIButton *screenBut;
+
+@property (nonatomic, retain) UIView *butView;
+@property (nonatomic, retain) UIButton *detailBut;
+@property (nonatomic, retain) UIButton *relateBut;
+@property (nonatomic, retain) UICollectionView *collectionV;
+
+@property (nonatomic, retain) UIView *totalView;
+//@property (nonatomic, retain)
+
 @end
 
 @implementation WLZ_Dance_detailViewController
@@ -42,6 +51,7 @@
 //[player play];
 //[playerViewController release];
 
+//销毁页面会走
 - (void)dealloc
 {
     [self removeObserverFromPlayerItem:self.player.currentItem];
@@ -55,6 +65,11 @@
     [_sliderView release];
     [_backBut release];
     [_startBut release];
+    [_butView release];
+    [_detailBut release];
+    [_relateBut release];
+    [_collectionV release];
+    [_totalView release];
     [super dealloc];
     
 }
@@ -69,11 +84,27 @@
     
     
 }
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    return self;
+}
+
 - (void)createPlayerView
 {
+    
+    self.totalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, ([[UIScreen mainScreen] bounds].size.height / 2 -  [[UIScreen mainScreen] bounds].size.height / 3) / 2 + [[UIScreen mainScreen] bounds].size.height / 3)];
+    self.totalView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:self.totalView];
+    
+    
     self.container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3)];
-    self.container.backgroundColor = [UIColor magentaColor];
-    [self.view addSubview:self.container];
+    self.container.backgroundColor = [UIColor clearColor];
+    [self.totalView addSubview:self.container];
     [_container release];
     
     
@@ -87,15 +118,14 @@
     //播放
     [self.player play];
     
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    [self.container addGestureRecognizer:tapGR];
+    
     self.sliderView = [[UIView alloc] initWithFrame:CGRectMake(0, self.container.frame.size.height / 6 * 5 + self.container.frame.origin.y, self.container.frame.size.width, self.container.frame.size.height / 6)];
     self.sliderView.backgroundColor = [UIColor blackColor];
     [self.sliderView setAlpha:0.5];
-    [self.view addSubview:self.sliderView];
+    [self.totalView addSubview:self.sliderView];
     [_sliderView release];
-//    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width / 5, self.sliderView.frame.size.height)];
-//    self.timeLabel.text = @"00:00";
-//    [_timeLabel release];
-//    [self.sliderView addSubview:self.timeLabel];
     
     self.timeS = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width, 0)];
     [self.timeS addTarget:self action:@selector(timeAction) forControlEvents:UIControlEventValueChanged];
@@ -132,7 +162,58 @@
     [self.screenBut addTarget:self action:@selector(screenButAction) forControlEvents:UIControlEventTouchUpInside];
     
     [self.sliderView addSubview:self.screenBut];
+    
+    self.butView = [[UIView alloc] initWithFrame:CGRectMake(0, self.container.frame.origin.y + self.container.frame.size.height, self.container.frame.size.width, ([[UIScreen mainScreen] bounds].size.height / 2 -  [[UIScreen mainScreen] bounds].size.height / 3) / 2)];
+    self.butView.backgroundColor = [UIColor orangeColor];
+    [self.totalView addSubview:self.butView];
+    
+    self.detailBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.detailBut.frame = CGRectMake(0, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
+    [self.detailBut setTitle:@"详情" forState:UIControlStateNormal];
+    self.detailBut.backgroundColor = [UIColor clearColor];
+    [self.relateBut addTarget:self action:@selector(detailButAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.butView addSubview:self.detailBut];
+    
+    self.relateBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.relateBut.frame = CGRectMake(self.detailBut.frame.size.width, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
+    self.relateBut.backgroundColor = [UIColor clearColor];
+    [self.relateBut setTitle:@"相关" forState:UIControlStateNormal];
+    [self.relateBut addTarget:self action:@selector(relateButAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.butView addSubview:self.relateBut];
+    
 
+}
+
+//详情but
+- (void)detailButAction
+{
+    
+}
+//相关but
+- (void)relateButAction
+{
+    
+}
+
+//隐藏view
+- (void)tapAction
+{
+    
+    if (YES == self.sliderView.hidden  ) {
+        
+        //        删除self.sliderView这个控件
+        //        [self.sliderView removeFromSuperview];
+        
+        [self.sliderView setHidden:NO];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerAction) userInfo:nil repeats:NO];
+    } else if (NO == self.sliderView.hidden ) {
+        [self.sliderView setHidden:YES];
+    }
+}
+
+- (void)timerAction
+{
+    [self.sliderView setHidden:YES];
 }
 
 //横屏方法
@@ -141,7 +222,7 @@
 //    WLZ_Dance_detailViewController *wlzDanceVC = [WLZ_Dance_detailViewController new];
 //    CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI / 2);
 //    wlzDanceVC.view.transform = transform;
-
+    
     WLZ_Dance_videoViewController *wlzDanceVC = [WLZ_Dance_videoViewController alloc];
     wlzDanceVC.wlzdance = self.zyDance;
     [self.navigationController pushViewController:wlzDanceVC animated:YES];
@@ -163,6 +244,7 @@
         [self.player pause];
     }
 }
+
 //返回主界面
 - (void)backButAction
 {
@@ -172,6 +254,7 @@
     [self.player pause];
 //    [self removeN];
 }
+
 //进度条
 - (void)timeAction
 {
@@ -213,6 +296,7 @@
     [playeritem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
     //监控网络加载情况属性
     [playeritem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
+    
 }
 
 - (void)removeObserverFromPlayerItem:(AVPlayerItem *)playerItem
@@ -258,6 +342,25 @@
     return _player;
 }
 
+
+- (void)createunderView
+{
+    
+    UICollectionViewFlowLayout *flowL = [[[UICollectionViewFlowLayout alloc] init] autorelease];
+    flowL.minimumLineSpacing = 0;
+    flowL.minimumInteritemSpacing = 0;
+    flowL.itemSize = CGSizeMake(100, 100);
+    flowL.headerReferenceSize = CGSizeMake(50, 50);
+    
+    flowL.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    self.collectionV = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:flowL];
+    self.collectionV.delegate = self;
+    self.collectionV.dataSource = self;
+    self.collectionV.backgroundColor = [UIColor orangeColor];
+    [self.view addSubview:self.collectionV];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

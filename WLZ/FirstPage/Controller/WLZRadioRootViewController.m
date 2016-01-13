@@ -93,14 +93,14 @@
     
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.hidesBottomBarWhenPushed = YES;
-    }
-    return self;
-}
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//        self.hidesBottomBarWhenPushed = YES;
+//    }
+//    return self;
+//}
 
 //上拉刷新
 - (void)refreshAction
