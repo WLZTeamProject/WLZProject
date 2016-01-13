@@ -114,6 +114,15 @@
     musicVC.playInfo = [model.playInfo objectForKey:@"webview_url"];
     musicVC.titlePlay = [model.playInfo objectForKey:@"title"];
     musicVC.titleM = self.radioArr;
+    [[WLZ_Music_ViewController sharePlayPageVC].player stop];
+    
+//    if ((STKAudioPlayerStatePlaying == [WLZ_Music_ViewController sharePlayPageVC].player.state) || (STKAudioPlayerStatePaused == [WLZ_Music_ViewController sharePlayPageVC].player.state))
+//    {
+//        
+//        
+//    }
+    
+    musicVC.rowBegin = indexPath.row;
     musicVC.url = [model.playInfo objectForKey:@"musicUrl"];
     [self.navigationController pushViewController:musicVC animated:YES];
 }

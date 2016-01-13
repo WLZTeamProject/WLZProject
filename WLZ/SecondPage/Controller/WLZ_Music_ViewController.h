@@ -20,11 +20,17 @@
 
 @property (nonatomic, copy) NSString *url;
 
+@property (nonatomic, assign) NSInteger rowBegin;
+
+@property (nonatomic, assign) NSInteger row;
+
 @property (nonatomic, copy) NSString *titlePlay;
 
 @property (nonatomic, copy) NSString *tingid;
 
 @property (nonatomic, retain) WLZ_Details_Model *model1;
+
+- (void)changeVCColor;
 
 @property (nonatomic, retain) UIButton *playBefor;
 

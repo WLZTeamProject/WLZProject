@@ -21,9 +21,7 @@
 - (void)creatSubViews
 {
     self.titleL = [UILabel new];
-//        self.titleL.backgroundColor = [UIColor magentaColor];
     [self addSubview:self.titleL];
-    
     [self.titleL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(10);
         make.left.equalTo(self).with.offset(10);
@@ -33,7 +31,6 @@
     }];
     
     self.musicVisitL = [UILabel new];
-//    self.musicVisitL.backgroundColor = [UIColor redColor];
     [self addSubview:self.musicVisitL];
     [self.musicVisitL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).with.offset(-10);
@@ -62,13 +59,11 @@
 }
 
 - (void)awakeFromNib {
-    // Initialization code
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end
