@@ -16,4 +16,6 @@
 
 @property (nonatomic, retain) UISlider *slider;
 
+@property (nonatomic, strong) CADisplayLink *link;
+
 @end

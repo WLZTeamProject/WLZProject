@@ -209,7 +209,6 @@
     if (0 == indexPath.section)
     {
  
-
         
     } else {
         WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
