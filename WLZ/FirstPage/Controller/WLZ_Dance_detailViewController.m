@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "WLZ_Dance_videoModel.h"
 #import "WLZ_Dance_ListModel.h"
+#import "WLZ_Dance_videoViewController.h"
 @interface WLZ_Dance_detailViewController ()
 @property (nonatomic, retain) AVPlayer *player;
 @property (nonatomic, retain) UIView *container;
@@ -141,6 +142,13 @@
 //    CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI / 2);
 //    wlzDanceVC.view.transform = transform;
 
+    WLZ_Dance_videoViewController *wlzDanceVC = [WLZ_Dance_videoViewController alloc];
+    wlzDanceVC.wlzdance = self.zyDance;
+    [self.navigationController pushViewController:wlzDanceVC animated:YES];
+    [self.player pause];
+//    [self.navigationController setToolbarHidden:YES animated:YES];
+    [self.tabBarController.tabBar setHidden:YES];
+    
     
 }
 
@@ -160,6 +168,7 @@
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.tabBarController.tabBar setHidden:NO];
     [self.player pause];
 //    [self removeN];
 }

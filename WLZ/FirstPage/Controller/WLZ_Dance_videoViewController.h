@@ -7,7 +7,7 @@
 //
 
 #import "WLZBaseViewController.h"
-
+@class WLZ_Dance_ListModel;
 @interface WLZ_Dance_videoViewController : WLZBaseViewController
-
+@property (nonatomic, retain) WLZ_Dance_ListModel *wlzdance;
 @end
