@@ -87,9 +87,19 @@
     WLZ_Dance_detailViewController *wlzDanceVC = [[WLZ_Dance_detailViewController alloc] init];
     [self.navigationController pushViewController:wlzDanceVC animated:YES];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.tabBarController.tabBar setHidden:YES];
     wlzDanceVC.zyDance = wlzdance;
     [wlzDanceVC release];
     
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    return self;
 }
 
 //上拉刷新
