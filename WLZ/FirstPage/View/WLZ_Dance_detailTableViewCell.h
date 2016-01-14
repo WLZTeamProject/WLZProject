@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WLZ_Dance_detailTableViewCell : UITableViewCell
-
++ (CGFloat)heightWithStr:(NSString *)str;
 @end

@@ -15,6 +15,12 @@
 
 @implementation WLZ_Dance_detailTableViewCell
 
++ (CGFloat)heightWithStr:(NSString *)str
+{
+    CGRect frame = [str boundingRectWithSize:CGSizeMake(300, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:18.0] forKey:NSFontAttributeName] context:nil];
+    return frame.size.height;
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -27,7 +33,6 @@
 - (void)createSubviews
 {
     self.backgroundColor = [UIColor grayColor];
-    
     
 }
 

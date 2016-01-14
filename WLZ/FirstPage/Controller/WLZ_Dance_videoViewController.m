@@ -154,7 +154,7 @@
 
 - (void)tapAction
 {
-    NSLog(@"#######");
+//    NSLog(@"#######");
     if (NO == self.sliderView.hidden && NO == self.backView.hidden) {
         [self.sliderView setHidden:YES];
         [self.backView setHidden:YES];
