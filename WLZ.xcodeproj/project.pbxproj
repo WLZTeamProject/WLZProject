@@ -76,6 +76,7 @@
 		49DF8B471C40EE6100B2031F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DF8B461C40EE6100B2031F /* libsqlite3.0.tbd */; };
 		49E36AE11C466F87001E71ED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E36AE01C466F87001E71ED /* AVFoundation.framework */; };
 		92A545CB1C4167BA00A60D7D /* WLZ_Base_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A545CA1C4167BA00A60D7D /* WLZ_Base_Model.m */; };
+		92A784FC1C47395F00F0DEA6 /* WLZ_GIFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A784FB1C47395F00F0DEA6 /* WLZ_GIFT.m */; };
 		9FA4437D3665C00A45DDDE01 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D59BA53E477DD3A0DEB6E4D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -235,6 +236,8 @@
 		92A545B91C4124F000A60D7D /* WLZ_PCH.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLZ_PCH.pch; sourceTree = "<group>"; };
 		92A545C91C4167BA00A60D7D /* WLZ_Base_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLZ_Base_Model.h; path = WLZ/ThirdParty/WLZ_Base_Model.h; sourceTree = SOURCE_ROOT; };
 		92A545CA1C4167BA00A60D7D /* WLZ_Base_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLZ_Base_Model.m; path = WLZ/ThirdParty/WLZ_Base_Model.m; sourceTree = SOURCE_ROOT; };
+		92A784FA1C47395F00F0DEA6 /* WLZ_GIFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_GIFT.h; sourceTree = "<group>"; };
+		92A784FB1C47395F00F0DEA6 /* WLZ_GIFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_GIFT.m; sourceTree = "<group>"; };
 		E1753F29B9FDA32391780B33 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -372,6 +375,8 @@
 				4966E1971C43E1A4009CFE51 /* WLZ_DD_Model.m */,
 				4954B7831C448C85001A1CD3 /* WLZ_Dance_videoModel.h */,
 				4954B7841C448C85001A1CD3 /* WLZ_Dance_videoModel.m */,
+				92A784FA1C47395F00F0DEA6 /* WLZ_GIFT.h */,
+				92A784FB1C47395F00F0DEA6 /* WLZ_GIFT.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -885,6 +890,7 @@
 				4966E1611C43DE80009CFE51 /* WLZ_List_TableViewCell.m in Sources */,
 				4966E1401C43DDEF009CFE51 /* WLZ_Music_ViewController.m in Sources */,
 				4966E1731C43DEA8009CFE51 /* WLZ_OtherO_Model.m in Sources */,
+				92A784FC1C47395F00F0DEA6 /* WLZ_GIFT.m in Sources */,
 				4966E1601C43DE80009CFE51 /* WLZ_List_CollectionViewCell.m in Sources */,
 				496B36351C3FCF5400DC214F /* main.m in Sources */,
 				4966E1A91C43E8F5009CFE51 /* WLZReadWebUserInfoModel.m in Sources */,
