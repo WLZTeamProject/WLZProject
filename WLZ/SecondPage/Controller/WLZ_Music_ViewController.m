@@ -16,7 +16,7 @@
 #import "WLZ_Other_Model.h"
 #import "WLZ_OtherO_Model.h"
 #import "WLZ_Details_Model.h"
-@interface WLZ_Music_ViewController () <UICollectionViewDelegate, UICollectionViewDataSource, RootViewDelegate>
+@interface WLZ_Music_ViewController () <UICollectionViewDelegate, UICollectionViewDataSource, RootViewDelegate, WLZ_Play_CollectionViewCellDelegate>
 
 
 
@@ -54,25 +54,25 @@
     return playPVC;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
- 
-//    [self playAction];
-    if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
-    {
-        [self changeVCColor];
-        
-    }
-    else
-    {
-        [self playAction];
-    }
-
-    self.row = self.rowBegin;
-       [self.collectionV reloadData];
-    
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+// 
+////    [self playAction];
+//    if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
+//    {
+//        [self changeVCColor];
+//        
+//    }
+//    else
+//    {
+//        [self playAction];
+//    }
+//
+//    
+//       [self.collectionV reloadData];
+//    
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -81,6 +81,7 @@
     //创建
     [self creatView];
     [self getData];
+    self.row = self.rowBegin;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"fanhui"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
     
         if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
@@ -216,11 +217,13 @@
     if (0 == indexPath.row) {
         
         WLZ_Play_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
+        cell.delegate = self;
         WLZ_Details_Model *model = self.titleM[self.row];
         [cell.headImageV sd_setImageWithURL:[NSURL URLWithString:[model.playInfo objectForKey:@"imgUrl"]]];
         cell.headImageV.layer.cornerRadius = (WIDTH - 60) / 2;
         cell.titleL.text = [model.playInfo objectForKey:@"title"];
         cell.titleL.font = [UIFont systemFontOfSize:27];
+//        cell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
         return cell;
     }
     if (2 == indexPath.row) {
@@ -291,11 +294,8 @@
         self.playB.selected = YES;
     } else{
         //播放
-        [self.player stop];
-//        [self.player play:self.url];
         WLZ_Details_Model *model = self.titleM[self.rowBegin];
         [self.player play:model.musicUrl];
-
         self.playB.selected = YES;
     }
 
@@ -314,9 +314,14 @@
     [self changeVCColor];
 }
 
+- (void)exchangeVol:(float)vol
+{
+    self.player.volume = vol;
+}
 //获取数据
 - (void)getData
 {
+    [WLZ_GIFT show];
     self.userinfoArr = [NSMutableArray array];
     self.authorinfoArr = [NSMutableArray array];
     self.radionameArr = [NSMutableArray array];
@@ -343,6 +348,7 @@
         
         [self.collectionV reloadData];
         [self playAction];
+        [WLZ_GIFT dismiss];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         

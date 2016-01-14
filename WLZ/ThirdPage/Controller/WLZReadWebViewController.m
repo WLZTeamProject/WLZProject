@@ -16,6 +16,9 @@
 #import "WLZReadWebUserInfoModel.h"
 #import "WLZReadWebShareInfoModel.h"
 #import "WLZReadWebCounterListModel.h"
+
+#import "DocModel.h"
+#import "LQQCoreDataManager.h"
 @interface WLZReadWebViewController () <UIWebViewDelegate>
 @property (nonatomic, retain) NSMutableDictionary *bodyDic;
 @property (nonatomic, retain) WLZReadWebFirstLevelModel *model;
@@ -28,6 +31,8 @@
 @property (nonatomic, retain) MBProgressHUD *hud;
 @property (nonatomic, retain) UIToolbar *mytoolbar;
 
+@property (nonatomic, retain) LQQCoreDataManager *coreManager;
+@property (nonatomic, retain) NSMutableArray *coreArr;
 
 @property (nonatomic, assign) NSInteger indexSize;
 @end
@@ -35,6 +40,8 @@
 @implementation WLZReadWebViewController
 - (void)dealloc
 {
+    [_coreArr release];
+    [_coreManager release];
     [_mytoolbar release];
     [_counterlistModel release];
     [_shareInfoModel release];
@@ -52,7 +59,7 @@
     [self createSubviews];
     self.indexSize = 100;
     
-    
+    NSLog(@"%@", NSHomeDirectory());
 }
 #pragma 状态栏的style
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -84,7 +91,9 @@
     //设置navBar背景色和字体颜色
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.298 green:0.298 blue:0.298 alpha:1.0];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+//    [self readSearch];
 }
+
 - (void)leftAction
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -112,6 +121,14 @@
     UIButton *collectB = [UIButton buttonWithType:UIButtonTypeCustom];
     collectB.frame = CGRectMake(0, 0, 40, 40);
     collectB.selected = NO;
+//    [self readSearch];
+    for (DocModel *model in self.coreArr) {
+        if ([self.mId isEqualToString:model.mid]) {
+            collectB.selected = YES;
+        } else {
+            collectB.selected = NO;
+        }
+    }
     [collectB setImage:[UIImage imageNamed:@"tool_collect"] forState:UIControlStateNormal];
     [collectB setImage:[UIImage imageNamed:@"tool_collect_red"] forState:UIControlStateSelected];
     collectB.tag = 10000;
@@ -152,13 +169,62 @@
     [self.mytoolbar setItems:toolBarItems animated:YES];
     [self.view bringSubviewToFront:self.mytoolbar];
 }
+
+#pragma 收藏文章
+- (void)readCollection
+{
+    DocModel *readmodel = [NSEntityDescription insertNewObjectForEntityForName:@"DocModel" inManagedObjectContext:self.coreManager.managedObjectContext];
+    readmodel.title = self.shareInfoModel.title;
+    readmodel.html = self.model.html;
+    readmodel.mid = self.mId;
+    [self.coreManager saveContext];
+}
+#pragma 查询
+- (void)readSearch
+{
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"DocModel" inManagedObjectContext:self.coreManager.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.coreManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"error: %@", error);
+    }
+    [self.coreArr setArray:fetchedObjects];
+}
+
+
+
+#pragma 删除
+- (void)readDelete:(NSString *)mid
+{
+    for (DocModel *model in self.coreArr) {
+        if ([model.mid isEqualToString:mid]) {
+            [self.coreManager.managedObjectContext deleteObject:model];
+        }
+    }
+    [self.coreManager saveContext];
+}
+- (void)awakeFromNib
+{
+    self.coreManager = [LQQCoreDataManager sharaCoreDataManager];
+    self.coreArr = [NSMutableArray array];
+}
+- (void)viewDidDisappear:(BOOL)animated
+{
+    self.coreArr = nil;
+}
 - (void)toolbarAction:(UIButton *)sender
 {
+    //收藏
     if (10000 == sender.tag) {
         if (NO == sender.selected) {
             NSLog(@"收藏");
+//            [self readCollection];
         } else {
             NSLog(@"取消");
+//            [self readDelete:self.mId];
         }
         sender.selected = !sender.selected;
     }
@@ -289,9 +355,6 @@
         
         
     }];
-    
-    
-    
      
 }
 
