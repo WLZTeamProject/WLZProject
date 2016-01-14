@@ -181,6 +181,13 @@
         parameters:body
         success:^(NSURLSessionDataTask* _Nonnull task,
             id _Nonnull responseObject) {
+            
+#pragma 缓存数据到本地
+            NSString *path = [NSString stringWithFormat:@"%ld.plist", [url hash]];
+            // 存储的沙盒路径
+            NSString *path_doc = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+            // 归档
+            [NSKeyedArchiver archiveRootObject:responseObject toFile:[path_doc stringByAppendingPathComponent:path]];
             //不为空
             if (responseObject) {
                 success(task, responseObject);
@@ -188,6 +195,19 @@
 
         }
         failure:^(NSURLSessionDataTask* _Nonnull task, NSError* _Nonnull error) {
+            // 缓存的文件夹
+            NSString *path = [NSString stringWithFormat:@"%ld.plist", [url hash]];
+            NSString *path_doc = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+            // 反归档
+            id result = [NSKeyedUnarchiver unarchiveObjectWithFile:[path_doc stringByAppendingPathComponent:path]];
+            
+            if (result) {
+                success(task, result);
+                //            failure(task, error);
+                //            NSLog(@"%@", error);
+            } else {
+                failure(task, error);
+            }
 
             if (error) {
                 failure(task, error);

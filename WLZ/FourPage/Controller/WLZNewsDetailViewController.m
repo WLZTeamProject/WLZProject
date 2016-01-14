@@ -70,8 +70,6 @@
         NSLog(@"%@", self.model.hls_url);
         [self createPlayerView];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
-        
     }];
 }
 

@@ -10,7 +10,8 @@
 
 
 
-@interface WLZNewPlayer () <MBProgressHUDDelegate>
+@interface WLZNewPlayer ()
+//<MBProgressHUDDelegate>
 
 
 
@@ -47,7 +48,7 @@
         self.backgroundColor = [UIColor blackColor];
         [self createView:frame];//创建UI视图
         [self createPlayer:self.originalFrame]; //创建layer图层
-        [MBProgressHUD showHUDAddedTo:self animated:YES];//添加菊花
+//        [MBProgressHUD showHUDAddedTo:self animated:YES];//添加菊花
     }
     return self;
 }
@@ -213,14 +214,14 @@
             if (!self.didPlay) {
                 [self createPlayer:self.frame];
                 [self.player play];
-                [MBProgressHUD hideHUDForView:self animated:YES];
+//                [MBProgressHUD hideHUDForView:self animated:YES];
                 [self bringSubviewToFront:self.barView];
                 [self.playButton setImage:[UIImage imageNamed:@"pause_32"] forState:UIControlStateNormal];
                 self.didPlay = YES;
             }
         } else {
             [self.player pause];
-            [MBProgressHUD showHUDAddedTo:self animated:YES];
+//            [MBProgressHUD showHUDAddedTo:self animated:YES];
             self.didPlay = NO;
             [self.playButton setImage:[UIImage imageNamed:@"play_32"] forState:UIControlStateNormal];
         }

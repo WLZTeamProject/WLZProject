@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import <MBProgressHUD.h>
+//#import <MBProgressHUD.h>
 @interface WLZNewPlayer : UIView
 
 @property (nonatomic, retain) AVPlayer *player;//AVPlayer对象
