@@ -1,5 +1,5 @@
 //
-//  ReadCollection+CoreDataProperties.m
+//  DocModel+CoreDataProperties.m
 //  WLZ
 //
 //  Created by lqq on 16/1/14.
@@ -9,9 +9,9 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "ReadCollection+CoreDataProperties.h"
+#import "DocModel+CoreDataProperties.h"
 
-@implementation ReadCollection (CoreDataProperties)
+@implementation DocModel (CoreDataProperties)
 
 @dynamic title;
 @dynamic mid;

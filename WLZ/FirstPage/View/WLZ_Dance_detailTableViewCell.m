@@ -8,6 +8,11 @@
 
 #import "WLZ_Dance_detailTableViewCell.h"
 
+@interface WLZ_Dance_detailTableViewCell ()
+@property (nonatomic, retain) UIScrollView *scrollV;
+
+@end
+
 @implementation WLZ_Dance_detailTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -22,6 +27,8 @@
 - (void)createSubviews
 {
     self.backgroundColor = [UIColor grayColor];
+    
+    
 }
 
 - (void)awakeFromNib {

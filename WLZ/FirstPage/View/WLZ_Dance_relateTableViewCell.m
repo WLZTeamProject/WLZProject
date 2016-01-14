@@ -29,17 +29,19 @@
 }
 - (void)createSubviews
 {
-    self.backgroundColor = [UIColor redColor];
+    self.backgroundColor = [UIColor clearColor];
     self.imageV = [[UIImageView alloc] init];
-    self.imageV.backgroundColor = [UIColor magentaColor];
-    [self addSubview:self.imageV];
+//    self.imageV.backgroundColor = [UIColor magentaColor];
+    [self.contentView addSubview:self.imageV];
     self.titleL = [[UILabel alloc] init];
-    self.titleL.backgroundColor = [UIColor redColor];
-    [self addSubview:self.titleL];
-    self.catalogL = [[UILabel alloc] init];
-    self.catalogL.backgroundColor = [UIColor purpleColor];
-    [self addSubview:self.catalogL];
+    self.titleL.numberOfLines = 0;
     
+//    self.titleL.backgroundColor = [UIColor grayColor];
+    [self.contentView addSubview:self.titleL];
+    self.catalogL = [[UILabel alloc] init];
+//    self.catalogL.backgroundColor = [UIColor purpleColor];
+    [self.contentView addSubview:self.catalogL];
+
 }
 
 - (void)layoutSubviews
@@ -47,8 +49,9 @@
     
     [super layoutSubviews];
     [self.imageV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.left.equalTo(self.contentView).offset(10);
+        make.top.left.equalTo(self.contentView).offset(10);
         make.right.equalTo(self.titleL.mas_left).offset(-10);
+        make.bottom.equalTo(self.contentView).offset(-10);
         
         
     }];

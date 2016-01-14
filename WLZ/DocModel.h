@@ -1,5 +1,5 @@
 //
-//  ReadCollection.h
+//  DocModel.h
 //  WLZ
 //
 //  Created by lqq on 16/1/14.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ReadCollection : NSManagedObject
+@interface DocModel : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
 
@@ -19,4 +19,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "ReadCollection+CoreDataProperties.h"
+#import "DocModel+CoreDataProperties.h"
