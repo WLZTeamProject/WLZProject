@@ -68,6 +68,7 @@
 //创建视图
 - (void)creatView
 {
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"蠕动"] forBarMetrics:UIBarMetricsDefault];
     //创建TableView
     [self creatTableView];
     //建立轮播图
@@ -81,6 +82,7 @@
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
+    self.tableV.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
     [self.view addSubview:self.tableV];
     [_tableV release];
     [self.tableV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -147,6 +149,7 @@
         static NSString *celld = @"celld";
         self.featuredCell = [tableView dequeueReusableCellWithIdentifier:celld];
            self.featuredCell.delegate = self;
+        self.featuredCell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
         if (nil == self.featuredCell) {
             self.featuredCell = [[WLZ_Featured_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celld];
          
@@ -156,6 +159,7 @@
             
             [self.featuredCell.earlyImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[1]]];
             [self.featuredCell.nightImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[2]]];
+            
         }
         return self.featuredCell;
     }
@@ -170,6 +174,7 @@
     WLZ_Radios_Model *model = self.radiosArr[indexPath.row];
     self.moviesCell.model = [self.radiosArr objectAtIndex:indexPath.row];
         [self.moviesCell.RadiosImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
+        self.moviesCell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
         self.moviesCell.titleL.text = model.title;
         self.moviesCell.unameL.text = [NSString stringWithFormat:@"%@%@",@"by:" ,[model.userinfo objectForKey:@"uname"]];
         self.moviesCell.unameL.font = [UIFont systemFontOfSize:11];
@@ -216,6 +221,7 @@
         detailsVC.ScenicID = model.radioid;
         [self.navigationController pushViewController:detailsVC animated:YES];
     }
+    [self.tableV reloadData];
 }
 
 //建立轮播图

@@ -33,7 +33,7 @@
     [self addSubview:self.tableV];
     [_tableV release];
     [self.tableV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(VHEIGHT - 120));
+        make.height.equalTo(@(VHEIGHT - 20));
         make.top.equalTo(self);
         make.width.equalTo(@(VWIDTH));
     }];

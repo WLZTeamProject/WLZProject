@@ -49,9 +49,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.title = @"跳起来😊";
+
+    UIColor *color = [UIColor colorWithPatternImage:[UIImage imageNamed:@"背景"]];
+    self.view.backgroundColor = color;
     self.danceArr = [NSMutableArray array];
     self.page = 1;
     [self createTableV];

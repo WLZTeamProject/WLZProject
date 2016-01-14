@@ -82,8 +82,8 @@
     [self creatView];
     [self getData];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"fanhui"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
-//    [self playAction];
-    if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
+    
+        if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
     {
         [self changeVCColor];
         
@@ -116,11 +116,12 @@
 {
     UIView *imageV = [UIView new];
     imageV.backgroundColor = [UIColor whiteColor];
+    imageV.userInteractionEnabled = YES;
     [self.view addSubview:imageV];
     
     
     [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom);
+        make.bottom.equalTo(self.view);
         make.height.equalTo(@60);
         make.width.equalTo(@(WIDTH));
         
@@ -180,10 +181,9 @@
     UICollectionViewFlowLayout *flowL = [[[UICollectionViewFlowLayout alloc] init] autorelease];
     flowL.minimumInteritemSpacing = 0;
     flowL.minimumLineSpacing = 0;
-    flowL.itemSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
+    flowL.itemSize = CGSizeMake(UIWIDTH, UIHEIGHT);
     flowL.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    //    self.view.backgroundColor = [UIColor magentaColor];
-    self.collectionV = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:flowL];
+    self.collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, UIWIDTH, UIHEIGHT) collectionViewLayout:flowL];
     self.collectionV.delegate = self;
     self.collectionV.dataSource = self;
     self.collectionV.pagingEnabled = YES;
