@@ -33,6 +33,8 @@
 @property (nonatomic, retain) UICollectionView *collectionV;
 
 @property (nonatomic, retain) UIView *totalView;
+
+@property (nonatomic, retain) NSMutableArray *arr;
 //@property (nonatomic, retain)
 
 @end
@@ -81,9 +83,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.arr = [NSMutableArray array];
+    
+    [self getrelateData];
+    
     [self createPlayerView];
     
     [self createunderView];
+    
+    
     
     
     
@@ -393,12 +402,49 @@
         WLZ_Dance_contentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell2" forIndexPath:indexPath];
         return cell;
     }
-    WLZ_Dance_detailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    if (1 == indexPath.row) {
+        WLZ_Dance_detailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        
+        
+        cell.arr = self.arr;
+//        NSLog(@"哈哈哈哈%@", cell.title);
+        return cell;
+    }
+    return nil;
     
-    return cell;
     
     
     
+    
+    
+}
+
+- (void)getrelateData
+{
+    NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/search?word=%@&perpage=10&page=1",self.zyDance.item_title];
+    ;
+    [LQQAFNetTool getNetWithURL:urlStr body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
+        
+        
+        for (NSMutableDictionary *tempDic in resultArr) {
+            WLZ_Dance_ListModel *zylist = [WLZ_Dance_ListModel baseModelWithDic:tempDic];
+            [self.arr addObject:zylist];
+            zylist.item_videos = [NSMutableArray array];
+            NSMutableArray *videoArr = [tempDic objectForKey:@"item_videos"];
+            for (NSMutableDictionary *videoDic in videoArr) {
+                WLZ_Dance_videoModel *wlzvideo = [WLZ_Dance_videoModel baseModelWithDic:videoDic];
+                [zylist.item_videos addObject:wlzvideo];
+            }
+            
+        }
+        NSLog(@"娃哈哈哈哈哈啊哈哈%ld", self.arr.count);
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+        
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {
