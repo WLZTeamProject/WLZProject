@@ -36,7 +36,7 @@
     WLZRadioRootViewController *radioRootVC =[[WLZRadioRootViewController alloc] init];
     UINavigationController *radioNC = [[[UINavigationController alloc] initWithRootViewController:radioRootVC] autorelease];
     radioNC.navigationBar.translucent = NO;
-    radioNC.tabBarItem.title = @"电台";
+    radioNC.tabBarItem.title = @"视频";
     radioNC.tabBarItem.image = [UIImage imageNamed:@"tab_radio"];
     [arr addObject:radioNC];
     [radioRootVC release];
@@ -46,7 +46,7 @@
     //视频VC
     WLZVideoRootViewController *videoRootVC = [[WLZVideoRootViewController alloc] init];
     UINavigationController *videoNC = [[[UINavigationController alloc] initWithRootViewController:videoRootVC] autorelease];
-    videoNC.tabBarItem.title = @"视频";
+    videoNC.tabBarItem.title = @"电台";
     videoNC.navigationBar.translucent = NO;
     videoNC.tabBarItem.image = [UIImage imageNamed:@"tab_video"];
     [arr addObject:videoNC];
