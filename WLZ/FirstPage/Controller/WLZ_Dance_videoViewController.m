@@ -249,6 +249,7 @@
         float startSecond = CMTimeGetSeconds(timeRange.start);
         float durationSeconds = CMTimeGetSeconds(timeRange.duration);
         NSTimeInterval totalBuffer = startSecond + durationSeconds;
+        NSLog(@"共缓冲: %.2f", totalBuffer);
     }
 }
 - (AVPlayer *)player

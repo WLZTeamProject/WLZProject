@@ -51,6 +51,7 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = @"跳起来😊";
     self.danceArr = [NSMutableArray array];
     self.page = 1;
     [self createTableV];
@@ -74,9 +75,8 @@
     //设置上拉刷新
     self.tableV.mj_footer = [MJRefreshAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     
-//    if (self.danceArr.count != 0) {
         [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
-//    }
+
     
     
 }
