@@ -21,10 +21,6 @@
 - (void)createSubviews
 {
     self.headImageV = [UIImageView new];
-//        self.headImageV.backgroundColor = [UIColor yellowColor];
-    
-//    self.headImageV.image = [UIImage imageNamed:@"kafei"];
-    
     self.headImageV.layer.cornerRadius = (VHEIGHT - 60) / 4;
     self.headImageV.layer.masksToBounds = YES;
 
@@ -41,20 +37,20 @@
     
     self.titleL = [UILabel new];
     self.titleL.textAlignment = NSTextAlignmentCenter;
-//    self.titleL.backgroundColor = [UIColor redColor];
     self.titleL.text = @"ddd";
     [self addSubview:self.titleL];
     
     [self.titleL mas_makeConstraints:^(MASConstraintMaker *make) {
     
         make.top.equalTo(self.headImageV.mas_bottom).with.offset(50);
-//        make.center.equalTo(self);
         make.left.equalTo(self);
         make.height.equalTo(@50);
         make.width.equalTo(@(VWIDTH));
     }];
     
     self.slider = [UISlider new];
+//    self.slider.value = 0.3;
+    [self.slider addTarget:self action:@selector(volAction:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:self.slider];
     
     [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -65,6 +61,12 @@
     }];
     
 
+}
+- (void)volAction:(UISlider *)sender
+{
+    [self.delegate exchangeVol:self.slider.value];
+    
+    
 }
 
 @end

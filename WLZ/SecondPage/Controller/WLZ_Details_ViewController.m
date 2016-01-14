@@ -35,10 +35,10 @@
 //    }
 //    return self;
 //}
-- (void)viewWillAppear:(BOOL)animated
-{
-    self.tabBarController.tabBar.hidden = YES;
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    self.tabBarController.tabBar.hidden = YES;
+//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -146,12 +146,6 @@
     musicVC.titlePlay = [model.playInfo objectForKey:@"title"];
     musicVC.titleM = self.radioArr;
     [[WLZ_Music_ViewController sharePlayPageVC].player stop];
-    
-//    if ((STKAudioPlayerStatePlaying == [WLZ_Music_ViewController sharePlayPageVC].player.state) || (STKAudioPlayerStatePaused == [WLZ_Music_ViewController sharePlayPageVC].player.state))
-//    {
-//        
-//        
-//    }
     
     musicVC.rowBegin = indexPath.row;
     musicVC.url = [model.playInfo objectForKey:@"musicUrl"];
