@@ -101,7 +101,6 @@
 - (void)tapAction1:(UITapGestureRecognizer *)sender
 {
     [self.delegate exchange1];
-    NSLog(@"jjjjjjj");
 }
 - (void)tapAction2:(UITapGestureRecognizer *)sender
 {

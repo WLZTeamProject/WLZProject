@@ -11,12 +11,9 @@
 @interface WLZ_GIFT : UIView
 
 + (void)show;
-+ (void)showWithOverlay;
 + (void)dismiss;
-
-+ (void)setGifWithImages:(NSArray *)images;
+//+ (void)setGifWithImages:(NSArray *)images;
 + (void)setGifWithImageName:(NSString *)imageName;
-+ (void)setGifWithURL:(NSURL *)gifUrl;
-+ (UIImage *)animatedImageWithAnimatedGIFURL:(NSURL *)url;
+//+ (void)setGifWithURL:(NSURL *)gifUrl;
 
 @end

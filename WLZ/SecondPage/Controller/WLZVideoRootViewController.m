@@ -61,7 +61,8 @@
    //创建视图
     [self creatView];
     [self addHeaderRefresh];
-    
+    [WLZ_GIFT setGifWithImageName:@"pika2.gif"];
+
     // hahalalala
 }
 
@@ -236,6 +237,7 @@
 //获取数据
 - (void)getData:(NSString *)url body:(NSMutableDictionary *)body
 {
+    [WLZ_GIFT show];
     if ([url isEqualToString:FIRESTURL]) {
         self.imgArr = [NSMutableArray array];
         self.featuredArr = [NSMutableArray array];
@@ -285,6 +287,7 @@
     [self.tableV.mj_header endRefreshing];
     [self.tableV.mj_footer endRefreshing];
 
+    [WLZ_GIFT dismiss];
 }
 
 

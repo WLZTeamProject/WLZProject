@@ -167,6 +167,7 @@
 
 - (void)getData
 {
+    [WLZ_GIFT show];
     NSString *url = @"http://api2.pianke.me/ting/radio_detail";
     NSDictionary *dic = [NSDictionary dictionaryWithObject:@"PHPSESSID=clljgnbjaqsueqdinkv8366sj3" forKey:@"Cookie"];
     NSString *body = [NSString stringWithFormat:@"auth=&client=1&deviceid=FC88C466-6C29-47E4-B464-AAA1DA196931&radioid=%@&version=3.0.6", self.ScenicID];
@@ -182,6 +183,7 @@
         [self.tableV reloadData];
         [self.tableV.mj_header endRefreshing];
         [self.tableV.mj_footer endRefreshing];
+        [WLZ_GIFT dismiss];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         
