@@ -12,4 +12,5 @@
 
 - (void)addData:(ReadCollection *)model;//添加数据
 - (void)deleteData:(NSString *)mid;
+- (void)searchData;
 @end

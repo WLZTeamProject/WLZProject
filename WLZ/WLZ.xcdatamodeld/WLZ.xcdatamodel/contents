@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15B42" minimumToolsVersion="Automatic">
-    <entity name="ReadCollection" representedClassName="ReadCollection" syncable="YES">
+    <entity name="DocModel" representedClassName="DocModel" syncable="YES">
         <attribute name="html" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ReadCollection" positionX="-63" positionY="-18" width="128" height="30"/>
+        <element name="DocModel" positionX="-45" positionY="0" width="128" height="90"/>
     </elements>
 </model>

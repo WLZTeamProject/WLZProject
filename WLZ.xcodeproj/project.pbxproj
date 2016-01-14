@@ -57,9 +57,8 @@
 		496B368A1C3FF4E100DC214F /* WLZBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496B36891C3FF4E100DC214F /* WLZBaseView.m */; };
 		49712BB71C47271B00B39887 /* WLZNewsVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712BB61C47271B00B39887 /* WLZNewsVideoModel.m */; };
 		49712BC01C474E6800B39887 /* LQQCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712BBF1C474E6800B39887 /* LQQCoreDataManager.m */; };
-		49712BC61C474F1A00B39887 /* ReadCollection+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712BC31C474F1A00B39887 /* ReadCollection+CoreDataProperties.m */; };
-		49712BC71C474F1A00B39887 /* ReadCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712BC51C474F1A00B39887 /* ReadCollection.m */; };
-		49712BD01C47519700B39887 /* WLZReadCollectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712BCF1C47519700B39887 /* WLZReadCollectManager.m */; };
+		49712C9A1C47B45000B39887 /* DocModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712C971C47B45000B39887 /* DocModel+CoreDataProperties.m */; };
+		49712C9B1C47B45000B39887 /* DocModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712C991C47B45000B39887 /* DocModel.m */; };
 		49788E951C452DBB00434253 /* WLZ_Dance_videoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49788E941C452DBB00434253 /* WLZ_Dance_videoViewController.m */; };
 		49A589631C4358D2005017A6 /* WLZReadHeadCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A589621C4358D2005017A6 /* WLZReadHeadCycleView.m */; };
 		49A589661C4371A9005017A6 /* WLZReadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A589651C4371A9005017A6 /* WLZReadListViewController.m */; };
@@ -80,11 +79,9 @@
 		49D2D3261C4227A7001ED63D /* WLZBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D2D3251C4227A7001ED63D /* WLZBaseModel.m */; };
 		49D2D3291C422BA2001ED63D /* WLZReadHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D2D3281C422BA2001ED63D /* WLZReadHomeModel.m */; };
 		49DF8B471C40EE6100B2031F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DF8B461C40EE6100B2031F /* libsqlite3.0.tbd */; };
-
+		49E36AE11C466F87001E71ED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E36AE01C466F87001E71ED /* AVFoundation.framework */; };
 		49FC3BD71C4748C000141A1E /* WLZ_Dance_detailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FC3BD61C4748C000141A1E /* WLZ_Dance_detailTableViewCell.m */; };
 		49FC3BDA1C474B0800141A1E /* WLZ_Dance_contentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FC3BD91C474B0800141A1E /* WLZ_Dance_contentCollectionViewCell.m */; };
-		49E36AE11C466F87001E71ED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E36AE01C466F87001E71ED /* AVFoundation.framework */; };
-
 		92A545CB1C4167BA00A60D7D /* WLZ_Base_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A545CA1C4167BA00A60D7D /* WLZ_Base_Model.m */; };
 		92A784FC1C47395F00F0DEA6 /* WLZ_GIFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A784FB1C47395F00F0DEA6 /* WLZ_GIFT.m */; };
 		9FA4437D3665C00A45DDDE01 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D59BA53E477DD3A0DEB6E4D /* libPods.a */; };
@@ -208,12 +205,10 @@
 		49712BB61C47271B00B39887 /* WLZNewsVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZNewsVideoModel.m; sourceTree = "<group>"; };
 		49712BBE1C474E6800B39887 /* LQQCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQQCoreDataManager.h; sourceTree = "<group>"; };
 		49712BBF1C474E6800B39887 /* LQQCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQQCoreDataManager.m; sourceTree = "<group>"; };
-		49712BC21C474F1A00B39887 /* ReadCollection+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ReadCollection+CoreDataProperties.h"; sourceTree = "<group>"; };
-		49712BC31C474F1A00B39887 /* ReadCollection+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ReadCollection+CoreDataProperties.m"; sourceTree = "<group>"; };
-		49712BC41C474F1A00B39887 /* ReadCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadCollection.h; sourceTree = "<group>"; };
-		49712BC51C474F1A00B39887 /* ReadCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadCollection.m; sourceTree = "<group>"; };
-		49712BCE1C47519700B39887 /* WLZReadCollectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZReadCollectManager.h; sourceTree = "<group>"; };
-		49712BCF1C47519700B39887 /* WLZReadCollectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZReadCollectManager.m; sourceTree = "<group>"; };
+		49712C961C47B45000B39887 /* DocModel+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DocModel+CoreDataProperties.h"; sourceTree = "<group>"; };
+		49712C971C47B45000B39887 /* DocModel+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DocModel+CoreDataProperties.m"; sourceTree = "<group>"; };
+		49712C981C47B45000B39887 /* DocModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocModel.h; sourceTree = "<group>"; };
+		49712C991C47B45000B39887 /* DocModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocModel.m; sourceTree = "<group>"; };
 		49788E931C452DBB00434253 /* WLZ_Dance_videoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_videoViewController.h; sourceTree = "<group>"; };
 		49788E941C452DBB00434253 /* WLZ_Dance_videoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_videoViewController.m; sourceTree = "<group>"; };
 		49A589611C4358D2005017A6 /* WLZReadHeadCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZReadHeadCycleView.h; sourceTree = "<group>"; };
@@ -253,14 +248,11 @@
 		49D2D3271C422BA2001ED63D /* WLZReadHomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZReadHomeModel.h; sourceTree = "<group>"; };
 		49D2D3281C422BA2001ED63D /* WLZReadHomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZReadHomeModel.m; sourceTree = "<group>"; };
 		49DF8B461C40EE6100B2031F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-
+		49E36AE01C466F87001E71ED /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		49FC3BD51C4748C000141A1E /* WLZ_Dance_detailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_detailTableViewCell.h; sourceTree = "<group>"; };
 		49FC3BD61C4748C000141A1E /* WLZ_Dance_detailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_detailTableViewCell.m; sourceTree = "<group>"; };
 		49FC3BD81C474B0800141A1E /* WLZ_Dance_contentCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_contentCollectionViewCell.h; sourceTree = "<group>"; };
 		49FC3BD91C474B0800141A1E /* WLZ_Dance_contentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_contentCollectionViewCell.m; sourceTree = "<group>"; };
-
-		49E36AE01C466F87001E71ED /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-
 		5B4D7864812EA7009F66CB61 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		92A545B91C4124F000A60D7D /* WLZ_PCH.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLZ_PCH.pch; sourceTree = "<group>"; };
 		92A545C91C4167BA00A60D7D /* WLZ_Base_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLZ_Base_Model.h; path = WLZ/ThirdParty/WLZ_Base_Model.h; sourceTree = SOURCE_ROOT; };
@@ -475,6 +467,10 @@
 				496B36441C3FCF5400DC214F /* LaunchScreen.storyboard */,
 				496B36471C3FCF5400DC214F /* Info.plist */,
 				496B363F1C3FCF5400DC214F /* WLZ.xcdatamodeld */,
+				49712C961C47B45000B39887 /* DocModel+CoreDataProperties.h */,
+				49712C971C47B45000B39887 /* DocModel+CoreDataProperties.m */,
+				49712C981C47B45000B39887 /* DocModel.h */,
+				49712C991C47B45000B39887 /* DocModel.m */,
 				496B36331C3FCF5400DC214F /* Supporting Files */,
 			);
 			path = WLZ;
@@ -648,7 +644,6 @@
 		496B36811C3FF3D600DC214F /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				49712BC11C474F1A00B39887 /* ReadCoreDataCollect */,
 				49712BBE1C474E6800B39887 /* LQQCoreDataManager.h */,
 				49712BBF1C474E6800B39887 /* LQQCoreDataManager.m */,
 				496B36821C3FF42000DC214F /* LQQAFNetTool.h */,
@@ -656,19 +651,6 @@
 				92A545B91C4124F000A60D7D /* WLZ_PCH.pch */,
 			);
 			path = ThirdParty;
-			sourceTree = "<group>";
-		};
-		49712BC11C474F1A00B39887 /* ReadCoreDataCollect */ = {
-			isa = PBXGroup;
-			children = (
-				49712BC21C474F1A00B39887 /* ReadCollection+CoreDataProperties.h */,
-				49712BC31C474F1A00B39887 /* ReadCollection+CoreDataProperties.m */,
-				49712BC41C474F1A00B39887 /* ReadCollection.h */,
-				49712BC51C474F1A00B39887 /* ReadCollection.m */,
-				49712BCE1C47519700B39887 /* WLZReadCollectManager.h */,
-				49712BCF1C47519700B39887 /* WLZReadCollectManager.m */,
-			);
-			path = ReadCoreDataCollect;
 			sourceTree = "<group>";
 		};
 		49AD31B21C45366400C5B1F6 /* FourPage */ = {
@@ -924,7 +906,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				49D2D3291C422BA2001ED63D /* WLZReadHomeModel.m in Sources */,
-				49712BC61C474F1A00B39887 /* ReadCollection+CoreDataProperties.m in Sources */,
 				496B36411C3FCF5400DC214F /* WLZ.xcdatamodeld in Sources */,
 				49AD31C71C45518600C5B1F6 /* WLZNewTableViewCell.m in Sources */,
 				49AD31BB1C4536D100C5B1F6 /* WLZNewFirstModel.m in Sources */,
@@ -947,6 +928,7 @@
 				49FC3BD71C4748C000141A1E /* WLZ_Dance_detailTableViewCell.m in Sources */,
 				496B36381C3FCF5400DC214F /* AppDelegate.m in Sources */,
 				49712BB71C47271B00B39887 /* WLZNewsVideoModel.m in Sources */,
+				49712C9A1C47B45000B39887 /* DocModel+CoreDataProperties.m in Sources */,
 				49A5896C1C4380EB005017A6 /* WLZReadListHotCell.m in Sources */,
 				49D2D3231C422627001ED63D /* WLZBaseCollectionView.m in Sources */,
 				49C93B031C422F8F00898F22 /* WLZReadHomeCarouselModel.m in Sources */,
@@ -958,12 +940,11 @@
 				4966E1601C43DE80009CFE51 /* WLZ_List_CollectionViewCell.m in Sources */,
 				496B36351C3FCF5400DC214F /* main.m in Sources */,
 				4966E1A91C43E8F5009CFE51 /* WLZReadWebUserInfoModel.m in Sources */,
-				49712BC71C474F1A00B39887 /* ReadCollection.m in Sources */,
 				4966E1711C43DEA8009CFE51 /* WLZ_List_Model.m in Sources */,
 				4966E15D1C43DE80009CFE51 /* WLZ_ Introduce_CollectionViewCell.m in Sources */,
 				49FC3BDA1C474B0800141A1E /* WLZ_Dance_contentCollectionViewCell.m in Sources */,
+				49712C9B1C47B45000B39887 /* DocModel.m in Sources */,
 				4966E1741C43DEA8009CFE51 /* WLZ_Radios_Model.m in Sources */,
-				49712BD01C47519700B39887 /* WLZReadCollectManager.m in Sources */,
 				4966E1411C43DDEF009CFE51 /* WLZVideoRootViewController.m in Sources */,
 				4916162E1C473D45003F2BCC /* WLZ_Dance_relateTableViewCell.m in Sources */,
 				4966E11D1C43D410009CFE51 /* WLZBaseWebView.m in Sources */,

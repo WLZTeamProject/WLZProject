@@ -1,5 +1,5 @@
 //
-//  ReadCollection+CoreDataProperties.h
+//  DocModel+CoreDataProperties.h
 //  WLZ
 //
 //  Created by lqq on 16/1/14.
@@ -9,11 +9,11 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "ReadCollection.h"
+#import "DocModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ReadCollection (CoreDataProperties)
+@interface DocModel (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSString *title;
 @property (nullable, nonatomic, retain) NSString *mid;
