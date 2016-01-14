@@ -34,4 +34,6 @@
 - (instancetype)initWithFrame:(CGRect)frame videoURL:(NSString *)url;
 - (void)removeNotification;//移除通知
 - (void)removeObserverFromPlayerItem:(AVPlayerItem *)playerItem;//移除playeritem的观察者
+
+- (void)stop;
 @end

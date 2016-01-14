@@ -269,11 +269,11 @@
 - (void)tableViewCellHandle:(WLZNewFirstModel *)model
 {
     
-    if ([model.vtype isEqualToString:@"1"]) {
-        WLZNewsDetailViewController *detailVC = [[WLZNewsDetailViewController alloc] init];
-//        detailVC.vId = model.vid;
+//    if ([model.vtype isEqualToString:@"1"]) {
+        WLZNewsDetailViewController *detailVC = [WLZNewsDetailViewController shareDetailViewController];
+        detailVC.vId = model.vid;
         [self.navigationController pushViewController:detailVC animated:YES];
-    }
+//    }
 }
 
 - (void)didReceiveMemoryWarning {

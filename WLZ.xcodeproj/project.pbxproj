@@ -53,6 +53,7 @@
 		496B36841C3FF42000DC214F /* LQQAFNetTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 496B36831C3FF42000DC214F /* LQQAFNetTool.m */; };
 		496B36871C3FF49C00DC214F /* WLZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496B36861C3FF49C00DC214F /* WLZBaseViewController.m */; };
 		496B368A1C3FF4E100DC214F /* WLZBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 496B36891C3FF4E100DC214F /* WLZBaseView.m */; };
+		49712BB71C47271B00B39887 /* WLZNewsVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712BB61C47271B00B39887 /* WLZNewsVideoModel.m */; };
 		49788E951C452DBB00434253 /* WLZ_Dance_videoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49788E941C452DBB00434253 /* WLZ_Dance_videoViewController.m */; };
 		49A589631C4358D2005017A6 /* WLZReadHeadCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A589621C4358D2005017A6 /* WLZReadHeadCycleView.m */; };
 		49A589661C4371A9005017A6 /* WLZReadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A589651C4371A9005017A6 /* WLZReadListViewController.m */; };
@@ -188,6 +189,8 @@
 		496B36861C3FF49C00DC214F /* WLZBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZBaseViewController.m; sourceTree = "<group>"; };
 		496B36881C3FF4E100DC214F /* WLZBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZBaseView.h; sourceTree = "<group>"; };
 		496B36891C3FF4E100DC214F /* WLZBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZBaseView.m; sourceTree = "<group>"; };
+		49712BB51C47271B00B39887 /* WLZNewsVideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZNewsVideoModel.h; sourceTree = "<group>"; };
+		49712BB61C47271B00B39887 /* WLZNewsVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZNewsVideoModel.m; sourceTree = "<group>"; };
 		49788E931C452DBB00434253 /* WLZ_Dance_videoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_videoViewController.h; sourceTree = "<group>"; };
 		49788E941C452DBB00434253 /* WLZ_Dance_videoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_videoViewController.m; sourceTree = "<group>"; };
 		49A589611C4358D2005017A6 /* WLZReadHeadCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZReadHeadCycleView.h; sourceTree = "<group>"; };
@@ -632,6 +635,8 @@
 				49AD31BA1C4536D100C5B1F6 /* WLZNewFirstModel.m */,
 				49AD31C21C453D0F00C5B1F6 /* WLZNewsFirstItemListModel.h */,
 				49AD31C31C453D0F00C5B1F6 /* WLZNewsFirstItemListModel.m */,
+				49712BB51C47271B00B39887 /* WLZNewsVideoModel.h */,
+				49712BB61C47271B00B39887 /* WLZNewsVideoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -872,6 +877,7 @@
 				4966E1641C43DE80009CFE51 /* WLZ_Play_CollectionViewCell.m in Sources */,
 				4966E1701C43DEA8009CFE51 /* WLZ_Details_Model.m in Sources */,
 				496B36381C3FCF5400DC214F /* AppDelegate.m in Sources */,
+				49712BB71C47271B00B39887 /* WLZNewsVideoModel.m in Sources */,
 				49A5896C1C4380EB005017A6 /* WLZReadListHotCell.m in Sources */,
 				49D2D3231C422627001ED63D /* WLZBaseCollectionView.m in Sources */,
 				49C93B031C422F8F00898F22 /* WLZReadHomeCarouselModel.m in Sources */,
