@@ -10,7 +10,8 @@
 
 
 
-@interface WLZNewPlayer () <MBProgressHUDDelegate>
+@interface WLZNewPlayer ()
+//<MBProgressHUDDelegate>
 
 
 
@@ -47,7 +48,7 @@
         self.backgroundColor = [UIColor blackColor];
         [self createView:frame];//创建UI视图
         [self createPlayer:self.originalFrame]; //创建layer图层
-        [MBProgressHUD showHUDAddedTo:self animated:YES];//添加菊花
+//        [MBProgressHUD showHUDAddedTo:self animated:YES];//添加菊花
     }
     return self;
 }
@@ -91,7 +92,6 @@
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     self.playerLayer.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
     [self.layer addSublayer:self.playerLayer];
-    [self.player play];
 }
 
 
@@ -214,21 +214,21 @@
             if (!self.didPlay) {
                 [self createPlayer:self.frame];
                 [self.player play];
-                [MBProgressHUD hideHUDForView:self animated:YES];
+//                [MBProgressHUD hideHUDForView:self animated:YES];
                 [self bringSubviewToFront:self.barView];
                 [self.playButton setImage:[UIImage imageNamed:@"pause_32"] forState:UIControlStateNormal];
                 self.didPlay = YES;
             }
         } else {
             [self.player pause];
-            [MBProgressHUD showHUDAddedTo:self animated:YES];
+//            [MBProgressHUD showHUDAddedTo:self animated:YES];
             self.didPlay = NO;
             [self.playButton setImage:[UIImage imageNamed:@"play_32"] forState:UIControlStateNormal];
         }
         
     }
 }
-//播放视图的创建
+#pragma 播放视图的创建
 - (void)createView:(CGRect)frame {
     
     self.backImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
@@ -280,7 +280,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
     [self addGestureRecognizer:tap];
 }
-
+#pragma 点击隐藏控制view
 - (void)tapAction:(UITapGestureRecognizer *)tap {
     
     if (self.hidenBar) {
@@ -291,7 +291,7 @@
     }
     self.barView.hidden = self.hidenBar;
 }
-
+#pragma 播放暂停
 - (void)playButtonAction:(UIButton *)button
 {
     NSLog(@"%f", self.player.rate);
@@ -388,7 +388,12 @@
     }
 }
 
-
+- (void)stop
+{
+    [self.player pause];
+    [self.player.currentItem cancelPendingSeeks];
+    [self.player.currentItem.asset cancelLoading];
+}
 
 
 

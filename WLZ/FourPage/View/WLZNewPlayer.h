@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import <MBProgressHUD.h>
+//#import <MBProgressHUD.h>
 @interface WLZNewPlayer : UIView
 
 @property (nonatomic, retain) AVPlayer *player;//AVPlayer对象
@@ -34,4 +34,6 @@
 - (instancetype)initWithFrame:(CGRect)frame videoURL:(NSString *)url;
 - (void)removeNotification;//移除通知
 - (void)removeObserverFromPlayerItem:(AVPlayerItem *)playerItem;//移除playeritem的观察者
+
+- (void)stop;
 @end

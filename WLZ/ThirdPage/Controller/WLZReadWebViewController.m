@@ -192,7 +192,7 @@
         make.top.equalTo(self.view);
         make.left.equalTo(self.view.mas_left).offset(0);
         make.right.equalTo(self.view.mas_right).offset(0);
-        make.height.mas_equalTo(UIHEIGHT);
+        make.height.mas_equalTo(UIHEIGHT - 50);
     }];
     
     
@@ -200,6 +200,7 @@
     
     
 }
+#pragma 分享
 - (void)rightAction
 {
     NSLog(@"分享");
@@ -221,16 +222,6 @@
     //将toolBar移动最前面
     [self.view bringSubviewToFront:self.mytoolbar];
 }
-- (void)changeFont:(NSInteger)indexSize
-{
-//    NSLog(@"%ld", indexSize);
-    NSString *size = [NSString stringWithFormat:@"document.getElementsByTagName(‘body‘)[0].style.webkitTextSizeAdjust=‘%ld%%‘", indexSize];
-    NSLog(@"%@", size);
-        //字体大小
-    [self.webView stringByEvaluatingJavaScriptFromString:size];
-}
-
-
 #pragma 修改图片的大小
 - (void)changeWebImage
 {
@@ -277,6 +268,8 @@
     //contentid=568b3c8d5e774337628b462c&client=2
     self.bodyDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"568b3c8d5e774337628b462c",@"contentid",@"2", @"client", nil];
     [self.bodyDic setObject:self.mId forKey:@"contentid"];
+    
+    
     [LQQAFNetTool postNetWithURL:DOCURL body:self.bodyDic bodyStyle:LQQRequestJSON headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableDictionary *dic = responseObject[@"data"];
         self.model = [WLZReadWebFirstLevelModel baseModelWithDic:dic];
@@ -296,6 +289,9 @@
         
         
     }];
+    
+    
+    
      
 }
 

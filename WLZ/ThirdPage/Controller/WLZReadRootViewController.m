@@ -110,6 +110,7 @@
 #pragma 定义collectionView头视图
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
+    //判断是否设置头视图
     if (kind == UICollectionElementKindSectionHeader) {
         UICollectionReusableView *view = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
         NSMutableArray *arr = [NSMutableArray array];

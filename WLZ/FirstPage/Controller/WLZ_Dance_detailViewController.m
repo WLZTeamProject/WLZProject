@@ -11,7 +11,9 @@
 #import "WLZ_Dance_videoModel.h"
 #import "WLZ_Dance_ListModel.h"
 #import "WLZ_Dance_videoViewController.h"
-@interface WLZ_Dance_detailViewController ()
+#import "WLZ_Dance_detailCollectionViewCell.h"
+#import "WLZ_Dance_contentCollectionViewCell.h"
+@interface WLZ_Dance_detailViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, retain) AVPlayer *player;
 @property (nonatomic, retain) UIView *container;
 @property (nonatomic, retain) UILabel *timeLabel;
@@ -81,6 +83,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self createPlayerView];
     
+    [self createunderView];
+    
     
     
 }
@@ -97,15 +101,17 @@
 - (void)createPlayerView
 {
     
+    
+    
     self.totalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, ([[UIScreen mainScreen] bounds].size.height / 2 -  [[UIScreen mainScreen] bounds].size.height / 3) / 2 + [[UIScreen mainScreen] bounds].size.height / 3)];
     self.totalView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.totalView];
-    
     
     self.container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3)];
     self.container.backgroundColor = [UIColor clearColor];
     [self.totalView addSubview:self.container];
     [_container release];
+    
     
     
     
@@ -343,22 +349,55 @@
 }
 
 
+
 - (void)createunderView
 {
     
     UICollectionViewFlowLayout *flowL = [[[UICollectionViewFlowLayout alloc] init] autorelease];
+//    flowL.headerReferenceSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width , ([[UIScreen mainScreen] bounds].size.height / 2 - [[UIScreen mainScreen] bounds].size.height / 3) / 2 + [[UIScreen mainScreen] bounds].size.height / 3);
     flowL.minimumLineSpacing = 0;
     flowL.minimumInteritemSpacing = 0;
-    flowL.itemSize = CGSizeMake(100, 100);
-    flowL.headerReferenceSize = CGSizeMake(50, 50);
+//    flowL.ba
+    flowL.itemSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
+    flowL.headerReferenceSize = CGSizeMake(0, 0);
+    
     
     flowL.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    self.collectionV = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:flowL];
+    
+    self.collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.totalView.frame.size.height, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height) collectionViewLayout:flowL];
     self.collectionV.delegate = self;
     self.collectionV.dataSource = self;
-    self.collectionV.backgroundColor = [UIColor orangeColor];
+    self.collectionV.backgroundColor = [UIColor grayColor];
+    self.collectionV.pagingEnabled = YES;
     [self.view addSubview:self.collectionV];
+    
+    [self.collectionV registerClass:[WLZ_Dance_detailCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    
+    [self.collectionV registerClass:[WLZ_Dance_contentCollectionViewCell class] forCellWithReuseIdentifier:@"cell2"];
+    
+    
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 2;
+    
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+   
+    if (0 == indexPath.row) {
+        WLZ_Dance_contentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell2" forIndexPath:indexPath];
+        return cell;
+    }
+    WLZ_Dance_detailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    
+    return cell;
+    
+    
     
 }
 

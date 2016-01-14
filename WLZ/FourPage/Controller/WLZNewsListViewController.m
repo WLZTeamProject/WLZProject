@@ -12,7 +12,7 @@
 #import <MBProgressHUD.h>
 #import "WLZNewsHomeCollectionCell.h"
 #import <UIImageView+WebCache.h>
-
+#import "WLZNewsDetailViewController.h"
 @interface WLZNewsListViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, retain) MBProgressHUD *hub;
 @property (nonatomic, retain) UICollectionView *collectView;
@@ -113,21 +113,16 @@
     cell.titleLabel.text = model.title;
     return cell;
 }
-
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    WLZNewFirstModel *model = [self.itemListArr objectAtIndex:indexPath.row];
+    WLZNewsDetailViewController *detailVC = [WLZNewsDetailViewController shareDetailViewController];
+    detailVC.vId = model.vid;
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

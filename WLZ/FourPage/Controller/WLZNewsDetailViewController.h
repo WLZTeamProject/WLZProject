@@ -9,5 +9,6 @@
 #import "WLZBaseViewController.h"
 
 @interface WLZNewsDetailViewController : WLZBaseViewController
++ (instancetype)shareDetailViewController;
 @property (nonatomic, copy) NSString *vId;
 @end
