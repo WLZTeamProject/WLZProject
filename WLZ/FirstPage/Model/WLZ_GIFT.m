@@ -24,7 +24,11 @@
 #define toCF (CFTypeRef)
 #define fromCF (id)
 #endif
-@implementation WLZ_GIFT (animatedGIF)
+#pragma mark - UIImage Animated GIF
+
+
+@implementation UIImage (animatedGIF)
+
 static int delayCentisecondsForImageAtIndex(CGImageSourceRef const source, size_t const i) {
     int delayCentiseconds = 1;
     CFDictionaryRef const properties = CGImageSourceCopyPropertiesAtIndex(source, i, NULL);
@@ -75,7 +79,7 @@ static int pairGCD(int a, int b) {
 static int vectorGCD(size_t const count, int const *const values) {
     int gcd = values[0];
     for (size_t i = 1; i < count; ++i) {
-        // Note that after I process the first few elements of the vector, `gcd` will probably be smaller than any remaining element.  By passing the smaller value as the second argument to `pairGCD`, I avoid making it swap the arguments.
+
         gcd = pairGCD(values[i], gcd);
     }
     return gcd;
@@ -139,8 +143,6 @@ static UIImage *animatedImageWithAnimatedGIFReleasingImageSource(CGImageSourceRe
 @interface WLZ_GIFT ()
 
 + (instancetype)instance;
-
-@property (nonatomic, strong) UIView *overlayView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, assign) BOOL shown;
 
@@ -166,12 +168,10 @@ static WLZ_GIFT *instance;
 
 - (instancetype)init {
     if ((self = [super initWithFrame:CGRectMake(0, 0, Size, Size)])) {
-        
         [self setAlpha:0];
         [self setCenter:APPDELEGATE.window.center];
         [self setClipsToBounds:NO];
-        
-        [self.layer setBackgroundColor:[[UIColor colorWithWhite:0 alpha:0.5] CGColor]];
+        [self.layer setBackgroundColor:[[UIColor cyanColor] CGColor]];
         [self.layer setCornerRadius:10];
         [self.layer setMasksToBounds:YES];
         
@@ -182,17 +182,7 @@ static WLZ_GIFT *instance;
     }
     return self;
 }
-
-
-
 #pragma mark HUD
-
-+ (void)showWithOverlay {
-    [self dismiss:^{
-        [APPDELEGATE.window addSubview:[[self instance] overlay]];
-        [self show];
-    }];
-}
 
 + (void)show {
     [self dismiss:^{
@@ -206,8 +196,6 @@ static WLZ_GIFT *instance;
 + (void)dismiss {
     if (![[self instance] shown])
         return;
-    
-    [[[self instance] overlay] removeFromSuperview];
     [[self instance] fadeOut];
 }
 
@@ -215,10 +203,6 @@ static WLZ_GIFT *instance;
     if (![[self instance] shown])
         return complated ();
     
-    [[self instance] fadeOutComplate:^{
-        [[[self instance] overlay] removeFromSuperview];
-        complated ();
-    }];
 }
 
 #pragma mark Effects
@@ -249,39 +233,11 @@ static WLZ_GIFT *instance;
     }];
 }
 
-
-- (UIView *)overlay {
-    
-    if (!self.overlayView) {
-        self.overlayView = [[UIView alloc] initWithFrame:APPDELEGATE.window.frame];
-        [self.overlayView setBackgroundColor:[UIColor blackColor]];
-        [self.overlayView setAlpha:0];
-        
-        [UIView animateWithDuration:FadeDuration animations:^{
-            [self.overlayView setAlpha:0.3];
-        }];
-    }
-    return self.overlayView;
-}
-
-
-
 #pragma mark Gif
-
-+ (void)setGifWithImages:(NSArray *)images {
-    [[[self instance] imageView] setAnimationImages:images];
-    [[[self instance] imageView] setAnimationDuration:GifSpeed];
-}
 
 + (void)setGifWithImageName:(NSString *)imageName {
     [[[self instance] imageView] stopAnimating];
     [[[self instance] imageView] setImage:[UIImage animatedImageWithAnimatedGIFURL:[[NSBundle mainBundle] URLForResource:imageName withExtension:nil]]];
 }
-
-+ (void)setGifWithURL:(NSURL *)gifUrl {
-    [[[self instance] imageView] stopAnimating];
-    [[[self instance] imageView] setImage:[UIImage animatedImageWithAnimatedGIFURL:gifUrl]];
-}
-
 
 @end

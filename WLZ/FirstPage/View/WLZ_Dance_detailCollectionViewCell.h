@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface WLZ_Dance_detailCollectionViewCell : UICollectionViewCell
-@property (nonatomic, retain) NSString *title;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, retain) NSMutableArray *arr;
+- (void)setArr:(NSMutableArray *)arr;
+- (void)setTitle:(NSString *)title;
 @end

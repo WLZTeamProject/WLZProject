@@ -11,14 +11,24 @@
 #import "WLZ_Dance_ListModel.h"
 #import "WLZ_Dance_videoModel.h"
 #import "WLZ_Dance_relateTableViewCell.h"
+
 @interface WLZ_Dance_detailCollectionViewCell () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, assign) NSInteger page;
-@property (nonatomic, retain) NSMutableArray *arr;
+
 @property (nonatomic, retain) UITableView *tableV;
 
 @end
 
 @implementation WLZ_Dance_detailCollectionViewCell
+
+- (void)setTitle:(NSString *)title
+{
+    if (_title != title) {
+        [_title release];
+        _title = [title retain];
+        [self.tableV reloadData];
+    }
+}
 
 - (void)dealloc
 {
@@ -26,6 +36,15 @@
     [_arr release];
     [_tableV release];
     [super dealloc];
+}
+
+- (void)setArr:(NSMutableArray *)arr
+{
+    if (_arr != arr) {
+        [_arr release];
+        _arr = [arr retain];
+    }
+    [self.tableV reloadData];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -39,9 +58,9 @@
 
 - (void)createSubviews
 {
-    self.backgroundColor = [UIColor blueColor];
-    self.arr = [NSMutableArray array];
-    [self getData];
+    self.backgroundColor = [UIColor whiteColor];
+//    self.arr = [NSMutableArray array];
+//    self.page = 1;
     
     [self createTableV];
     
@@ -50,10 +69,10 @@
 
 - (void)createTableV
 {
-    self.tableV = [[UITableView alloc] initWithFrame:self.frame];
+    self.tableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, self.contentView.bounds.size.height)];
     self.tableV.dataSource = self;
     self.tableV.delegate = self;
-    [self addSubview:self.tableV];
+    [self.contentView addSubview:self.tableV];
     
     [self.tableV registerClass:[WLZ_Dance_relateTableViewCell class] forCellReuseIdentifier:@"cell"];
 
@@ -62,9 +81,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    CGFloat num = ([[UIScreen mainScreen] bounds].size.height / 2.0 - [[UIScreen mainScreen] bounds].size.height / 3.0 ) / 2 + [[UIScreen mainScreen] bounds].size.height / 3.0;
-    return num / 2.0;
+    return [[UIScreen mainScreen] bounds].size.height / 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -74,19 +91,26 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    NSLog(@"")
     
     if (self.arr != nil) {
-//        WLZ_Dance_ListModel *zylist = [self.arr objectAtIndex:indexPath.row];
+        WLZ_Dance_ListModel *zylist = [self.arr objectAtIndex:indexPath.row];
         WLZ_Dance_relateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        [cell.imageV sd_setImageWithURL:[NSURL URLWithString:zylist.item_image] placeholderImage:[UIImage imageNamed:@"kafei"]];
+        cell.titleL.text = zylist.item_title;
+        cell.catalogL.text = zylist.item_catalog;
         return cell;
     }
     return nil;
+    
     
 }
 
 - (void)getData
 {
-    NSString *urlStr = @"http://api3.dance365.com/video/search?word=%E6%AC%A7%E7%BE%8E%E7%88%B5%E5%A3%AB%E8%88%9E,%E7%BC%96%E8%88%9E%E4%BD%9C%E5%93%81,%E8%88%9E%E8%B9%88%E4%BD%9C%E5%93%81&perpage=10&page=1";
+    NSLog(@"谁谁谁水水水水%@", self.title);
+    NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/search?word=%@&perpage=10&page=1",self.title];
+    ;
     [LQQAFNetTool getNetWithURL:urlStr body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
         
@@ -102,10 +126,9 @@
             }
   
         }
-        
-        NSLog(@"娃哈哈哈哈哈啊哈哈%ld", self.arr.count);
-        
-        
+        [self.tableV reloadData];
+//        NSLog(@"娃哈哈哈哈哈啊哈哈%ld", self.arr.count);
+ 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         
