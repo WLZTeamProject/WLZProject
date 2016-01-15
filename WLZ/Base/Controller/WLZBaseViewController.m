@@ -7,7 +7,7 @@
 //
 
 #import "WLZBaseViewController.h"
-
+#import "AppDelegate.h"
 @interface WLZBaseViewController ()
 
 @end
@@ -18,8 +18,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    UIImage *image = [UIImage imageNamed:@"user"];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleDone target:self action:@selector(userAction)];
 }
-
+- (void)userAction
+{
+    AppDelegate *tempApp = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (tempApp.leftVC.closed) {
+        [tempApp.leftVC openLeftView];
+    } else {
+        [tempApp.leftVC closeLeftView];
+    }
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

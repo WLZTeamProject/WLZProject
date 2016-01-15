@@ -30,10 +30,17 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui"] style:UIBarButtonItemStyleDone target:self action:@selector(backAction)];
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     // Do any additional setup after loading the view.
     //创建视图
     [self createSubviews];
    
+}
+- (void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)createSubviews
 {
