@@ -51,8 +51,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-}
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui"] style:UIBarButtonItemStyleDone target:self action:@selector(backAction)];
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 
+}
+- (void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma 创建playerView
 - (void)createPlayerView
 {

@@ -59,6 +59,9 @@
 		49712BC01C474E6800B39887 /* LQQCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712BBF1C474E6800B39887 /* LQQCoreDataManager.m */; };
 		49712C9A1C47B45000B39887 /* DocModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712C971C47B45000B39887 /* DocModel+CoreDataProperties.m */; };
 		49712C9B1C47B45000B39887 /* DocModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49712C991C47B45000B39887 /* DocModel.m */; };
+		49712C9D1C47CE7E00B39887 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49712C9C1C47CE7E00B39887 /* CoreData.framework */; };
+		497217721C48811300D89F58 /* LeftSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4972176F1C48811300D89F58 /* LeftSlideViewController.m */; };
+		497217731C48811300D89F58 /* UIView_extra.m in Sources */ = {isa = PBXBuildFile; fileRef = 497217711C48811300D89F58 /* UIView_extra.m */; };
 		49788E951C452DBB00434253 /* WLZ_Dance_videoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49788E941C452DBB00434253 /* WLZ_Dance_videoViewController.m */; };
 		49A589631C4358D2005017A6 /* WLZReadHeadCycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A589621C4358D2005017A6 /* WLZReadHeadCycleView.m */; };
 		49A589661C4371A9005017A6 /* WLZReadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A589651C4371A9005017A6 /* WLZReadListViewController.m */; };
@@ -82,9 +85,6 @@
 		49E36AE11C466F87001E71ED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E36AE01C466F87001E71ED /* AVFoundation.framework */; };
 		49FC3BD71C4748C000141A1E /* WLZ_Dance_detailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FC3BD61C4748C000141A1E /* WLZ_Dance_detailTableViewCell.m */; };
 		49FC3BDA1C474B0800141A1E /* WLZ_Dance_contentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FC3BD91C474B0800141A1E /* WLZ_Dance_contentCollectionViewCell.m */; };
-
-		49E36AE11C466F87001E71ED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49E36AE01C466F87001E71ED /* AVFoundation.framework */; };
-
 		92A111F11C474C6F00479C3E /* pika2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 92A111F01C474C6F00479C3E /* pika2.gif */; };
 		92A545CB1C4167BA00A60D7D /* WLZ_Base_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A545CA1C4167BA00A60D7D /* WLZ_Base_Model.m */; };
 		92A784FC1C47395F00F0DEA6 /* WLZ_GIFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A784FB1C47395F00F0DEA6 /* WLZ_GIFT.m */; };
@@ -213,6 +213,11 @@
 		49712C971C47B45000B39887 /* DocModel+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DocModel+CoreDataProperties.m"; sourceTree = "<group>"; };
 		49712C981C47B45000B39887 /* DocModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocModel.h; sourceTree = "<group>"; };
 		49712C991C47B45000B39887 /* DocModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocModel.m; sourceTree = "<group>"; };
+		49712C9C1C47CE7E00B39887 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4972176E1C48811300D89F58 /* LeftSlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftSlideViewController.h; sourceTree = "<group>"; };
+		4972176F1C48811300D89F58 /* LeftSlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftSlideViewController.m; sourceTree = "<group>"; };
+		497217701C48811300D89F58 /* UIView_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIView_extra.h; sourceTree = "<group>"; };
+		497217711C48811300D89F58 /* UIView_extra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIView_extra.m; sourceTree = "<group>"; };
 		49788E931C452DBB00434253 /* WLZ_Dance_videoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_videoViewController.h; sourceTree = "<group>"; };
 		49788E941C452DBB00434253 /* WLZ_Dance_videoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_videoViewController.m; sourceTree = "<group>"; };
 		49A589611C4358D2005017A6 /* WLZReadHeadCycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZReadHeadCycleView.h; sourceTree = "<group>"; };
@@ -272,6 +277,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49712C9D1C47CE7E00B39887 /* CoreData.framework in Frameworks */,
 				49E36AE11C466F87001E71ED /* AVFoundation.framework in Frameworks */,
 				49DF8B471C40EE6100B2031F /* libsqlite3.0.tbd in Frameworks */,
 				9FA4437D3665C00A45DDDE01 /* libPods.a in Frameworks */,
@@ -650,6 +656,7 @@
 		496B36811C3FF3D600DC214F /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				4972176D1C48811300D89F58 /* LeftSlideViewController */,
 				49712BBE1C474E6800B39887 /* LQQCoreDataManager.h */,
 				49712BBF1C474E6800B39887 /* LQQCoreDataManager.m */,
 				496B36821C3FF42000DC214F /* LQQAFNetTool.h */,
@@ -657,6 +664,17 @@
 				92A545B91C4124F000A60D7D /* WLZ_PCH.pch */,
 			);
 			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		4972176D1C48811300D89F58 /* LeftSlideViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4972176E1C48811300D89F58 /* LeftSlideViewController.h */,
+				4972176F1C48811300D89F58 /* LeftSlideViewController.m */,
+				497217701C48811300D89F58 /* UIView_extra.h */,
+				497217711C48811300D89F58 /* UIView_extra.m */,
+			);
+			path = LeftSlideViewController;
 			sourceTree = "<group>";
 		};
 		49AD31B21C45366400C5B1F6 /* FourPage */ = {
@@ -722,6 +740,7 @@
 		F7E5B0D374760B9279D8973F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49712C9C1C47CE7E00B39887 /* CoreData.framework */,
 				49E36AE01C466F87001E71ED /* AVFoundation.framework */,
 				49DF8B461C40EE6100B2031F /* libsqlite3.0.tbd */,
 				0D59BA53E477DD3A0DEB6E4D /* libPods.a */,
@@ -935,6 +954,7 @@
 				49FC3BD71C4748C000141A1E /* WLZ_Dance_detailTableViewCell.m in Sources */,
 				496B36381C3FCF5400DC214F /* AppDelegate.m in Sources */,
 				49712BB71C47271B00B39887 /* WLZNewsVideoModel.m in Sources */,
+				497217721C48811300D89F58 /* LeftSlideViewController.m in Sources */,
 				49712C9A1C47B45000B39887 /* DocModel+CoreDataProperties.m in Sources */,
 				49A5896C1C4380EB005017A6 /* WLZReadListHotCell.m in Sources */,
 				49D2D3231C422627001ED63D /* WLZBaseCollectionView.m in Sources */,
@@ -980,6 +1000,7 @@
 				4966E19F1C43E1A4009CFE51 /* WLZ_DD_Model.m in Sources */,
 				49A5896F1C43838A005017A6 /* WLZReadTableViewCell.m in Sources */,
 				4954B7851C448C85001A1CD3 /* WLZ_Dance_videoModel.m in Sources */,
+				497217731C48811300D89F58 /* UIView_extra.m in Sources */,
 				4966E1AF1C43E9D6009CFE51 /* WLZReadWebShareInfoModel.m in Sources */,
 				92A545CB1C4167BA00A60D7D /* WLZ_Base_Model.m in Sources */,
 			);

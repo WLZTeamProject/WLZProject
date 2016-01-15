@@ -37,7 +37,14 @@
     // Do any additional setup after loading the view.
     [self createSubviews];
     [self createData];
-    
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui"] style:UIBarButtonItemStyleDone target:self action:@selector(backAction)];
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+
+}
+- (void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)createSubviews
 {
