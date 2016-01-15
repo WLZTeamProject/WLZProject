@@ -28,11 +28,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithRed:0.7883 green:0.9356 blue:1.0 alpha:1.0];
     [self createView];
 }
 - (void)createView
 {
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:self.view.frame];
+    imageV.backgroundColor = [UIColor colorWithRed:0.4 green:0.8 blue:1.0 alpha:1.0];
+    imageV.userInteractionEnabled = YES;
+    [self.view addSubview:imageV];
+    [imageV release];
     [self createTableView];
     
 }

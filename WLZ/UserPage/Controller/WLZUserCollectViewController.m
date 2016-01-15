@@ -30,14 +30,32 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"我的收藏";
+
+    [self createView];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     self.dataManager = [LQQCoreDataManager sharaCoreDataManager];
     self.docArr = [self.dataManager readSearch];
     for (DocModel *model in self.docArr) {
         NSLog(@"%@", model.title);
     }
-    [self createView];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
+    if (self.docArr.count == 0) {
+        
+        UILabel *label = [[UILabel alloc] init];
+        label.text = @"收藏夹空, 快去逛逛吧";
+        label.textColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
+        self.tableV.backgroundView = label;
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.view);
+            
+        }];
+    }
+    [self.tableV reloadData];
 }
+
 - (void)leftAction
 {
     [self dismissViewControllerAnimated:YES completion:^{
@@ -49,6 +67,7 @@
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
+    self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableV];
     [_tableV release];
     [self.tableV mas_makeConstraints:^(MASConstraintMaker *make) {
