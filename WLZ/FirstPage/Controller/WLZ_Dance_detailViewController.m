@@ -400,6 +400,9 @@
    
     if (0 == indexPath.row) {
         WLZ_Dance_contentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell2" forIndexPath:indexPath];
+//        cell.wlzDance = self.zyDance;
+        cell.titleL.text = self.zyDance.item_title;
+        
         return cell;
     }
     if (1 == indexPath.row) {
