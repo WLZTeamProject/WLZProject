@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol WLZ_Play_CollectionViewCellDelegate <NSObject>
 
+- (void)exchangeVol:(float)vol;
+
+
+@end
 @interface WLZ_Play_CollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, retain) UIImageView *headImageV;
@@ -17,5 +22,7 @@
 @property (nonatomic, retain) UISlider *slider;
 
 @property (nonatomic, strong) CADisplayLink *link;
+
+@property (nonatomic, assign) id<WLZ_Play_CollectionViewCellDelegate> delegate;
 
 @end
