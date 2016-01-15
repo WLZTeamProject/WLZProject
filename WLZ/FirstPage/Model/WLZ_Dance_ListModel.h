@@ -19,6 +19,11 @@
 @property (nonatomic, copy) NSString *item_catalog;
 @property (nonatomic, copy) NSString *item_group;
 @property (nonatomic, copy) NSString *item_group_gender;
+@property (nonatomic, copy) NSString *item_product;
+@property (nonatomic, copy) NSString *item_purpose;
+
 @property (nonatomic, copy) NSString *item_suitable;
 @property (nonatomic, retain) NSMutableArray *item_videos;
+
+
 @end

@@ -13,7 +13,7 @@
 #import "WLZ_Dance_videoViewController.h"
 #import "WLZ_Dance_detailCollectionViewCell.h"
 #import "WLZ_Dance_contentCollectionViewCell.h"
-@interface WLZ_Dance_detailViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface WLZ_Dance_detailViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLZ_Dance_detailCollectionViewCellDelegate>
 @property (nonatomic, retain) AVPlayer *player;
 @property (nonatomic, retain) UIView *container;
 @property (nonatomic, retain) UILabel *timeLabel;
@@ -54,6 +54,7 @@
 //playerViewController.player = player;
 //[player play];
 //[playerViewController release];
+
 
 //销毁页面会走
 - (void)dealloc
@@ -98,6 +99,22 @@
     
 }
 
+//添加播放完成通知
+- (void)addNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.player.currentItem];
+}
+//通知对象
+- (void)playbackFinished:(NSNotification *)notification{
+    NSLog(@"视频播放完成");
+}
+//移除通知
+- (void)removeNotification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+//隐藏tabBar
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -107,11 +124,9 @@
     return self;
 }
 
+//建立播放页面
 - (void)createPlayerView
 {
-    
-    
-    
     self.totalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, ([[UIScreen mainScreen] bounds].size.height / 2 -  [[UIScreen mainScreen] bounds].size.height / 3) / 2 + [[UIScreen mainScreen] bounds].size.height / 3)];
     self.totalView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.totalView];
@@ -197,6 +212,12 @@
     [self.butView addSubview:self.relateBut];
     
 
+}
+- (AVPlayerItem *)getPlayItem:(NSString *)urlStr
+{
+    NSURL *url = [NSURL URLWithString:urlStr];
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:url];
+    return playerItem;
 }
 
 //详情but
@@ -345,12 +366,10 @@
 {
     WLZ_Dance_videoModel *wlzvideo = [self.zyDance.item_videos objectAtIndex:0];
     if (!_player) {
-        NSString *str = wlzvideo.url;
-        NSURL *url = [NSURL URLWithString:str];
-        self.playerItem = [AVPlayerItem playerItemWithURL:url];
-        _player = [AVPlayer playerWithPlayerItem:self.playerItem];
+        AVPlayerItem *playerItem = [self getPlayItem:wlzvideo.url];
+        _player = [AVPlayer playerWithPlayerItem:playerItem];
 
-        [self addobserverToplayerItem:self.playerItem];
+        [self addobserverToplayerItem:playerItem];
         [self addTimeobserver];
         
     }
@@ -367,7 +386,7 @@
     flowL.minimumLineSpacing = 0;
     flowL.minimumInteritemSpacing = 0;
 //    flowL.ba
-    flowL.itemSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
+    flowL.itemSize = CGSizeMake(self.view.frame.size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
     flowL.headerReferenceSize = CGSizeMake(0, 0);
     
     
@@ -401,8 +420,16 @@
     if (0 == indexPath.row) {
         WLZ_Dance_contentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell2" forIndexPath:indexPath];
 //        cell.wlzDance = self.zyDance;
+
+        cell.titleL.numberOfLines = 0;
         cell.titleL.text = self.zyDance.item_title;
-        
+        cell.catalogL.text = self.zyDance.item_catalog;
+        cell.productL.text = self.zyDance.item_product;
+        cell.purposeL.text = self.zyDance.item_purpose;
+        cell.suitableL.text = self.zyDance.item_suitable;
+        cell.groupL.text = self.zyDance.item_group;
+        cell.genderL.text = self.zyDance.item_group_gender;
+        cell.summaryL.text = self.zyDance.item_summary;
         return cell;
     }
     if (1 == indexPath.row) {
@@ -410,15 +437,33 @@
         
         
         cell.arr = self.arr;
+        cell.delegate = self;
 //        NSLog(@"哈哈哈哈%@", cell.title);
         return cell;
     }
     return nil;
+
+    
+}
+
+//点击 协议 方法
+- (void)transferValue:(WLZ_Dance_ListModel *)wlzdance
+{
+//    NSLog(@"啦啦啦啦啦啦啦啦啦");
     
     
     
+    WLZ_Dance_videoModel *zyVideo =[wlzdance.item_videos objectAtIndex:0];
     
     
+    [self removeObserverFromPlayerItem:self.player.currentItem];
+    AVPlayerItem *playerItem = [self getPlayItem:zyVideo.url];
+    [self addobserverToplayerItem:playerItem];
+    [self.player replaceCurrentItemWithPlayerItem:playerItem];
+    
+    self.zyDance = wlzdance;
+    [self getrelateData];
+    [self.collectionV reloadData];
     
 }
 

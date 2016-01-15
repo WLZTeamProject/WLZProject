@@ -79,6 +79,13 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WLZ_Dance_ListModel *wlzlist = [self.arr objectAtIndex:indexPath.row];
+    [self.delegate transferValue:wlzlist];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [[UIScreen mainScreen] bounds].size.height / 6;
