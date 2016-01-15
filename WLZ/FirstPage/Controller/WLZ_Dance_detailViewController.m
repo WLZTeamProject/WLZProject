@@ -83,7 +83,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:131 / 256.0 green:59 / 256.0 blue:149 / 256.0 alpha:1.0];
     
     self.arr = [NSMutableArray array];
     
@@ -98,6 +98,7 @@
     
     
 }
+
 
 //添加播放完成通知
 - (void)addNotification
@@ -200,19 +201,53 @@
     self.detailBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.detailBut.frame = CGRectMake(0, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
     [self.detailBut setTitle:@"详情" forState:UIControlStateNormal];
-    self.detailBut.backgroundColor = [UIColor clearColor];
-    [self.relateBut addTarget:self action:@selector(detailButAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.detailBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+    self.detailBut.backgroundColor = [UIColor colorWithRed:49 / 255.0 green:1 / 255.0 blue:47 / 255.0 alpha:1.0];
+    [self.detailBut addTarget:self action:@selector(detailButAction) forControlEvents:UIControlEventTouchUpInside];
     [self.butView addSubview:self.detailBut];
     
     self.relateBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.relateBut.frame = CGRectMake(self.detailBut.frame.size.width, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
-    self.relateBut.backgroundColor = [UIColor clearColor];
+    self.relateBut.backgroundColor = [UIColor colorWithRed:49 / 255.0 green:1 / 255.0 blue:47 / 255.0 alpha:1.0];
     [self.relateBut setTitle:@"相关" forState:UIControlStateNormal];
     [self.relateBut addTarget:self action:@selector(relateButAction) forControlEvents:UIControlEventTouchUpInside];
     [self.butView addSubview:self.relateBut];
     
 
 }
+
+//详情but
+- (void)detailButAction
+{
+    
+    self.collectionV.contentOffset = CGPointMake(0, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
+    [self.detailBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+    [self.relateBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    
+}
+//相关but
+- (void)relateButAction
+{
+    
+    self.collectionV.contentOffset = CGPointMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
+    [self.detailBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.relateBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (0 == self.collectionV.contentOffset.x) {
+        [self.detailBut setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.relateBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    } else if (1 == self.collectionV.contentOffset.x / [[UIScreen mainScreen] bounds].size.width) {
+        
+        [self.detailBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.relateBut setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    }
+    
+}
+
 - (AVPlayerItem *)getPlayItem:(NSString *)urlStr
 {
     NSURL *url = [NSURL URLWithString:urlStr];
@@ -220,16 +255,7 @@
     return playerItem;
 }
 
-//详情but
-- (void)detailButAction
-{
-    
-}
-//相关but
-- (void)relateButAction
-{
-    
-}
+
 
 //隐藏view
 - (void)tapAction
@@ -261,7 +287,10 @@
     
     WLZ_Dance_videoViewController *wlzDanceVC = [WLZ_Dance_videoViewController alloc];
     wlzDanceVC.wlzdance = self.zyDance;
+//    self.player.currentItem.currentTime = wlzDanceVC.player.currentItem.currentTime;
+//    CGFloat time = self.player.currentItem.currentTime;
     [self.navigationController pushViewController:wlzDanceVC animated:YES];
+    
     [self.player pause];
 //    [self.navigationController setToolbarHidden:YES animated:YES];
     [self.tabBarController.tabBar setHidden:YES];
@@ -396,7 +425,7 @@
     self.collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.totalView.frame.size.height, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height) collectionViewLayout:flowL];
     self.collectionV.delegate = self;
     self.collectionV.dataSource = self;
-    self.collectionV.backgroundColor = [UIColor grayColor];
+    self.collectionV.backgroundColor = [UIColor clearColor];
     self.collectionV.pagingEnabled = YES;
     [self.view addSubview:self.collectionV];
     
@@ -419,6 +448,7 @@
    
     if (0 == indexPath.row) {
         WLZ_Dance_contentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell2" forIndexPath:indexPath];
+        cell.tag = 20001;
 //        cell.wlzDance = self.zyDance;
 
         cell.titleL.numberOfLines = 0;
@@ -434,7 +464,7 @@
     }
     if (1 == indexPath.row) {
         WLZ_Dance_detailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-        
+        cell.tag = 20002;
         
         cell.arr = self.arr;
         cell.delegate = self;
@@ -462,8 +492,11 @@
     [self.player replaceCurrentItemWithPlayerItem:playerItem];
     
     self.zyDance = wlzdance;
+    [self.arr removeAllObjects];
+//    self.arr = [NSMutableArray array];
     [self getrelateData];
-    [self.collectionV reloadData];
+//    [self reloadCellTabel];
+//    [self.collectionV reloadData];
     
 }
 
@@ -486,15 +519,24 @@
             }
             
         }
-        NSLog(@"娃哈哈哈哈哈啊哈哈%ld", self.arr.count);
-        
+        [self.collectionV reloadData];
+//        [self reloadCellTabel];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         
     }];
 
 }
-
+//- (void)reloadCellTabel {
+//
+//    NSArray *arr = [self.collectionV visibleCells];
+//    WLZ_Dance_detailCollectionViewCell *cell = arr[0];
+//    if (cell.tag == 20002) {
+//        NSLog(@"dsadsadasd");
+//        [cell.tableV reloadData];
+//    }
+//    
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

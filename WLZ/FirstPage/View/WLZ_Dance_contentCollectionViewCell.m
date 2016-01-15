@@ -50,7 +50,7 @@
 
 - (void)createSubviews
 {
-    self.backgroundColor = [UIColor grayColor];
+    self.backgroundColor = [UIColor clearColor];
     
     self.scrollV = [[UIScrollView alloc] init];
 //    self.scrollV.backgroundColor = [UIColor magentaColor];
@@ -116,7 +116,6 @@
     
 
     self.scrollV.frame = self.contentView.frame;
-//    self.titleL.frame = CGRectMake(10, 10, [[UIScreen mainScreen] bounds].size.width - 20, 50);
 
     self.titleL.numberOfLines = 0;
     

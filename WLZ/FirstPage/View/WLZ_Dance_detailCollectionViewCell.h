@@ -15,7 +15,7 @@
 
 @interface WLZ_Dance_detailCollectionViewCell : UICollectionViewCell
 @property (nonatomic, retain) id <WLZ_Dance_detailCollectionViewCellDelegate> delegate;
-
+@property (nonatomic, retain) UITableView *tableV;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, retain) NSMutableArray *arr;
 - (void)setArr:(NSMutableArray *)arr;
