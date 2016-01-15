@@ -8,7 +8,11 @@
 
 #import "WLZUserRootViewController.h"
 #import <Masonry.h>
-@interface WLZUserRootViewController () <UITableViewDelegate, UITableViewDataSource>
+#import "WLZUserCollectViewController.h"
+#import "AppDelegate.h"
+#import "WLZUserTableViewCell.h"
+#import "WLZUserLabelTableViewCell.h"
+@interface WLZUserRootViewController () <UITableViewDelegate, UITableViewDataSource, WLZUserTableViewCellDelegate>
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *arr;
@@ -24,11 +28,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithRed:0.7883 green:0.9356 blue:1.0 alpha:1.0];
     [self createView];
 }
 - (void)createView
 {
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:self.view.frame];
+    imageV.backgroundColor = [UIColor colorWithRed:0.4 green:0.8 blue:1.0 alpha:1.0];
+    imageV.userInteractionEnabled = YES;
+    [self.view addSubview:imageV];
+    [imageV release];
     [self createTableView];
     
 }
@@ -56,13 +65,63 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellStr = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
-    if (nil == cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
+    if (1 != indexPath.row) {
+        static NSString *cellStr = @"cell";
+        WLZUserLabelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
+        if (nil == cell) {
+            cell = [[WLZUserLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.text = [self.arr objectAtIndex:indexPath.row];
+        return cell;
+    } else {
+        static NSString *cellSStr = @"cellS";
+        WLZUserTableViewCell *cell = [[WLZUserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellSStr];
+        cell.delegate = self;
+        cell.titleLabel.text = [self.arr objectAtIndex:indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
     }
-    cell.textLabel.text = [self.arr objectAtIndex:indexPath.row];
-    return cell;
+}
+
+- (void)nightSwitchHandle:(UISwitch *)senderSwitch
+{
+    if (senderSwitch.on) {
+        NSLog(@"夜间模式");
+    } else {
+        NSLog(@"日间模式");
+    }
+    senderSwitch.on = !senderSwitch.on;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AppDelegate *tempApp = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSLog(@"%ld", indexPath.row);
+    WLZUserCollectViewController * collcetVC = nil;
+    switch (indexPath.row) {
+        case 0:
+            [tempApp.leftVC closeLeftView];
+            //跳转到收藏界面
+            collcetVC = [[WLZUserCollectViewController alloc] init];
+            UINavigationController *navNC = [[[UINavigationController alloc] initWithRootViewController:collcetVC] autorelease];
+            navNC.navigationBar.translucent = NO;
+            navNC.navigationBar.tintColor = [UIColor blackColor];
+            [self presentViewController:navNC animated:YES completion:^{
+            }];
+            [collcetVC release];
+            break;
+        case 1:
+            NSLog(@"夜间模式");
+            break;
+        case 2:
+            NSLog(@"清除缓存");
+            break;
+        default:
+            break;
+    }
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

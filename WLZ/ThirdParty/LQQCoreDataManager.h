@@ -22,4 +22,10 @@
 - (NSURL *)applicationDocumentsDirectory;
 //单例
 + (instancetype)sharaCoreDataManager;
+
+
+//查询
+- (NSMutableArray *)readSearch;
+//删除
+- (void)readDelete:(NSString *)mid;
 @end

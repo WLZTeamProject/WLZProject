@@ -125,7 +125,7 @@
     collectB.frame = CGRectMake(0, 0, 40, 40);
     collectB.selected = NO;
     
-    NSMutableArray *arr = [self readSearch];
+    NSMutableArray *arr = [self.coreManager readSearch];
     for (DocModel *model in arr) {
         if ([self.mId isEqualToString:model.mid]) {
             collectB.selected = YES;
@@ -184,46 +184,7 @@
     [self.coreManager saveContext];
     NSLog(@"收藏");
 }
-#pragma 查询
-- (NSMutableArray *)readSearch
-{
-    NSLog(@"查询");
-    NSMutableArray *arr = [NSMutableArray array];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"DocModel" inManagedObjectContext:self.coreManager.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSError *error = nil;
-    NSArray *fetchedObjects = [self.coreManager.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"error: %@", error);
-    }
-    [arr setArray:fetchedObjects];
-    for (DocModel *model in arr) {
-        NSLog(@"%@", model.title);
-    }
-    return arr;
 
-}
-
-
-
-#pragma 删除
-- (void)readDelete:(NSString *)mid
-{
-    NSLog(@"删除");
-    for (DocModel *model in self.coreArr) {
-        if ([model.mid isEqualToString:mid]) {
-            [self.coreManager.managedObjectContext deleteObject:model];
-        }
-    }
-    [self.coreManager saveContext];
-}
-- (void)awakeFromNib
-{
-    NSLog(@"awakeFromNib");
-//    self.coreManager = [LQQCoreDataManager sharaCoreDataManager];
-//    self.coreArr = [NSMutableArray array];
-}
 - (void)viewDidDisappear:(BOOL)animated
 {
     self.coreArr = nil;
@@ -237,7 +198,7 @@
             [self readCollection];
         } else {
             NSLog(@"取消");
-            [self readDelete:self.mId];
+            [self.coreManager readDelete:self.mId];
         }
         sender.selected = !sender.selected;
     }
