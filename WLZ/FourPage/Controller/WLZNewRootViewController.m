@@ -268,12 +268,9 @@
 #pragma 主页每个项的代理实现方法
 - (void)tableViewCellHandle:(WLZNewFirstModel *)model
 {
-    
-//    if ([model.vtype isEqualToString:@"1"]) {
         WLZNewsDetailViewController *detailVC = [WLZNewsDetailViewController shareDetailViewController];
         detailVC.vId = model.vid;
         [self.navigationController pushViewController:detailVC animated:YES];
-//    }
 }
 
 - (void)didReceiveMemoryWarning {

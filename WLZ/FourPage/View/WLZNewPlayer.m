@@ -411,6 +411,7 @@
     [self.player pause];
     [self.player.currentItem cancelPendingSeeks];
     [self.player.currentItem.asset cancelLoading];
+    self.player = nil;
 }
 
 
