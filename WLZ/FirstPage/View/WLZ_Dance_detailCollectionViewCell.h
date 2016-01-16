@@ -7,8 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class WLZ_Dance_ListModel;
+@protocol WLZ_Dance_detailCollectionViewCellDelegate <NSObject>
+
+- (void)transferValue:(WLZ_Dance_ListModel *)wlzdance;
+@end
 
 @interface WLZ_Dance_detailCollectionViewCell : UICollectionViewCell
+@property (nonatomic, retain) id <WLZ_Dance_detailCollectionViewCellDelegate> delegate;
+@property (nonatomic, retain) UITableView *tableV;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, retain) NSMutableArray *arr;
 - (void)setArr:(NSMutableArray *)arr;

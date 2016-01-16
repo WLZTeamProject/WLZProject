@@ -30,7 +30,7 @@
 }
 - (void)createSubviews
 {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor clearColor];
     self.imageV = [[UIImageView alloc] init];
     self.imageV.backgroundColor = [UIColor blueColor];
     [self.contentView addSubview:self.imageV];

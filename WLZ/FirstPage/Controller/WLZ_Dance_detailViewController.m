@@ -13,7 +13,7 @@
 #import "WLZ_Dance_videoViewController.h"
 #import "WLZ_Dance_detailCollectionViewCell.h"
 #import "WLZ_Dance_contentCollectionViewCell.h"
-@interface WLZ_Dance_detailViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface WLZ_Dance_detailViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLZ_Dance_detailCollectionViewCellDelegate>
 @property (nonatomic, retain) AVPlayer *player;
 @property (nonatomic, retain) UIView *container;
 @property (nonatomic, retain) UILabel *timeLabel;
@@ -55,6 +55,7 @@
 //[player play];
 //[playerViewController release];
 
+
 //销毁页面会走
 - (void)dealloc
 {
@@ -82,7 +83,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithRed:131 / 256.0 green:59 / 256.0 blue:149 / 256.0 alpha:1.0];
     
     self.arr = [NSMutableArray array];
     
@@ -98,6 +99,23 @@
     
 }
 
+
+//添加播放完成通知
+- (void)addNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.player.currentItem];
+}
+//通知对象
+- (void)playbackFinished:(NSNotification *)notification{
+    NSLog(@"视频播放完成");
+}
+//移除通知
+- (void)removeNotification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+//隐藏tabBar
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -107,11 +125,9 @@
     return self;
 }
 
+//建立播放页面
 - (void)createPlayerView
 {
-    
-    
-    
     self.totalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, ([[UIScreen mainScreen] bounds].size.height / 2 -  [[UIScreen mainScreen] bounds].size.height / 3) / 2 + [[UIScreen mainScreen] bounds].size.height / 3)];
     self.totalView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.totalView];
@@ -185,13 +201,14 @@
     self.detailBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.detailBut.frame = CGRectMake(0, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
     [self.detailBut setTitle:@"详情" forState:UIControlStateNormal];
-    self.detailBut.backgroundColor = [UIColor clearColor];
-    [self.relateBut addTarget:self action:@selector(detailButAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.detailBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+    self.detailBut.backgroundColor = [UIColor colorWithRed:49 / 255.0 green:1 / 255.0 blue:47 / 255.0 alpha:1.0];
+    [self.detailBut addTarget:self action:@selector(detailButAction) forControlEvents:UIControlEventTouchUpInside];
     [self.butView addSubview:self.detailBut];
     
     self.relateBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.relateBut.frame = CGRectMake(self.detailBut.frame.size.width, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
-    self.relateBut.backgroundColor = [UIColor clearColor];
+    self.relateBut.backgroundColor = [UIColor colorWithRed:49 / 255.0 green:1 / 255.0 blue:47 / 255.0 alpha:1.0];
     [self.relateBut setTitle:@"相关" forState:UIControlStateNormal];
     [self.relateBut addTarget:self action:@selector(relateButAction) forControlEvents:UIControlEventTouchUpInside];
     [self.butView addSubview:self.relateBut];
@@ -203,12 +220,42 @@
 - (void)detailButAction
 {
     
+    self.collectionV.contentOffset = CGPointMake(0, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
+    [self.detailBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+    [self.relateBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    
 }
 //相关but
 - (void)relateButAction
 {
     
+    self.collectionV.contentOffset = CGPointMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
+    [self.detailBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.relateBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
 }
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (0 == self.collectionV.contentOffset.x) {
+        [self.detailBut setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.relateBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    } else if (1 == self.collectionV.contentOffset.x / [[UIScreen mainScreen] bounds].size.width) {
+        
+        [self.detailBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.relateBut setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    }
+    
+}
+
+- (AVPlayerItem *)getPlayItem:(NSString *)urlStr
+{
+    NSURL *url = [NSURL URLWithString:urlStr];
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:url];
+    return playerItem;
+}
+
+
 
 //隐藏view
 - (void)tapAction
@@ -240,7 +287,10 @@
     
     WLZ_Dance_videoViewController *wlzDanceVC = [WLZ_Dance_videoViewController alloc];
     wlzDanceVC.wlzdance = self.zyDance;
+//    self.player.currentItem.currentTime = wlzDanceVC.player.currentItem.currentTime;
+//    CGFloat time = self.player.currentItem.currentTime;
     [self.navigationController pushViewController:wlzDanceVC animated:YES];
+    
     [self.player pause];
 //    [self.navigationController setToolbarHidden:YES animated:YES];
     [self.tabBarController.tabBar setHidden:YES];
@@ -345,12 +395,10 @@
 {
     WLZ_Dance_videoModel *wlzvideo = [self.zyDance.item_videos objectAtIndex:0];
     if (!_player) {
-        NSString *str = wlzvideo.url;
-        NSURL *url = [NSURL URLWithString:str];
-        self.playerItem = [AVPlayerItem playerItemWithURL:url];
-        _player = [AVPlayer playerWithPlayerItem:self.playerItem];
+        AVPlayerItem *playerItem = [self getPlayItem:wlzvideo.url];
+        _player = [AVPlayer playerWithPlayerItem:playerItem];
 
-        [self addobserverToplayerItem:self.playerItem];
+        [self addobserverToplayerItem:playerItem];
         [self addTimeobserver];
         
     }
@@ -367,7 +415,7 @@
     flowL.minimumLineSpacing = 0;
     flowL.minimumInteritemSpacing = 0;
 //    flowL.ba
-    flowL.itemSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
+    flowL.itemSize = CGSizeMake(self.view.frame.size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
     flowL.headerReferenceSize = CGSizeMake(0, 0);
     
     
@@ -377,7 +425,7 @@
     self.collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.totalView.frame.size.height, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height) collectionViewLayout:flowL];
     self.collectionV.delegate = self;
     self.collectionV.dataSource = self;
-    self.collectionV.backgroundColor = [UIColor grayColor];
+    self.collectionV.backgroundColor = [UIColor clearColor];
     self.collectionV.pagingEnabled = YES;
     [self.view addSubview:self.collectionV];
     
@@ -400,25 +448,55 @@
    
     if (0 == indexPath.row) {
         WLZ_Dance_contentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell2" forIndexPath:indexPath];
+        cell.tag = 20001;
 //        cell.wlzDance = self.zyDance;
+
+        cell.titleL.numberOfLines = 0;
         cell.titleL.text = self.zyDance.item_title;
-        
+        cell.catalogL.text = self.zyDance.item_catalog;
+        cell.productL.text = self.zyDance.item_product;
+        cell.purposeL.text = self.zyDance.item_purpose;
+        cell.suitableL.text = self.zyDance.item_suitable;
+        cell.groupL.text = self.zyDance.item_group;
+        cell.genderL.text = self.zyDance.item_group_gender;
+        cell.summaryL.text = self.zyDance.item_summary;
         return cell;
     }
     if (1 == indexPath.row) {
         WLZ_Dance_detailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-        
+        cell.tag = 20002;
         
         cell.arr = self.arr;
+        cell.delegate = self;
 //        NSLog(@"哈哈哈哈%@", cell.title);
         return cell;
     }
     return nil;
+
+    
+}
+
+//点击 协议 方法
+- (void)transferValue:(WLZ_Dance_ListModel *)wlzdance
+{
+//    NSLog(@"啦啦啦啦啦啦啦啦啦");
     
     
     
+    WLZ_Dance_videoModel *zyVideo =[wlzdance.item_videos objectAtIndex:0];
     
     
+    [self removeObserverFromPlayerItem:self.player.currentItem];
+    AVPlayerItem *playerItem = [self getPlayItem:zyVideo.url];
+    [self addobserverToplayerItem:playerItem];
+    [self.player replaceCurrentItemWithPlayerItem:playerItem];
+    
+    self.zyDance = wlzdance;
+    [self.arr removeAllObjects];
+//    self.arr = [NSMutableArray array];
+    [self getrelateData];
+//    [self reloadCellTabel];
+//    [self.collectionV reloadData];
     
 }
 
@@ -441,15 +519,24 @@
             }
             
         }
-        NSLog(@"娃哈哈哈哈哈啊哈哈%ld", self.arr.count);
-        
+        [self.collectionV reloadData];
+//        [self reloadCellTabel];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         
     }];
 
 }
-
+//- (void)reloadCellTabel {
+//
+//    NSArray *arr = [self.collectionV visibleCells];
+//    WLZ_Dance_detailCollectionViewCell *cell = arr[0];
+//    if (cell.tag == 20002) {
+//        NSLog(@"dsadsadasd");
+//        [cell.tableV reloadData];
+//    }
+//    
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

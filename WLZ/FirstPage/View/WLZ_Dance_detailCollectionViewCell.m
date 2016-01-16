@@ -15,7 +15,7 @@
 @interface WLZ_Dance_detailCollectionViewCell () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, assign) NSInteger page;
 
-@property (nonatomic, retain) UITableView *tableV;
+
 
 @end
 
@@ -30,6 +30,16 @@
     }
 }
 
+- (void)setArr:(NSMutableArray *)arr
+{
+    if (_arr != arr) {
+        [_arr release];
+        _arr = [arr retain];
+        
+    }
+    [self.tableV reloadData];
+}
+
 - (void)dealloc
 {
     [_title release];
@@ -38,14 +48,14 @@
     [super dealloc];
 }
 
-- (void)setArr:(NSMutableArray *)arr
-{
-    if (_arr != arr) {
-        [_arr release];
-        _arr = [arr retain];
-    }
-    [self.tableV reloadData];
-}
+//- (void)setArr:(NSMutableArray *)arr
+//{
+//    if (_arr != arr) {
+//        [_arr release];
+//        _arr = [arr retain];
+//    }
+//    [self.tableV reloadData];
+//}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -58,7 +68,8 @@
 
 - (void)createSubviews
 {
-    self.backgroundColor = [UIColor whiteColor];
+   
+    self.backgroundColor = [UIColor clearColor];
 //    self.arr = [NSMutableArray array];
 //    self.page = 1;
     
@@ -72,11 +83,21 @@
     self.tableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, self.contentView.bounds.size.height)];
     self.tableV.dataSource = self;
     self.tableV.delegate = self;
+    self.tableV.backgroundColor = [UIColor clearColor];
     [self.contentView addSubview:self.tableV];
     
     [self.tableV registerClass:[WLZ_Dance_relateTableViewCell class] forCellReuseIdentifier:@"cell"];
 
     
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WLZ_Dance_ListModel *wlzlist = [self.arr objectAtIndex:indexPath.row];
+    [self.delegate transferValue:wlzlist];
+    
+    [self.tableV reloadData];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -108,7 +129,6 @@
 
 - (void)getData
 {
-    NSLog(@"谁谁谁水水水水%@", self.title);
     NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/search?word=%@&perpage=10&page=1",self.title];
     ;
     [LQQAFNetTool getNetWithURL:urlStr body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
