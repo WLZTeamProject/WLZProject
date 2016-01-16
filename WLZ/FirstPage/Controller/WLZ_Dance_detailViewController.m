@@ -278,14 +278,13 @@
 {
 
     
-    WLZ_Dance_videoViewController *wlzDanceVC = [WLZ_Dance_videoViewController alloc];
+    WLZ_Dance_videoViewController *wlzDanceVC = [[WLZ_Dance_videoViewController alloc] init];
     wlzDanceVC.wlzdance = self.zyDance;
-//    self.player.currentItem.currentTime = wlzDanceVC.player.currentItem.currentTime;
-//    CGFloat time = self.player.currentItem.currentTime;
-//    AVPlayerItem *playerItem = self.player.currentItem;
-//    CMTime curTime = playerItem.currentTime;
-//    NSInteger nowSecond = curTime.value / curTime.timescale;
-//    wlzDanceVC.num = nowSecond;
+    
+    AVPlayerItem *playerItem = self.player.currentItem;
+    CMTime curTime = playerItem.currentTime;
+    NSInteger nowSecond = curTime.value / curTime.timescale;
+    wlzDanceVC.num = nowSecond;
     
     [self.navigationController pushViewController:wlzDanceVC animated:YES];
     
