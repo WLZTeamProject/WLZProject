@@ -59,6 +59,8 @@
 //销毁页面会走
 - (void)dealloc
 {
+    self.collectionV.delegate = nil;
+    self.collectionV.dataSource = nil;
     [self removeObserverFromPlayerItem:self.player.currentItem];
     [_player release];
     [_container release];
@@ -159,11 +161,19 @@
     [self.sliderView addSubview:self.timeS];
     [_timeS release];
     
-    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width / 3, self.sliderView.frame.size.height)];
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width / 6, self.sliderView.frame.size.height)];
     self.timeLabel.textColor = [UIColor whiteColor];
-    self.timeLabel.text = @"00:00/00:00";
+    self.timeLabel.textAlignment = NSTextAlignmentRight;
+    self.timeLabel.text = @"00:00/";
     [_timeLabel release];
     [self.sliderView addSubview:self.timeLabel];
+    
+    self.totalTimeL = [[UILabel alloc] initWithFrame:CGRectMake(self.timeLabel.frame.size.width, 0, self.sliderView.frame.size.width / 6, self.sliderView.frame.size.height)];
+    self.totalTimeL.textColor = [UIColor whiteColor];
+    self.totalTimeL.textAlignment = NSTextAlignmentLeft;
+    self.totalTimeL.text = @"00:00";
+    [self.sliderView addSubview:self.totalTimeL];
+    [_totalTimeL release];
     
     self.startBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.startBut.frame = CGRectMake(self.timeLabel.frame.size.width, 0, self.sliderView.frame.size.width / 3, self.sliderView.frame.size.height);
@@ -207,6 +217,9 @@
     [self.relateBut setTitle:@"相关" forState:UIControlStateNormal];
     [self.relateBut addTarget:self action:@selector(relateButAction) forControlEvents:UIControlEventTouchUpInside];
     [self.butView addSubview:self.relateBut];
+    
+    
+    
     
 
 }
@@ -292,6 +305,7 @@
 //    [self.navigationController setToolbarHidden:YES animated:YES];
     [self.tabBarController.tabBar setHidden:YES];
     
+    [wlzDanceVC release];
     
     
     
@@ -326,21 +340,30 @@
     
 }
 
+- (void)currentTime
+{
+    AVPlayerItem *playerItem = self.player.currentItem;
+    CMTime curTime = playerItem.currentTime;
+    NSInteger seconds = curTime.value / curTime.timescale;
+    self.timeS.value = seconds;
+}
+
 //添加进度条
 - (void)addTimeobserver
 {
     AVPlayerItem *playerItem = self.player.currentItem;
-
     
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(currentTime) userInfo:nil repeats:YES];
     
     [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         CGFloat total = CMTimeGetSeconds([playerItem duration]);
         CGFloat current = CMTimeGetSeconds(time);
-        self.timeS.value = current;
+//        self.timeS.value = current;
         NSString *newtime = [self changeTimer:current];
         NSString *totaltime = [self changeTimer:total];
-        self.timeLabel.text = [NSString stringWithFormat:@"%@/%@",  newtime, totaltime];
-        self.timeS.maximumValue = total;
+        self.timeLabel.text = [NSString stringWithFormat:@"%@/",  newtime];
+        self.totalTimeL.text = [NSString stringWithFormat:@"%@", totaltime];
+//        self.timeS.maximumValue = total;
         
     }];
     
@@ -377,7 +400,7 @@
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerStatusReadyToPlay) {
-            NSLog(@"正在播放........");
+//            NSLog(@"正在播放........");
         }
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
         NSArray *array = playerItem.loadedTimeRanges;
@@ -385,7 +408,7 @@
         float startSecond = CMTimeGetSeconds(timeRange.start);
         float durationSeconds = CMTimeGetSeconds(timeRange.duration);
         NSTimeInterval totalBuffer = startSecond + durationSeconds;
-        NSLog(@"一共缓存多少秒%0.2f", totalBuffer);
+//        NSLog(@"一共缓存多少秒%0.2f", totalBuffer);
     }
     
 }
@@ -490,14 +513,12 @@
     AVPlayerItem *playerItem = [self getPlayItem:zyVideo.url];
     [self addobserverToplayerItem:playerItem];
     [self.player replaceCurrentItemWithPlayerItem:playerItem];
-    
     self.zyDance = wlzdance;
-    [self.arr removeAllObjects];
-//    self.arr = [NSMutableArray array];
-    [self getrelateData];
-//    [self reloadCellTabel];
-//    [self.collectionV reloadData];
     
+    [self.arr removeAllObjects];
+    [self getrelateData];
+
+//    [zyVideo release];
 }
 
 - (void)getrelateData

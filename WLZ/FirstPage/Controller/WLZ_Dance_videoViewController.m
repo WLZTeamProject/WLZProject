@@ -249,8 +249,8 @@
         NSString *newtime = [self changeTimer:current];
         NSString *totalTime = [self changeTimer:total];
         self.timeLabel.text = [NSString stringWithFormat:@"%@/%@", newtime, totalTime];
-        self.timeS.value = current;
-        self.timeS.maximumValue = total;
+//        self.timeS.value = current;
+//        self.timeS.maximumValue = total;
         
     }];
 }
@@ -298,6 +298,7 @@
 {
     WLZ_Dance_videoModel *zyvideo = [self.wlzdance.item_videos objectAtIndex:0];
     if (!_player) {
+//        NSLog(@"哈哈哈哈哈哈%@", zyvideo.url);
         NSString *str = zyvideo.url;
         NSURL *url = [NSURL URLWithString:str];
         AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:url];
