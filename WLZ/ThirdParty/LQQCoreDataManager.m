@@ -131,11 +131,37 @@
     [arr setArray:fetchedObjects];
     return arr;    
 }
+#pragma 查询
+- (NSMutableArray *)RadiosSearch
+{
+    NSLog(@"查询");
+    NSMutableArray *arr = [NSMutableArray array];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"RadiosModel" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"error: %@", error);
+    }
+    [arr setArray:fetchedObjects];
+    return arr;
+}
 //#pragma 删除
 - (void)readDelete:(NSString *)mid
 {
     for (DocModel *model in [self readSearch]) {
         if ([model.mid isEqualToString:mid]) {
+            [self.managedObjectContext deleteObject:model];
+        }
+    }
+    [self saveContext];
+}
+//#pragma 删除
+- (void)RadiosDelete:(NSString *)title
+{
+    for (DocModel *model in [self RadiosSearch]) {
+        if ([model.title isEqualToString:title]) {
             [self.managedObjectContext deleteObject:model];
         }
     }

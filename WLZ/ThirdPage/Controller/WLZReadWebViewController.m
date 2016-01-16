@@ -69,6 +69,8 @@
 
 - (void)createSubviews
 {
+    self.coreManager = [LQQCoreDataManager sharaCoreDataManager];
+    self.coreArr = [NSMutableArray array];
     [self createViews];
     [self createData];
     
@@ -86,8 +88,6 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
-
-    
     self.tabBarController.tabBar.hidden = YES;
     self.tabBarController.tabBar.translucent = YES;
     //设置navBar背景色和字体颜色
@@ -103,8 +103,6 @@
 #pragma 创建toolbar
 - (void)createToolBar
 {
-    self.coreManager = [LQQCoreDataManager sharaCoreDataManager];
-    self.coreArr = [NSMutableArray array];
     NSMutableArray *toolBarItems = [NSMutableArray array];
     
     self.mytoolbar = [[UIToolbar alloc] init];
@@ -129,10 +127,12 @@
     for (DocModel *model in arr) {
         if ([self.mId isEqualToString:model.mid]) {
             collectB.selected = YES;
-        } else {
-            collectB.selected = NO;
+            NSLog(@"YES");
         }
     }
+    arr = nil;
+    
+    
     [collectB setImage:[UIImage imageNamed:@"tool_collect"] forState:UIControlStateNormal];
     [collectB setImage:[UIImage imageNamed:@"tool_collect_red"] forState:UIControlStateSelected];
     collectB.tag = 10000;

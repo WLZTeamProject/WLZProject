@@ -11,6 +11,8 @@
 #import "WLZ_Details_TableViewCell.h"
 #import "WLZ_Details_Model.h"
 #import "WLZ_Music_ViewController.h"
+#import "RadiosModel.h"
+#import "LQQCoreDataManager.h"
 @interface WLZ_Details_ViewController () <UITableViewDelegate, UITableViewDataSource>
 
 //@property (nonatomic, retain) STKAudioPlayer *player;
@@ -22,6 +24,9 @@
 @property (nonatomic, retain) UIImageView *headerImageV;
 
 @property (nonatomic, retain) NSMutableArray *radioArr;
+
+@property (nonatomic, retain) LQQCoreDataManager *coreManager;
+
 
 @end
 
@@ -42,15 +47,58 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.coreManager = [LQQCoreDataManager sharaCoreDataManager];
     self.view.backgroundColor = [UIColor magentaColor];
+    self.navigationItem.title = self.title;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"fanhui"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
+#pragma 右边两个按钮
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, 40, 40);
+    [button addTarget:self action:@selector(collectAction:) forControlEvents:UIControlEventTouchUpInside];
+    NSMutableArray *arr = [self.coreManager RadiosSearch];
+    button.selected = NO;
+    for (RadiosModel *model in arr) {
+        if ([self.title isEqualToString:model.title]) {
+            button.selected = YES;
+        }
+    }
+    [button setImage:[UIImage imageNamed:@"收藏1"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"收藏2"] forState:UIControlStateSelected];
+    UIBarButtonItem *bar = [[UIBarButtonItem alloc] initWithCustomView:button];
+
+    UIBarButtonItem *shareBar = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"fenxiang"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
+    NSArray *rightBarArr = [NSArray arrayWithObjects:shareBar, bar, nil];
+    self.navigationItem.rightBarButtonItems = rightBarArr;
 
     //创建TableView
     [self creatTableView];
     [self creatHeaderView];
     [self addHeaderRefresh];
+    NSLog(@"^^^^^^^^^%@", NSHomeDirectory());
 }
 
+- (void)collectAction:(UIButton *)sender
+{
+    if (sender.selected == NO) {
+        NSLog(@"收藏");
+        sender.selected = YES;
+        [self readCollection];
+    }
+    else
+    {
+        NSLog(@"取消");
+        sender.selected = NO;
+        [self.coreManager RadiosDelete:self.title];
+    }
+
+}
+- (void)readCollection
+{
+    RadiosModel *radiosmodel = [NSEntityDescription insertNewObjectForEntityForName:@"RadiosModel" inManagedObjectContext:self.coreManager.managedObjectContext];
+    radiosmodel.title = self.title;
+    [self.coreManager saveContext];
+    NSLog(@"收藏");
+}
 - (void)leftAction
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -140,7 +188,6 @@
     WLZ_Music_ViewController *musicVC = [WLZ_Music_ViewController sharePlayPageVC];
     //传值model
     WLZ_Details_Model *model = self.radioArr[indexPath.row];
-    musicVC.coving = model.coverimg;
     musicVC.tingid = model.tingid;
     musicVC.playInfo = [model.playInfo objectForKey:@"webview_url"];
     musicVC.titlePlay = [model.playInfo objectForKey:@"title"];
@@ -186,7 +233,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

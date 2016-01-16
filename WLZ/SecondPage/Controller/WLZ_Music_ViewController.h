@@ -14,8 +14,6 @@
 
 @property (nonatomic, copy) NSString *musicVisitM;
 
-@property (nonatomic, copy) NSString *coving;
-
 @property (nonatomic, retain) NSString *playInfo;
 
 @property (nonatomic, copy) NSString *url;

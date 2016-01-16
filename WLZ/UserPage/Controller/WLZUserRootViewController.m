@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "WLZUserTableViewCell.h"
 #import "WLZUserLabelTableViewCell.h"
+#import "WLZ_Radios_Collection_ViewController.h"
 @interface WLZUserRootViewController () <UITableViewDelegate, UITableViewDataSource, WLZUserTableViewCellDelegate>
 
 @property (nonatomic, retain) UITableView *tableView;
@@ -28,13 +29,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:0.7883 green:0.9356 blue:1.0 alpha:1.0];
     [self createView];
 }
 - (void)createView
 {
     UIImageView *imageV = [[UIImageView alloc] initWithFrame:self.view.frame];
-    imageV.backgroundColor = [UIColor colorWithRed:0.4 green:0.8 blue:1.0 alpha:1.0];
+    imageV.image = [UIImage imageNamed:@"user_bg"];
+    imageV.backgroundColor = [UIColor colorWithRed:0.841 green:0.9626 blue:0.9988 alpha:1.0];
     imageV.userInteractionEnabled = YES;
     [self.view addSubview:imageV];
     [imageV release];
@@ -43,8 +44,9 @@
 }
 -(void)createTableView
 {
-    self.arr = [NSMutableArray arrayWithObjects:@"我的收藏", @"夜间模式", @"清除缓存", nil];
+    self.arr = [NSMutableArray arrayWithObjects:@"阅读收藏", @"电台收藏", @"夜间模式", @"清除缓存", nil];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource  = self;
     self.tableView.scrollEnabled = NO;
@@ -65,12 +67,15 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (1 != indexPath.row) {
+    if (2 != indexPath.row) {
         static NSString *cellStr = @"cell";
         WLZUserLabelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
         if (nil == cell) {
             cell = [[WLZUserLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
         }
+        cell.layer.borderWidth = 1;
+        cell.layer.cornerRadius = 5;
+        cell.layer.borderColor = [UIColor whiteColor].CGColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.text = [self.arr objectAtIndex:indexPath.row];
         return cell;
@@ -78,6 +83,9 @@
         static NSString *cellSStr = @"cellS";
         WLZUserTableViewCell *cell = [[WLZUserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellSStr];
         cell.delegate = self;
+        cell.layer.borderWidth = 1;
+        cell.layer.cornerRadius = 5;
+         cell.layer.borderColor = [UIColor whiteColor].CGColor;
         cell.titleLabel.text = [self.arr objectAtIndex:indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -91,7 +99,6 @@
     } else {
         NSLog(@"日间模式");
     }
-    senderSwitch.on = !senderSwitch.on;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -99,8 +106,10 @@
     
     NSLog(@"%ld", indexPath.row);
     WLZUserCollectViewController * collcetVC = nil;
+    WLZ_Radios_Collection_ViewController *radiosCollectionVC = nil;
     switch (indexPath.row) {
         case 0:
+        {
             [tempApp.leftVC closeLeftView];
             //跳转到收藏界面
             collcetVC = [[WLZUserCollectViewController alloc] init];
@@ -110,12 +119,40 @@
             [self presentViewController:navNC animated:YES completion:^{
             }];
             [collcetVC release];
-            break;
-        case 1:
-            NSLog(@"夜间模式");
+        }
             break;
         case 2:
-            NSLog(@"清除缓存");
+            NSLog(@"夜间模式");
+            break;
+        case 3:
+        {
+            NSString *path = [[self class] getCachesDirectory];
+            NSLog(@"%.2f", [[self class] folderSizeAtPath:path]);
+            NSLog(@"%@", path);
+            NSString *romNumber = [NSString stringWithFormat:@"%.2fM", [[self class] folderSizeAtPath:path]];
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"清除缓存" message:romNumber preferredStyle:UIAlertControllerStyleAlert];
+            [alertC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[self class] clearCache:path];
+                
+            }]];
+            [alertC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }]];
+            [self presentViewController:alertC animated:YES completion:^{
+            }];
+        }
+            break;
+        case 1:
+        {
+            [tempApp.leftVC closeLeftView];
+            //跳转到收藏界面
+            radiosCollectionVC = [[WLZ_Radios_Collection_ViewController alloc] init];
+            UINavigationController *navNC = [[[UINavigationController alloc] initWithRootViewController:radiosCollectionVC] autorelease];
+            navNC.navigationBar.translucent = NO;
+            navNC.navigationBar.tintColor = [UIColor blackColor];
+            [self presentViewController:navNC animated:YES completion:^{
+            }];
+            [radiosCollectionVC release];
+        }
             break;
         default:
             break;
@@ -123,6 +160,73 @@
     
     
 }
+#pragma mark - 获取沙盒Document的文件目录
++ (NSString *)getDocumentDirectory{
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+#pragma mark - 获取沙盒Library的文件目录
++ (NSString *)getLibraryDirectory{
+    return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+#pragma mark - 获取沙盒Library/Caches的文件目录
++ (NSString *)getCachesDirectory{
+    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+#pragma mark - 获取沙盒Preference的文件目录
++ (NSString *)getPreferencePanesDirectory{
+    return [NSSearchPathForDirectoriesInDomains(NSPreferencePanesDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+#pragma mark - 获取沙盒tmp的文件目录
++ (NSString *)getTmpDirectory{
+    return
+    NSTemporaryDirectory();
+}
+
+////计算单个文件的大小
++(float)fileSizeAtPath:(NSString *)path{
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    if([fileManager fileExistsAtPath:path]){
+        long long size=[fileManager attributesOfItemAtPath:path error:nil].fileSize;
+        return size/1024.0/1024.0;
+    }
+    return 0;
+}
+
+
+//计算目录大小
++(float)folderSizeAtPath:(NSString *)path{
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    float folderSize;
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles=[fileManager subpathsAtPath:path];
+        for (NSString *fileName in childerFiles) {
+            NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+            folderSize +=[[self class] fileSizeAtPath:absolutePath];
+        }
+        //SDWebImage框架自身计算缓存的实现
+        folderSize+=[[SDImageCache sharedImageCache] getSize]/1024.0/1024.0;
+        return folderSize;
+    }
+    return 0;
+}
+//清理缓存文件
++(void)clearCache:(NSString *)path{
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles=[fileManager subpathsAtPath:path];
+        for (NSString *fileName in childerFiles) {
+            //如有需要，加入条件，过滤掉不想删除的文件
+            NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+            [fileManager removeItemAtPath:absolutePath error:nil];
+        }
+    }
+    [[SDImageCache sharedImageCache] cleanDisk];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
