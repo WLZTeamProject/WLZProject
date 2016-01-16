@@ -10,7 +10,7 @@
 
 @interface WLZ_Details_ViewController : WLZBaseViewController
 
-@property (nonatomic, copy) NSString *ScenicID;
+@property (nonatomic, copy) NSString *scenicID;
 
 @property (nonatomic, copy) NSString *title;
 

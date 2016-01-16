@@ -58,7 +58,7 @@
     NSMutableArray *arr = [self.coreManager RadiosSearch];
     button.selected = NO;
     for (RadiosModel *model in arr) {
-        if ([self.title isEqualToString:model.title]) {
+        if ([self.scenicID isEqualToString:model.scenicID]) {
             button.selected = YES;
         }
     }
@@ -74,21 +74,18 @@
     [self creatTableView];
     [self creatHeaderView];
     [self addHeaderRefresh];
-    NSLog(@"^^^^^^^^^%@", NSHomeDirectory());
 }
 
 - (void)collectAction:(UIButton *)sender
 {
     if (sender.selected == NO) {
-        NSLog(@"收藏");
         sender.selected = YES;
         [self readCollection];
     }
     else
     {
-        NSLog(@"取消");
         sender.selected = NO;
-        [self.coreManager RadiosDelete:self.title];
+        [self.coreManager RadiosDelete:self.scenicID];
     }
 
 }
@@ -96,8 +93,8 @@
 {
     RadiosModel *radiosmodel = [NSEntityDescription insertNewObjectForEntityForName:@"RadiosModel" inManagedObjectContext:self.coreManager.managedObjectContext];
     radiosmodel.title = self.title;
+    radiosmodel.scenicID = self.scenicID;
     [self.coreManager saveContext];
-    NSLog(@"收藏");
 }
 - (void)leftAction
 {
@@ -211,7 +208,7 @@
     [WLZ_GIFT show];
     NSString *url = @"http://api2.pianke.me/ting/radio_detail";
     NSDictionary *dic = [NSDictionary dictionaryWithObject:@"PHPSESSID=clljgnbjaqsueqdinkv8366sj3" forKey:@"Cookie"];
-    NSString *body = [NSString stringWithFormat:@"auth=&client=1&deviceid=FC88C466-6C29-47E4-B464-AAA1DA196931&radioid=%@&version=3.0.6", self.ScenicID];
+    NSString *body = [NSString stringWithFormat:@"auth=&client=1&deviceid=FC88C466-6C29-47E4-B464-AAA1DA196931&radioid=%@&version=3.0.6", self.scenicID];
     [LQQAFNetTool postNetWithURL:url body:body bodyStyle:LQQRequestNSString headFile:dic responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dataDic = [responseObject objectForKey:@"data"];
         //头图片

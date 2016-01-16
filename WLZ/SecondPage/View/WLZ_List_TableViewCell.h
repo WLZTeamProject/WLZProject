@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WLZ_PCH.pch"
 @interface WLZ_List_TableViewCell : UITableViewCell
 
-@property (nonatomic, retain) UILabel *titleL;
+@property (nonatomic, retain) WLZBaseLabel *titleL;
 
-@property (nonatomic, retain) UILabel *musicVisitL;
+@property (nonatomic, retain) WLZBaseLabel *musicVisitL;
 @end

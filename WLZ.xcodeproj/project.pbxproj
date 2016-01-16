@@ -91,9 +91,9 @@
 		92A111F11C474C6F00479C3E /* pika2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 92A111F01C474C6F00479C3E /* pika2.gif */; };
 		92A545CB1C4167BA00A60D7D /* WLZ_Base_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A545CA1C4167BA00A60D7D /* WLZ_Base_Model.m */; };
 		92A784FC1C47395F00F0DEA6 /* WLZ_GIFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A784FB1C47395F00F0DEA6 /* WLZ_GIFT.m */; };
-		92B705C21C4913F9005CA39B /* RadiosModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B705BF1C4913F9005CA39B /* RadiosModel+CoreDataProperties.m */; };
-		92B705C31C4913F9005CA39B /* RadiosModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B705C11C4913F9005CA39B /* RadiosModel.m */; };
 		92B705C91C491D62005CA39B /* WLZ_Radios_Collection_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B705C81C491D62005CA39B /* WLZ_Radios_Collection_ViewController.m */; };
+		92B705CE1C49DB95005CA39B /* RadiosModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B705CB1C49DB95005CA39B /* RadiosModel+CoreDataProperties.m */; };
+		92B705CF1C49DB95005CA39B /* RadiosModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B705CD1C49DB95005CA39B /* RadiosModel.m */; };
 		9FA4437D3665C00A45DDDE01 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D59BA53E477DD3A0DEB6E4D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -281,12 +281,12 @@
 		92A545CA1C4167BA00A60D7D /* WLZ_Base_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLZ_Base_Model.m; path = WLZ/ThirdParty/WLZ_Base_Model.m; sourceTree = SOURCE_ROOT; };
 		92A784FA1C47395F00F0DEA6 /* WLZ_GIFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_GIFT.h; sourceTree = "<group>"; };
 		92A784FB1C47395F00F0DEA6 /* WLZ_GIFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_GIFT.m; sourceTree = "<group>"; };
-		92B705BE1C4913F9005CA39B /* RadiosModel+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RadiosModel+CoreDataProperties.h"; sourceTree = "<group>"; };
-		92B705BF1C4913F9005CA39B /* RadiosModel+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RadiosModel+CoreDataProperties.m"; sourceTree = "<group>"; };
-		92B705C01C4913F9005CA39B /* RadiosModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadiosModel.h; sourceTree = "<group>"; };
-		92B705C11C4913F9005CA39B /* RadiosModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiosModel.m; sourceTree = "<group>"; };
 		92B705C71C491D62005CA39B /* WLZ_Radios_Collection_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Radios_Collection_ViewController.h; sourceTree = "<group>"; };
 		92B705C81C491D62005CA39B /* WLZ_Radios_Collection_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Radios_Collection_ViewController.m; sourceTree = "<group>"; };
+		92B705CA1C49DB95005CA39B /* RadiosModel+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RadiosModel+CoreDataProperties.h"; sourceTree = "<group>"; };
+		92B705CB1C49DB95005CA39B /* RadiosModel+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RadiosModel+CoreDataProperties.m"; sourceTree = "<group>"; };
+		92B705CC1C49DB95005CA39B /* RadiosModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadiosModel.h; sourceTree = "<group>"; };
+		92B705CD1C49DB95005CA39B /* RadiosModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiosModel.m; sourceTree = "<group>"; };
 		E1753F29B9FDA32391780B33 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -497,10 +497,10 @@
 				496B36441C3FCF5400DC214F /* LaunchScreen.storyboard */,
 				496B36471C3FCF5400DC214F /* Info.plist */,
 				496B363F1C3FCF5400DC214F /* WLZ.xcdatamodeld */,
-				92B705BE1C4913F9005CA39B /* RadiosModel+CoreDataProperties.h */,
-				92B705BF1C4913F9005CA39B /* RadiosModel+CoreDataProperties.m */,
-				92B705C01C4913F9005CA39B /* RadiosModel.h */,
-				92B705C11C4913F9005CA39B /* RadiosModel.m */,
+				92B705CA1C49DB95005CA39B /* RadiosModel+CoreDataProperties.h */,
+				92B705CB1C49DB95005CA39B /* RadiosModel+CoreDataProperties.m */,
+				92B705CC1C49DB95005CA39B /* RadiosModel.h */,
+				92B705CD1C49DB95005CA39B /* RadiosModel.m */,
 				49712C961C47B45000B39887 /* DocModel+CoreDataProperties.h */,
 				49712C971C47B45000B39887 /* DocModel+CoreDataProperties.m */,
 				49712C981C47B45000B39887 /* DocModel.h */,
@@ -971,7 +971,6 @@
 				4966E1631C43DE80009CFE51 /* WLZ_Other_CollectionViewCell.m in Sources */,
 				49788E951C452DBB00434253 /* WLZ_Dance_videoViewController.m in Sources */,
 				49D2D3261C4227A7001ED63D /* WLZBaseModel.m in Sources */,
-				92B705C31C4913F9005CA39B /* RadiosModel.m in Sources */,
 				49AD31CA1C455CCE00C5B1F6 /* WLZNewsHomeCollectionCell.m in Sources */,
 				49C93B091C4231C500898F22 /* WLZReadHomeCollectionCell.m in Sources */,
 				4966E19C1C43E1A4009CFE51 /* WLZRadioRootViewController.m in Sources */,
@@ -988,12 +987,12 @@
 				49712BB71C47271B00B39887 /* WLZNewsVideoModel.m in Sources */,
 				497217721C48811300D89F58 /* LeftSlideViewController.m in Sources */,
 				49712C9A1C47B45000B39887 /* DocModel+CoreDataProperties.m in Sources */,
-				92B705C21C4913F9005CA39B /* RadiosModel+CoreDataProperties.m in Sources */,
 				49A5896C1C4380EB005017A6 /* WLZReadListHotCell.m in Sources */,
 				4920F5F01C48DFFC0018DE3D /* WLZUserLabelTableViewCell.m in Sources */,
 				49D2D3231C422627001ED63D /* WLZBaseCollectionView.m in Sources */,
 				49C93B031C422F8F00898F22 /* WLZReadHomeCarouselModel.m in Sources */,
 				4966E19E1C43E1A4009CFE51 /* WLZ_Dance_Model.m in Sources */,
+				92B705CF1C49DB95005CA39B /* RadiosModel.m in Sources */,
 				4966E1611C43DE80009CFE51 /* WLZ_List_TableViewCell.m in Sources */,
 				4966E1401C43DDEF009CFE51 /* WLZ_Music_ViewController.m in Sources */,
 				4966E1731C43DEA8009CFE51 /* WLZ_OtherO_Model.m in Sources */,
@@ -1001,6 +1000,7 @@
 				4966E1601C43DE80009CFE51 /* WLZ_List_CollectionViewCell.m in Sources */,
 				496B36351C3FCF5400DC214F /* main.m in Sources */,
 				4966E1A91C43E8F5009CFE51 /* WLZReadWebUserInfoModel.m in Sources */,
+				92B705CE1C49DB95005CA39B /* RadiosModel+CoreDataProperties.m in Sources */,
 				4966E1711C43DEA8009CFE51 /* WLZ_List_Model.m in Sources */,
 				4920F5ED1C48D9850018DE3D /* WLZUserTableViewCell.m in Sources */,
 				4966E15D1C43DE80009CFE51 /* WLZ_ Introduce_CollectionViewCell.m in Sources */,

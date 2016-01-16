@@ -21,6 +21,7 @@
 #import <STKAudioPlayer.h>
 #import <MJRefresh.h>
 #import "WLZ_GIFT.h"
+#import "WLZBaseLabel.h"
 #define HEIGHT self.view.frame.size.height
 #define WIDTH self.view.frame.size.width
 

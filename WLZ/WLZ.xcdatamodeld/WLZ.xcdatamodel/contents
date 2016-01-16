@@ -6,10 +6,11 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="RadiosModel" representedClassName="RadiosModel" syncable="YES">
+        <attribute name="scenicID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="DocModel" positionX="-45" positionY="0" width="128" height="90"/>
-        <element name="RadiosModel" positionX="-36" positionY="36" width="128" height="60"/>
+        <element name="RadiosModel" positionX="-36" positionY="36" width="128" height="75"/>
     </elements>
 </model>

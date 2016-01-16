@@ -28,7 +28,7 @@
     self.mainImageV.layer.cornerRadius = 20;
     [self addSubview:self.mainImageV];
     
-    self.mainL = [UILabel new];
+    self.mainL = [WLZBaseLabel new];
     [self addSubview:self.mainL];
     
     UILabel *originalL = [UILabel new];
@@ -39,14 +39,14 @@
     self.originalImageV.layer.cornerRadius = 20;
     [self addSubview:self.originalImageV];
     
-    self.originalL = [UILabel new];
+    self.originalL = [WLZBaseLabel new];
     [self addSubview:self.originalL];
     
     UILabel *comfromL = [UILabel new];
     comfromL.text = @"来自电台:";
     [self addSubview:comfromL];
     
-    self.comfromL = [UILabel new];
+    self.comfromL = [WLZBaseLabel new];
     [self addSubview:self.comfromL];
     
     UILabel *otherL = [UILabel new];

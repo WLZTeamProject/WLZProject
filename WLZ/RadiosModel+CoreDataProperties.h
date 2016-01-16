@@ -2,7 +2,7 @@
 //  RadiosModel+CoreDataProperties.h
 //  WLZ
 //
-//  Created by 왕닝 on 16/1/15.
+//  Created by 왕닝 on 16/1/16.
 //  Copyright © 2016年 lwz. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RadiosModel (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSString *title;
+@property (nullable, nonatomic, retain) NSString *scenicID;
 
 @end
 

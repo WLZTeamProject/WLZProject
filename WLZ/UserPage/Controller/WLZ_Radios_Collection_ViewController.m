@@ -10,6 +10,7 @@
 #import "LQQCoreDataManager.h"
 #import <Masonry.h>
 #import "RadiosModel.h"
+#import "WLZ_Details_ViewController.h"
 @interface WLZ_Radios_Collection_ViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, retain) UITableView *tableV;
@@ -24,11 +25,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor redColor];
     self.navigationItem.title = @"我的收藏";
-//    self.dataManager = [LQQCoreDataManager sharaCoreDataManager];
-//    self.docArr = [self.dataManager RadiosSearch];
-//    for (RadiosModel *model in self.docArr) {
-//        NSLog(@"%@", model.title);
-//    }
     [self createView];
 
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
@@ -49,7 +45,7 @@
     }
     if (self.docArr.count == 0) {
         
-        UILabel *label = [[UILabel alloc] init];
+        WLZBaseLabel *label = [[WLZBaseLabel alloc] init];
         label.text = @"收藏夹空, 快去逛逛吧";
         label.textColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
         self.tableV.backgroundView = label;
@@ -107,9 +103,19 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
     }
     RadiosModel *model = [self.docArr objectAtIndex:indexPath.row];
-    cell.textLabel.text = model.title;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@%@", model.title, @"  的电台"];
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RadiosModel *model = [self.docArr objectAtIndex:indexPath.row];
+    WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
+    detailsVC.scenicID = model.scenicID;
+    [self.navigationController pushViewController:detailsVC animated:YES];
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

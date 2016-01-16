@@ -32,7 +32,7 @@
         make.width.equalTo(@60);
     }];
     
-    self.titleL = [UILabel new];
+    self.titleL = [WLZBaseLabel new];
     [self addSubview:self.titleL];
     
     [self.titleL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -43,7 +43,7 @@
         
     }];
     
-    self.musicVisitL = [UILabel new];
+    self.musicVisitL = [WLZBaseLabel new];
     [self addSubview:self.musicVisitL];
     [self.musicVisitL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).with.offset(-10);

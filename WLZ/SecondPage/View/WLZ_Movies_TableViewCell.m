@@ -33,7 +33,7 @@
         make.width.equalTo(@80);
     }];
     
-    self.titleL = [UILabel new];
+    self.titleL = [WLZBaseLabel new];
     [self addSubview:self.titleL];
     
     [self.titleL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -44,7 +44,7 @@
         
     }];
     
-    self.unameL = [UILabel new];
+    self.unameL = [WLZBaseLabel new];
     [self addSubview:self.unameL];
     
     [self.unameL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -55,7 +55,7 @@
         
     }];
     
-    self.descL = [UILabel new];
+    self.descL = [WLZBaseLabel new];
     [self addSubview:self.descL];
     
     [self.descL mas_makeConstraints:^(MASConstraintMaker *make) {
