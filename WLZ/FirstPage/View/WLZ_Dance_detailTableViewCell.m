@@ -32,7 +32,7 @@
 
 - (void)createSubviews
 {
-    self.backgroundColor = [UIColor grayColor];
+    self.backgroundColor = [UIColor clearColor];
     
 }
 

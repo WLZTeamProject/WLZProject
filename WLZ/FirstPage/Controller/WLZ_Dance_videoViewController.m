@@ -12,7 +12,7 @@
 #import "WLZ_Dance_videoModel.h"
 @interface WLZ_Dance_videoViewController ()
 @property (nonatomic, retain) UIView *container;
-@property (nonatomic, retain) AVPlayer *player;
+
 @property (nonatomic, retain) UILabel *timeLabel;
 @property (nonatomic, retain) UIView *backView;
 @property (nonatomic, retain) UIButton *backBut;

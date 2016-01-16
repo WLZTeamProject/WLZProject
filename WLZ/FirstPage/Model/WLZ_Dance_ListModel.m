@@ -20,6 +20,8 @@
     [_item_suitable release];
     [_item_catalog release];
     [_item_summary release];
+    [_item_product release];
+    [_item_purpose release];
     [super dealloc];
 }
 @end

@@ -7,7 +7,9 @@
 //
 
 #import "WLZBaseViewController.h"
+#import <AVFoundation/AVFoundation.h>
 @class WLZ_Dance_ListModel;
 @interface WLZ_Dance_videoViewController : WLZBaseViewController
 @property (nonatomic, retain) WLZ_Dance_ListModel *wlzdance;
+@property (nonatomic, retain) AVPlayer *player;
 @end

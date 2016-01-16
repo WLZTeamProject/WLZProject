@@ -11,4 +11,5 @@
 @interface WLZ_Dance_detailViewController : WLZBaseViewController
 @property (nonatomic, copy) NSString *urlStr;
 @property (nonatomic, retain) WLZ_Dance_ListModel *zyDance;
+- (void)setArr:(NSMutableArray *)arr;
 @end

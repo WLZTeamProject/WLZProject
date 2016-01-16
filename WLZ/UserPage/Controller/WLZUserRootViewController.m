@@ -29,11 +29,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     [self createView];
 }
 - (void)createView
 {
+    UIImageView *imageV = [[UIImageView alloc] initWithFrame:self.view.frame];
+    imageV.image = [UIImage imageNamed:@"user_bg"];
+    imageV.backgroundColor = [UIColor colorWithRed:0.841 green:0.9626 blue:0.9988 alpha:1.0];
+    imageV.userInteractionEnabled = YES;
+    [self.view addSubview:imageV];
+    [imageV release];
     [self createTableView];
     
 }
@@ -41,6 +46,7 @@
 {
     self.arr = [NSMutableArray arrayWithObjects:@"我的收藏", @"夜间模式", @"清除缓存", @"电台收藏", nil];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource  = self;
     self.tableView.scrollEnabled = NO;
@@ -67,6 +73,9 @@
         if (nil == cell) {
             cell = [[WLZUserLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
         }
+        cell.layer.borderWidth = 1;
+        cell.layer.cornerRadius = 5;
+        cell.layer.borderColor = [UIColor whiteColor].CGColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.text = [self.arr objectAtIndex:indexPath.row];
         return cell;
@@ -74,6 +83,9 @@
         static NSString *cellSStr = @"cellS";
         WLZUserTableViewCell *cell = [[WLZUserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellSStr];
         cell.delegate = self;
+        cell.layer.borderWidth = 1;
+        cell.layer.cornerRadius = 5;
+         cell.layer.borderColor = [UIColor whiteColor].CGColor;
         cell.titleLabel.text = [self.arr objectAtIndex:indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -87,7 +99,6 @@
     } else {
         NSLog(@"日间模式");
     }
-    senderSwitch.on = !senderSwitch.on;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
