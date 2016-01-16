@@ -26,6 +26,10 @@
 @property (nonatomic, retain) UICollectionView *collectionV;
 @property (nonatomic, retain) NSMutableArray *radionameArr;
 @property (nonatomic, retain) NSMutableArray *coverimgArr;
+@property (nonatomic, retain) UIImage *imageCYes;
+@property (nonatomic, retain) UIImage *imageCNo;
+@property (nonatomic, retain) UIImage *imageC;
+
 
 @end
 
@@ -83,8 +87,7 @@
     [self getData];
     self.row = self.rowBegin;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"fanhui"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
-    
-        if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
+    if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
     {
         [self changeVCColor];
         

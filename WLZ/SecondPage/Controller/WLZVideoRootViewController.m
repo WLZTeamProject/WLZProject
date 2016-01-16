@@ -32,6 +32,8 @@
 
 @property (nonatomic, retain) NSMutableArray *radioidArr;
 
+@property (nonatomic, retain) NSMutableArray *jingxuanArr;
+
 @property (nonatomic, assign) NSInteger index;
 
 
@@ -157,7 +159,6 @@
         }
         if (0 != self.featuredArr.count) {
             [self.featuredCell.newImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[0]]];
-            
             [self.featuredCell.earlyImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[1]]];
             [self.featuredCell.nightImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[2]]];
             
@@ -189,6 +190,9 @@
 - (void)exchange1
 {
     WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
+    WLZ_Radios_Model *model = self.jingxuanArr[0];
+    detailsVC.title = model.title;
+
     detailsVC.ScenicID = self.radioidArr[0];
     [self.navigationController pushViewController:detailsVC animated:YES];
 }
@@ -196,14 +200,16 @@
 {
     WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
     detailsVC.ScenicID = self.radioidArr[1];
-    
+    WLZ_Radios_Model *model = self.jingxuanArr[1];
+    detailsVC.title = model.title;
     [self.navigationController pushViewController:detailsVC animated:YES];
 }
 - (void)exchange3
 {
     WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
     detailsVC.ScenicID = self.radioidArr[2];
-
+    WLZ_Radios_Model *model = self.jingxuanArr[2];
+    detailsVC.title = model.title;
     [self.navigationController pushViewController:detailsVC animated:YES];
 }
 
@@ -220,6 +226,7 @@
         WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
         WLZ_Radios_Model *model = self.radiosArr[indexPath.row];
         detailsVC.ScenicID = model.radioid;
+        detailsVC.title = model.title;
         [self.navigationController pushViewController:detailsVC animated:YES];
     }
     [self.tableV reloadData];
@@ -243,6 +250,7 @@
         self.featuredArr = [NSMutableArray array];
         self.radiosArr = [NSMutableArray array];
         self.radioidArr = [NSMutableArray array];
+        self.jingxuanArr = [NSMutableArray array];
     }
     [LQQAFNetTool postNetWithURL:url body:body bodyStyle:LQQRequestJSON headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dataDic = [responseObject objectForKey:@"data"];
@@ -257,9 +265,12 @@
         
         //精选数据解析
         NSArray *hotlistArr = [dataDic objectForKey:@"hotlist"];
-        for (NSDictionary *dic in hotlistArr) {
+        for (NSMutableDictionary *dic in hotlistArr) {
+            WLZ_Radios_Model *model = [WLZ_Radios_Model baseModelWithDic:dic];
+            [self.jingxuanArr addObject:model];
             [self.featuredArr addObject:[dic objectForKey:@"coverimg"]];
             [self.radioidArr addObject:[dic objectForKey:@"radioid"]];
+            
         }
         
         NSMutableArray *listArr = nil;
@@ -276,18 +287,23 @@
             [self.radiosArr addObject:model];
         }
         if (self.radiosArr.count != 0) {
-           [self.tableV reloadData];
             [self.tableV.mj_footer endRefreshing];
             [self.tableV.mj_header endRefreshing];
+            [WLZ_GIFT dismiss];
+            [self.tableV reloadData];
         }
+        
+        
+        
+        
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
-    [self.tableV.mj_header endRefreshing];
-    [self.tableV.mj_footer endRefreshing];
+//    [self.tableV.mj_header endRefreshing];
+//    [self.tableV.mj_footer endRefreshing];
 
-    [WLZ_GIFT dismiss];
+    
 }
 
 

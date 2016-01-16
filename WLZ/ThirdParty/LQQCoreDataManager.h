@@ -26,6 +26,8 @@
 
 //查询
 - (NSMutableArray *)readSearch;
+- (NSMutableArray *)RadiosSearch;
 //删除
 - (void)readDelete:(NSString *)mid;
+- (void)RadiosDelete:(NSString *)title;
 @end

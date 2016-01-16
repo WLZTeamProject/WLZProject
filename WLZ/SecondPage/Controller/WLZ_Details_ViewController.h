@@ -12,4 +12,6 @@
 
 @property (nonatomic, copy) NSString *ScenicID;
 
+@property (nonatomic, copy) NSString *title;
+
 @end
