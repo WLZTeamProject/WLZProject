@@ -24,6 +24,7 @@
 }
 - (void)createSubviews
 {
+    self.backgroundColor =[UIColor clearColor];
     self.titleLabel = [[WLZBaseLabel alloc] init];
     [self.contentView addSubview:self.titleLabel];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -183,6 +183,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.tabBarController.tabBar.hidden = NO;
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+
 }
 
 @end

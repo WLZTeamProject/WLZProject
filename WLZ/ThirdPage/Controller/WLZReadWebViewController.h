@@ -10,5 +10,4 @@
 
 @interface WLZReadWebViewController : WLZBaseViewController
 @property (nonatomic, copy) NSString *mId;
-@property (nonatomic, copy) NSString *html;
 @end

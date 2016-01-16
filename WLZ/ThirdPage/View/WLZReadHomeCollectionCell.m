@@ -38,7 +38,7 @@
     self.nameLabel = [[WLZBaseLabel alloc] init];
     [self.contentView addSubview:self.nameLabel];
     self.nameLabel.textColor = [UIColor whiteColor];
-    self.nameLabel.backgroundColor = [UIColor colorWithRed:0.498 green:0.498 blue:0.498 alpha:1.0];
+    self.nameLabel.backgroundColor = [UIColor colorWithRed:0.4226 green:0.4226 blue:0.4226 alpha:0.5];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.font = [UIFont systemFontOfSize:15];
     [_nameLabel release];

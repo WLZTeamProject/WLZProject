@@ -40,7 +40,7 @@
     self.dataManager = [LQQCoreDataManager sharaCoreDataManager];
     self.docArr = [self.dataManager readSearch];
     for (DocModel *model in self.docArr) {
-        NSLog(@"%@", model.title);
+        NSLog(@"%@", model.mid);
     }
     if (self.docArr.count == 0) {
         
@@ -103,21 +103,23 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *cellStr = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
     if (nil == cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
+        
     }
     DocModel *model = [self.docArr objectAtIndex:indexPath.row];
     cell.textLabel.text = model.title;
     return cell;
+    
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DocModel *model = [self.docArr objectAtIndex:indexPath.row];
     WLZReadWebViewController *webViewController = [[[WLZReadWebViewController alloc] init] autorelease];
     webViewController.mId = model.mid;
-    
     [self.navigationController pushViewController:webViewController animated:YES];
 }
 - (void)didReceiveMemoryWarning {
