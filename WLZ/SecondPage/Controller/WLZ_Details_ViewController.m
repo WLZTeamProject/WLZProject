@@ -66,7 +66,7 @@
     [button setImage:[UIImage imageNamed:@"收藏2"] forState:UIControlStateSelected];
     UIBarButtonItem *bar = [[UIBarButtonItem alloc] initWithCustomView:button];
 
-    UIBarButtonItem *shareBar = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"fenxiang"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
+    UIBarButtonItem *shareBar = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"fenxiang"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStyleDone target:self action:@selector(shareAction)];
     NSArray *rightBarArr = [NSArray arrayWithObjects:shareBar, bar, nil];
     self.navigationItem.rightBarButtonItems = rightBarArr;
 
@@ -103,6 +103,21 @@
     self.navigationController.navigationBarHidden = NO;
 
 }
+
+- (void)shareAction
+{
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"5699b3a5e0f55a1f1c00159d"
+                                      shareText:@"王宁, 邹雨, 李千千出品:"
+                                     shareImage:[UIImage imageNamed:@"蠕动"]
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent,UMShareToRenren,UMShareToQQ, UMShareToQzone,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToWechatFavorite ,nil]
+                                       delegate:nil];
+    //图文时,点击点击跳连接
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://baidu.com";
+    // 如果是朋友圈, 则替换平台参数
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = @"http://baidu.com";
+}
+
 - (void)addHeaderRefresh
 {
     self.tableV.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
