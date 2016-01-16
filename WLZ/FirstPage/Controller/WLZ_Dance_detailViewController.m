@@ -92,11 +92,6 @@
     [self createPlayerView];
     
     [self createunderView];
-    
-    
-    
-    
-    
 }
 
 
@@ -281,14 +276,17 @@
 //横屏方法
 - (void)screenButAction
 {
-//    WLZ_Dance_detailViewController *wlzDanceVC = [WLZ_Dance_detailViewController new];
-//    CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI / 2);
-//    wlzDanceVC.view.transform = transform;
+
     
-    WLZ_Dance_videoViewController *wlzDanceVC = [WLZ_Dance_videoViewController alloc];
+    WLZ_Dance_videoViewController *wlzDanceVC = [[WLZ_Dance_videoViewController alloc] init];
     wlzDanceVC.wlzdance = self.zyDance;
 //    self.player.currentItem.currentTime = wlzDanceVC.player.currentItem.currentTime;
 //    CGFloat time = self.player.currentItem.currentTime;
+//    AVPlayerItem *playerItem = self.player.currentItem;
+//    CMTime curTime = playerItem.currentTime;
+//    NSInteger nowSecond = curTime.value / curTime.timescale;
+//    wlzDanceVC.num = nowSecond;
+    
     [self.navigationController pushViewController:wlzDanceVC animated:YES];
     
     [self.player pause];
@@ -296,7 +294,10 @@
     [self.tabBarController.tabBar setHidden:YES];
     
     
+    
+    
 }
+
 
 - (void)playClick
 {
@@ -326,7 +327,7 @@
     
 }
 
-
+//添加进度条
 - (void)addTimeobserver
 {
     AVPlayerItem *playerItem = self.player.currentItem;

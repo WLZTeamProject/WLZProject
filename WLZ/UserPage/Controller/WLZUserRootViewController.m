@@ -44,7 +44,7 @@
 }
 -(void)createTableView
 {
-    self.arr = [NSMutableArray arrayWithObjects:@"阅读收藏", @"电台收藏", @"夜间模式", @"清除缓存", nil];
+    self.arr = [NSMutableArray arrayWithObjects:@"阅读收藏", @"电台收藏", @"视频收藏", @"夜间模式", @"清除缓存", nil];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
@@ -67,7 +67,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (2 != indexPath.row) {
+    if (3 != indexPath.row) {
         static NSString *cellStr = @"cell";
         WLZUserLabelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
         if (nil == cell) {
@@ -121,10 +121,10 @@
             [collcetVC release];
         }
             break;
-        case 2:
+        case 3:
             NSLog(@"夜间模式");
             break;
-        case 3:
+        case 4:
         {
             NSString *path = [[self class] getCachesDirectory];
             NSLog(@"%.2f", [[self class] folderSizeAtPath:path]);
@@ -153,6 +153,10 @@
             }];
             [radiosCollectionVC release];
         }
+            break;
+        case 2:
+            NSLog(@"视频收藏");
+            
             break;
         default:
             break;

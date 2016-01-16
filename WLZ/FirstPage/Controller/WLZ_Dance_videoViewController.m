@@ -259,8 +259,11 @@
         NSString *str = zyvideo.url;
         NSURL *url = [NSURL URLWithString:str];
         AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:url];
+//        playerItem.currentTime = self.curTime;
+//        CMTime nowTime = playerItem.duration;
+//        nowTime.value = self.num * nowTime.timescale;
         _player = [AVPlayer playerWithPlayerItem:playerItem];
-        
+//        [_player seekToTime:nowTime];
         [self addobserverToplayerTtem:playerItem];
         [self addTimeobserver];
     }
