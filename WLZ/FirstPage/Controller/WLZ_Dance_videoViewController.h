@@ -12,4 +12,6 @@
 @interface WLZ_Dance_videoViewController : WLZBaseViewController
 @property (nonatomic, retain) WLZ_Dance_ListModel *wlzdance;
 @property (nonatomic, retain) AVPlayer *player;
+@property (nonatomic, assign) CMTime curTime;
+@property (nonatomic, assign) NSInteger num;
 @end
