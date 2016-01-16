@@ -7,3 +7,4 @@ pod 'MMDrawerController'
 pod 'SDCycleScrollView'
 pod 'Masonry'
 pod 'StreamingKit'
+pod 'UMengSocial', '~> 4.2.3’

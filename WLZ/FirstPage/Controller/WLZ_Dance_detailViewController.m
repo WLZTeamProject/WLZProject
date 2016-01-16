@@ -285,7 +285,7 @@
 //    CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI / 2);
 //    wlzDanceVC.view.transform = transform;
     
-    WLZ_Dance_videoViewController *wlzDanceVC = [WLZ_Dance_videoViewController alloc];
+    WLZ_Dance_videoViewController *wlzDanceVC = [[WLZ_Dance_videoViewController alloc] init];
     wlzDanceVC.wlzdance = self.zyDance;
 //    self.player.currentItem.currentTime = wlzDanceVC.player.currentItem.currentTime;
 //    CGFloat time = self.player.currentItem.currentTime;
