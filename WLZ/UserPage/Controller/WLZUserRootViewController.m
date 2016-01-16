@@ -44,7 +44,7 @@
 }
 -(void)createTableView
 {
-    self.arr = [NSMutableArray arrayWithObjects:@"我的收藏", @"夜间模式", @"清除缓存", @"电台收藏", nil];
+    self.arr = [NSMutableArray arrayWithObjects:@"阅读收藏", @"电台收藏", @"夜间模式", @"清除缓存", nil];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
@@ -67,7 +67,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (1 != indexPath.row) {
+    if (2 != indexPath.row) {
         static NSString *cellStr = @"cell";
         WLZUserLabelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
         if (nil == cell) {
@@ -121,10 +121,10 @@
             [collcetVC release];
         }
             break;
-        case 1:
+        case 2:
             NSLog(@"夜间模式");
             break;
-        case 2:
+        case 3:
         {
             NSString *path = [[self class] getCachesDirectory];
             NSLog(@"%.2f", [[self class] folderSizeAtPath:path]);
@@ -135,11 +135,13 @@
                 [[self class] clearCache:path];
                 
             }]];
+            [alertC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }]];
             [self presentViewController:alertC animated:YES completion:^{
             }];
         }
             break;
-        case 3:
+        case 1:
         {
             [tempApp.leftVC closeLeftView];
             //跳转到收藏界面
