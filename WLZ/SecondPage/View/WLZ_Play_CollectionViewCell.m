@@ -35,7 +35,7 @@
         
     }];
     
-    self.titleL = [UILabel new];
+    self.titleL = [WLZBaseLabel new];
     self.titleL.textAlignment = NSTextAlignmentCenter;
     self.titleL.text = @"ddd";
     [self addSubview:self.titleL];

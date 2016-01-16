@@ -20,7 +20,7 @@
 
 - (void)creatSubViews
 {
-    self.titleL = [UILabel new];
+    self.titleL = [WLZBaseLabel new];
     [self addSubview:self.titleL];
     [self.titleL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(10);
@@ -30,7 +30,7 @@
         
     }];
     
-    self.musicVisitL = [UILabel new];
+    self.musicVisitL = [WLZBaseLabel new];
     [self addSubview:self.musicVisitL];
     [self.musicVisitL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).with.offset(-10);

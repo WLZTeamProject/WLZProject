@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "WLZ_Radios_Model.h"
+#import "WLZ_PCH.pch"
 @interface WLZ_Movies_TableViewCell : UITableViewCell
 
 @property (nonatomic, retain) UIImageView *RadiosImageV;
 
-@property (nonatomic, retain) UILabel *titleL;
+@property (nonatomic, retain) WLZBaseLabel *titleL;
 
-@property (nonatomic, retain) UILabel *unameL;
+@property (nonatomic, retain) WLZBaseLabel *unameL;
 
-@property (nonatomic, retain) UILabel *descL;
+@property (nonatomic, retain) WLZBaseLabel *descL;
 
 @property (nonatomic , retain) WLZ_Base_Model *model;
 

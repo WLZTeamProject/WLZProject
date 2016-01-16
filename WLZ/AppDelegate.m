@@ -12,7 +12,7 @@
 #import "WLZReadRootViewController.h"
 #import "WLZUserRootViewController.h"
 #import "WLZNewRootViewController.h"
-
+#import "WLZ_PCH.pch"
 
 #import "LeftSlideViewController.h"
 @interface AppDelegate ()
@@ -27,19 +27,29 @@
     [_tabBar release];
     [super dealloc];
 }
-
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [UMSocialSnsService handleOpenURL:url];
+}
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [UMSocialSnsService handleOpenURL:url];
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [UMSocialData setAppKey:@"5699b3a5e0f55a1f1c00159d"];
+    [UMSocialQQHandler setQQWithAppId:@"1104881132" appKey:@"LTKWFVGSDaN52TOo" url:@"http://www.baidu.com"];
+    [UMSocialWechatHandler setWXAppId:@"wxeb289671a0241fb2" appSecret:@"46f7b8d6629ae5119b6eccea75fa10ae" url:@"http://www.baidu.com"];
     NSMutableArray *arr = [NSMutableArray array];//存放VC
-    WLZNewRootViewController *newRootVC = [[WLZNewRootViewController alloc] init];
-    UINavigationController *newNC = [[[UINavigationController alloc] initWithRootViewController:newRootVC] autorelease];
-    newNC.navigationBar.translucent = NO;
-    newNC.navigationBar.tintColor = [UIColor blackColor];
-    newNC.tabBarItem.title = @"新闻";
-    newNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
-    [arr addObject:newNC];
-    [newRootVC release];
+//    WLZNewRootViewController *newRootVC = [[WLZNewRootViewController alloc] init];
+//    UINavigationController *newNC = [[[UINavigationController alloc] initWithRootViewController:newRootVC] autorelease];
+//    newNC.navigationBar.translucent = NO;
+//    newNC.navigationBar.tintColor = [UIColor blackColor];
+//    newNC.tabBarItem.title = @"新闻";
+//    newNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
+//    [arr addObject:newNC];
+//    [newRootVC release];
     
     
     //音频VC

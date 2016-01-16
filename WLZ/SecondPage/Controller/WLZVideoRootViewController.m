@@ -193,13 +193,13 @@
     WLZ_Radios_Model *model = self.jingxuanArr[0];
     detailsVC.title = model.title;
 
-    detailsVC.ScenicID = self.radioidArr[0];
+    detailsVC.scenicID = self.radioidArr[0];
     [self.navigationController pushViewController:detailsVC animated:YES];
 }
 - (void)exchange2
 {
     WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
-    detailsVC.ScenicID = self.radioidArr[1];
+    detailsVC.scenicID = self.radioidArr[1];
     WLZ_Radios_Model *model = self.jingxuanArr[1];
     detailsVC.title = model.title;
     [self.navigationController pushViewController:detailsVC animated:YES];
@@ -207,7 +207,7 @@
 - (void)exchange3
 {
     WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
-    detailsVC.ScenicID = self.radioidArr[2];
+    detailsVC.scenicID = self.radioidArr[2];
     WLZ_Radios_Model *model = self.jingxuanArr[2];
     detailsVC.title = model.title;
     [self.navigationController pushViewController:detailsVC animated:YES];
@@ -225,7 +225,7 @@
     } else {
         WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
         WLZ_Radios_Model *model = self.radiosArr[indexPath.row];
-        detailsVC.ScenicID = model.radioid;
+        detailsVC.scenicID = model.radioid;
         detailsVC.title = model.title;
         [self.navigationController pushViewController:detailsVC animated:YES];
     }

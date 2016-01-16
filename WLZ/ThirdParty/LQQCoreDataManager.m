@@ -10,6 +10,7 @@
 #define COREDATA_MODEL_NAME @"WLZ"
 #define COREDATA_SQLITE_NAME @"WLZ.sqlite"
 #import "DocModel.h"
+#import "RadiosModel.h"
 @implementation LQQCoreDataManager
 
 //单例
@@ -118,7 +119,6 @@
 #pragma 查询
 - (NSMutableArray *)readSearch
 {
-    NSLog(@"查询");
     NSMutableArray *arr = [NSMutableArray array];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"DocModel" inManagedObjectContext:self.managedObjectContext];
@@ -134,7 +134,6 @@
 #pragma 查询
 - (NSMutableArray *)RadiosSearch
 {
-    NSLog(@"查询");
     NSMutableArray *arr = [NSMutableArray array];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"RadiosModel" inManagedObjectContext:self.managedObjectContext];
@@ -158,10 +157,10 @@
     [self saveContext];
 }
 //#pragma 删除
-- (void)RadiosDelete:(NSString *)title
+- (void)RadiosDelete:(NSString *)scenicID
 {
-    for (DocModel *model in [self RadiosSearch]) {
-        if ([model.title isEqualToString:title]) {
+    for (RadiosModel *model in [self RadiosSearch]) {
+        if ([model.scenicID isEqualToString:scenicID]) {
             [self.managedObjectContext deleteObject:model];
         }
     }

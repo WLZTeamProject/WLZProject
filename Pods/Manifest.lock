@@ -38,6 +38,7 @@ PODS:
     - SDWebImage/Core (= 3.7.4)
   - SDWebImage/Core (3.7.4)
   - StreamingKit (0.1.29)
+  - UMengSocial (4.2.5)
 
 DEPENDENCIES:
   - AFNetworking
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - SDCycleScrollView
   - SDWebImage
   - StreamingKit
+  - UMengSocial (~> 4.2.3)
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
@@ -60,5 +62,6 @@ SPEC CHECKSUMS:
   SDCycleScrollView: 436ccec76258f9f280365af5c07b289a71382601
   SDWebImage: 247edd7dd80dd6124197b0d6a17846fe9d1df968
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
+  UMengSocial: 76fb557ec9d2749a63dde17c28ab915f4642e52d
 
 COCOAPODS: 0.39.0

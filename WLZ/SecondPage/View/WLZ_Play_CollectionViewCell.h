@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WLZ_PCH.pch"
 @protocol WLZ_Play_CollectionViewCellDelegate <NSObject>
 
 - (void)exchangeVol:(float)vol;
@@ -17,7 +18,7 @@
 
 @property (nonatomic, retain) UIImageView *headImageV;
 
-@property (nonatomic, retain) UILabel *titleL;
+@property (nonatomic, retain) WLZBaseLabel *titleL;
 
 @property (nonatomic, retain) UISlider *slider;
 
