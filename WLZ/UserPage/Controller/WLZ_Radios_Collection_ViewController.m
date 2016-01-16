@@ -24,11 +24,11 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor redColor];
     self.navigationItem.title = @"我的收藏";
-    self.dataManager = [LQQCoreDataManager sharaCoreDataManager];
-    self.docArr = [self.dataManager RadiosSearch];
-    for (RadiosModel *model in self.docArr) {
-        NSLog(@"%@", model.title);
-    }
+//    self.dataManager = [LQQCoreDataManager sharaCoreDataManager];
+//    self.docArr = [self.dataManager RadiosSearch];
+//    for (RadiosModel *model in self.docArr) {
+//        NSLog(@"%@", model.title);
+//    }
     [self createView];
 
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"fanhui"] style:UIBarButtonItemStyleDone target:self action:@selector(leftAction)];
@@ -39,6 +39,28 @@
         
     }];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.dataManager = [LQQCoreDataManager sharaCoreDataManager];
+    self.docArr = [self.dataManager RadiosSearch];
+    for (RadiosModel *model in self.docArr) {
+        NSLog(@"%@", model.title);
+    }
+    if (self.docArr.count == 0) {
+        
+        UILabel *label = [[UILabel alloc] init];
+        label.text = @"收藏夹空, 快去逛逛吧";
+        label.textColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
+        self.tableV.backgroundView = label;
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.view);
+            
+        }];
+    }
+    [self.tableV reloadData];
+}
+
 - (void)createView
 {
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -67,7 +89,7 @@
 {
     if (UITableViewCellEditingStyleDelete == editingStyle) {
         RadiosModel *model = [self.docArr objectAtIndex:indexPath.row];
-        [self.dataManager readDelete:model.title];
+        [self.dataManager RadiosDelete:model.title];
         [self.docArr removeObjectAtIndex:indexPath.row];
     }
     [self.tableV reloadData];
@@ -88,15 +110,6 @@
     cell.textLabel.text = model.title;
     return cell;
 }
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    DocModel *model = [self.docArr objectAtIndex:indexPath.row];
-//    WLZReadWebViewController *webViewController = [[[WLZReadWebViewController alloc] init] autorelease];
-//    webViewController.mId = model.mid;
-//    
-//    [self.navigationController pushViewController:webViewController animated:YES];
-//}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
