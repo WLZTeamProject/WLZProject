@@ -11,6 +11,16 @@
 #define PAD 10
 @implementation WLZ_Movies_TableViewCell
 
+- (void)dealloc
+{
+    [_titleL release];
+    [_model release];
+    [_descL release];
+    [_unameL release];
+    [_RadiosImageV release];
+    [super dealloc];
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -33,7 +43,7 @@
         make.width.equalTo(@80);
     }];
     
-    self.titleL = [UILabel new];
+    self.titleL = [WLZBaseLabel new];
     [self addSubview:self.titleL];
     
     [self.titleL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -44,7 +54,7 @@
         
     }];
     
-    self.unameL = [UILabel new];
+    self.unameL = [WLZBaseLabel new];
     [self addSubview:self.unameL];
     
     [self.unameL mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -55,7 +65,7 @@
         
     }];
     
-    self.descL = [UILabel new];
+    self.descL = [WLZBaseLabel new];
     [self addSubview:self.descL];
     
     [self.descL mas_makeConstraints:^(MASConstraintMaker *make) {

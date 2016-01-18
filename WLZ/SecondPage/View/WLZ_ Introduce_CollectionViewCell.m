@@ -14,6 +14,13 @@
 
 @implementation WLZ__Introduce_CollectionViewCell
 
+- (void)dealloc
+{
+    [_url release];
+    [_webV release];
+    [super dealloc];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

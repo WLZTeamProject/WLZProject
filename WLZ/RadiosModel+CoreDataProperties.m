@@ -2,7 +2,7 @@
 //  RadiosModel+CoreDataProperties.m
 //  WLZ
 //
-//  Created by 왕닝 on 16/1/15.
+//  Created by 왕닝 on 16/1/16.
 //  Copyright © 2016年 lwz. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -14,5 +14,6 @@
 @implementation RadiosModel (CoreDataProperties)
 
 @dynamic title;
+@dynamic scenicID;
 
 @end

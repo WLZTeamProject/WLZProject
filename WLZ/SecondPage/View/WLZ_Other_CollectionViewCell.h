@@ -7,30 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WLZ_PCH.pch"
 @interface WLZ_Other_CollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, retain) UIImageView *mainImageV;
 
 @property (nonatomic, retain) UIImageView *originalImageV;
 
-@property (nonatomic, retain) UILabel *mainL;
+@property (nonatomic, retain) WLZBaseLabel *mainL;
 
-@property (nonatomic, retain) UILabel *originalL;
+@property (nonatomic, retain) WLZBaseLabel *originalL;
 
-@property (nonatomic, retain) UILabel *comfromL;
+@property (nonatomic, retain) WLZBaseLabel *comfromL;
 
-@property (nonatomic, retain) UIImageView *imageOne;
-
-@property (nonatomic, retain) UIImageView *imageTwo;
-
-@property (nonatomic, retain) UIImageView *imageThree;
-
-@property (nonatomic, retain) UIImageView *imageFore;
-
-@property (nonatomic, retain) UIImageView *imageFive;
-
-@property (nonatomic, retain) UIImageView *imageSix;
+@property (nonatomic, retain) NSMutableArray *imageArr;
 
 
 

@@ -20,7 +20,7 @@
 
 @property (nonatomic, retain) UITableView *tableV;
 
-@property (nonatomic, copy) NSMutableArray *titleML;
+@property (nonatomic, retain) NSMutableArray *titleML;
 
 @property (nonatomic, copy) NSString *musicVisitML;
 
