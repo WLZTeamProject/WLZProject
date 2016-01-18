@@ -7,15 +7,105 @@
 //
 
 #import "WLZ_LunBo_View.h"
+#import "WLZ_PCH.pch"
 
 @implementation WLZ_LunBo_View
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+@synthesize scrollView, slideImages;
+@synthesize text;
+@synthesize pageControl;
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+            [self createSubviews];
+
+    }
+    return self;
 }
-*/
+
+- (void)createSubviews
+{
+    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(runTimePage) userInfo:nil repeats:YES];
+    // 初始化 scrollview
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, VWIDTH, VHEIGHT)];
+    scrollView.bounces = YES;
+    scrollView.pagingEnabled = YES;
+    scrollView.delegate = self;
+    scrollView.userInteractionEnabled = YES;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    [self addSubview:scrollView];
+    // 初始化 数组 并添加四张图片
+    slideImages = [[NSMutableArray alloc] init];
+    [slideImages addObject:@"1"];
+    [slideImages addObject:@"2"];
+    [slideImages addObject:@"3"];
+//    [slideImages addObject:@"image4.png"];
+    // 初始化 pagecontrol
+    self.pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(120,VHEIGHT - 20,100,18)]; // 初始化mypagecontrol
+    [pageControl setCurrentPageIndicatorTintColor:[UIColor redColor]];
+    [pageControl setPageIndicatorTintColor:[UIColor blackColor]];
+    pageControl.numberOfPages = [self.slideImages count];
+    pageControl.currentPage = 0;
+    [pageControl addTarget:self action:@selector(turnPage) forControlEvents:UIControlEventValueChanged]; // 触摸mypagecontrol触发change这个方法事件
+    [self addSubview:pageControl];
+    // 创建四个图片 imageview
+    for (int i = 0;i<[slideImages count];i++)
+    {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[slideImages objectAtIndex:i]]];
+        imageView.frame = CGRectMake((VWIDTH * i) + VWIDTH, 0, VWIDTH, VHEIGHT);
+        [scrollView addSubview:imageView]; // 首页是第0页,默认从第1页开始的。所以+320。。。
+    }
+    // 取数组最后一张图片 放在第0页
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[slideImages objectAtIndex:([slideImages count] - 1)]]];
+    imageView.frame = CGRectMake(0, 0, VWIDTH, VHEIGHT); // 添加最后1页在首页 循环
+    [scrollView addSubview:imageView];
+    // 取数组第一张图片 放在最后1页
+    imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[slideImages objectAtIndex:0]]];
+    imageView.frame = CGRectMake((VWIDTH * ([slideImages count] + 1)) , 0, VWIDTH, VHEIGHT); // 添加第1页在最后 循环
+    [scrollView addSubview:imageView];
+    
+    [scrollView setContentSize:CGSizeMake(VWIDTH * ([slideImages count] + 2), VHEIGHT)]; //  +上第1页和第4页  原理：4-[1-2-3-4]-1
+    [scrollView setContentOffset:CGPointMake(0, 0)];
+    [self.scrollView scrollRectToVisible:CGRectMake(VWIDTH,0,VWIDTH,VHEIGHT) animated:NO]; // 默认从序号1位置放第1页 ，序号0位置位置放第4页
+}
+// scrollview 委托函数
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    CGFloat pagewidth = self.scrollView.frame.size.width;
+    int page = floor((self.scrollView.contentOffset.x - pagewidth/([slideImages count]+2))/pagewidth)+1;
+    page --;  // 默认从第二页开始
+    pageControl.currentPage = page;
+}
+// scrollview 委托函数
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    CGFloat pagewidth = self.scrollView.frame.size.width;
+    int currentPage = floor((self.scrollView.contentOffset.x - pagewidth/ ([slideImages count]+2)) / pagewidth) + 1;
+    if (currentPage == 0)
+    {
+        [self.scrollView scrollRectToVisible:CGRectMake(VWIDTH * [slideImages count],0,320,VHEIGHT) animated:NO]; // 序号0 最后1页
+    }
+    else if (currentPage==([slideImages count]+1))
+    {
+        [self.scrollView scrollRectToVisible:CGRectMake(VWIDTH,0,VWIDTH,VHEIGHT) animated:NO]; // 最后+1,循环第1页
+    }
+}
+// pagecontrol 选择器的方法
+- (void)turnPage
+{
+    int page = (int)pageControl.currentPage; // 获取当前的page
+    [self.scrollView scrollRectToVisible:CGRectMake(VWIDTH*(page+1),0,VWIDTH,VHEIGHT) animated:NO]; // 触摸pagecontroller那个点点 往后翻一页 +1
+}
+// 定时器 绑定的方法
+- (void)runTimePage
+{
+    int page = (int)pageControl.currentPage; // 获取当前的page
+    page++;
+    page = page > ([slideImages count] - 1) ? 0 : page ;
+    pageControl.currentPage = page;
+    [self turnPage];
+}
 
 @end

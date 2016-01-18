@@ -12,11 +12,15 @@
 #import "WLZ_Featured_TableViewCell.h"
 #import "WLZ_Radios_Model.h"
 #import "WLZ_Details_ViewController.h"
+#import "WLZ_LunBo_View.h"
 #define FIRESTURL @"http://api2.pianke.me/ting/radio"
 #define AGEGINURL @"http://api2.pianke.me/ting/radio_list"
 @interface WLZVideoRootViewController () <UITableViewDelegate, UITableViewDataSource, SDCycleScrollViewDelegate, WLZ_Featured_TableViewCellDelegate>
 
-@property (nonatomic, retain) SDCycleScrollView *scrollView;
+//@property (nonatomic, retain) SDCycleScrollView *scrollView;
+
+//@property (nonatomic, retain) WLZ_LunBo_View *scrollView;
+@property (nonatomic, retain) WLZ_LunBo_View *scrollView;
 
 @property (nonatomic, retain) UITableView *tableV;
 
@@ -87,7 +91,7 @@
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
-    self.tableV.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
+//    self.tableV.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
     [self.view addSubview:self.tableV];
     [_tableV release];
     [self.tableV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -109,7 +113,7 @@
     self.index = 0;
     self.tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.index += 9;
-        NSString *str = [NSString stringWithFormat:@"%ld", self.index];
+        NSString *str = [NSString stringWithFormat:@"%d", self.index];
         [self.bodyDic setObject:str forKey:@"start"];
         [self getData:AGEGINURL body:self.bodyDic];
     }];
@@ -154,7 +158,7 @@
         static NSString *celld = @"celld";
         self.featuredCell = [tableView dequeueReusableCellWithIdentifier:celld];
            self.featuredCell.delegate = self;
-        self.featuredCell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
+//        self.featuredCell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
         if (nil == self.featuredCell) {
             self.featuredCell = [[WLZ_Featured_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celld];
          
@@ -178,7 +182,7 @@
     WLZ_Radios_Model *model = self.radiosArr[indexPath.row];
     self.moviesCell.model = [self.radiosArr objectAtIndex:indexPath.row];
         [self.moviesCell.RadiosImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
-        self.moviesCell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
+//        self.moviesCell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
         self.moviesCell.titleL.text = model.title;
         self.moviesCell.unameL.text = [NSString stringWithFormat:@"%@%@",@"by:" ,[model.userinfo objectForKey:@"uname"]];
         self.moviesCell.unameL.font = [UIFont systemFontOfSize:11];
@@ -237,7 +241,8 @@
 //建立轮播图
 - (void)wheelView
 {
-    self.scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height / 3) delegate:self placeholderImage:[UIImage imageNamed:@"kafei"]];
+//    self.scrollView = [WLZ_LunBo_View cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height / 3) delegate:self placeholderImage:[UIImage imageNamed:@"kafei"]];
+    self.scrollView = [[WLZ_LunBo_View alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT / 3)];
     self.tableV.tableHeaderView = self.scrollView;
     [self.tableV reloadData];
 }
@@ -263,8 +268,7 @@
             
         }
         //轮播图赋值
-        self.scrollView.imageURLStringsGroup = self.imgArr;
-        
+//        self.scrollView.imageURLStringsGroup = self.imgArr;
         //精选数据解析
         NSArray *hotlistArr = [dataDic objectForKey:@"hotlist"];
         for (NSMutableDictionary *dic in hotlistArr) {

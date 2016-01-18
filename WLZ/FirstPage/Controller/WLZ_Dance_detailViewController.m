@@ -296,7 +296,7 @@
     
     AVPlayerItem *playerItem = self.player.currentItem;
     CMTime curTime = playerItem.currentTime;
-    NSInteger nowSecond = curTime.value / curTime.timescale;
+    NSInteger nowSecond = (int)curTime.value / curTime.timescale;
     wlzDanceVC.num = nowSecond;
     
     [self.navigationController pushViewController:wlzDanceVC animated:YES];
@@ -344,7 +344,7 @@
 {
     AVPlayerItem *playerItem = self.player.currentItem;
     CMTime curTime = playerItem.currentTime;
-    NSInteger seconds = curTime.value / curTime.timescale;
+    NSInteger seconds = (int)curTime.value / curTime.timescale;
     self.timeS.value = seconds;
 }
 
