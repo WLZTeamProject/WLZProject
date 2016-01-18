@@ -24,6 +24,9 @@
 
 @property (nonatomic, retain) NSTimer *timer;
 
+@property (nonatomic, retain) UILabel *nativetimeL;
+@property (nonatomic, retain) UIButton *collectBut;
+@property (nonatomic, retain) UIButton *shareBut;
 
 
 
@@ -41,6 +44,7 @@
     [_backBut release];
     [_backView release];
     [_titleL release];
+    [_nativetimeL release];
     [super dealloc];
 }
 
@@ -120,11 +124,27 @@
     self.backBut.backgroundColor = [UIColor clearColor];
     [self.backView addSubview:self.backBut];
     
-    self.titleL = [[UILabel alloc] initWithFrame:CGRectMake(self.backBut.frame.size.width, 0, self.backView.frame.size.width / 11 * 8, self.backView.frame.size.height)];
+    self.titleL = [[UILabel alloc] initWithFrame:CGRectMake(self.backBut.frame.size.width, 0, self.backView.frame.size.width / 11 * 7, self.backView.frame.size.height)];
     self.titleL.backgroundColor = [UIColor clearColor];
     self.titleL.textColor = [UIColor whiteColor];
     self.titleL.text = self.wlzdance.item_title;
     [self.backView addSubview:self.titleL];
+    
+    self.nativetimeL = [[UILabel alloc] initWithFrame:CGRectMake(self.titleL.frame.size.width + self.titleL.frame.origin.x, 0, self.backView.frame.size.width / 11 , self.backView.frame.size.height)];
+    self.nativetimeL.backgroundColor = [UIColor clearColor];
+    self.nativetimeL.textColor = [UIColor whiteColor];
+    [self.backView addSubview:self.nativetimeL];
+    
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(getcurrentTimer) userInfo:nil repeats:YES];
+    
+    self.collectBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.collectBut.frame = CGRectMake(self.nativetimeL.frame.size.width + self.nativetimeL.frame.origin.x, 0, self.nativetimeL.frame.size.width, self.backView.frame.size.height);
+    self.collectBut.backgroundColor = [UIColor magentaColor];
+    [self.collectBut addTarget:self action:@selector(collectButAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.backView addSubview:self.collectBut];
+    
+//    [self getNowTime];
+    
     
     self.sliderView = [[UIView alloc] initWithFrame:CGRectMake(0, self.container.frame.size.height / 7 * 6, self.container.frame.size.width, self.container.frame.size.height / 7)];
     self.sliderView.backgroundColor = [UIColor blackColor];
@@ -152,6 +172,24 @@
     
 }
 
+- (void)collectButAction
+{
+    
+}
+
+- (void)getcurrentTimer
+{
+    NSDate *currentTime = [NSDate date];
+    NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+//    [dateformatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateformatter setDateFormat:@"HH:mm"];
+    NSString *locationStr = [dateformatter stringFromDate:currentTime];
+    self.nativetimeL.text = locationStr;
+    NSLog(@"locationString:%@", locationStr);
+    [dateformatter release];
+}
+
+
 - (void)tapAction
 {
 //    NSLog(@"#######");
@@ -168,7 +206,7 @@
     
 }
 
-//过3sview自动消失
+//过3s view自动消失
 - (void)timerAction
 {
     [self.sliderView setHidden:YES];
@@ -201,14 +239,18 @@
 {
     AVPlayerItem *playerItem = self.player.currentItem;
     
+//    CMTime nowTime = playerItem.duration;
+//    nowTime.value = self.num * nowTime.timescale;
+//    [self.player seekToTime:nowTime];
+    
     [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         CGFloat total = CMTimeGetSeconds([playerItem duration]);
         CGFloat current = CMTimeGetSeconds(time);
         NSString *newtime = [self changeTimer:current];
         NSString *totalTime = [self changeTimer:total];
         self.timeLabel.text = [NSString stringWithFormat:@"%@/%@", newtime, totalTime];
-        self.timeS.value = current;
-        self.timeS.maximumValue = total;
+//        self.timeS.value = current;
+//        self.timeS.maximumValue = total;
         
     }];
 }
@@ -256,14 +298,14 @@
 {
     WLZ_Dance_videoModel *zyvideo = [self.wlzdance.item_videos objectAtIndex:0];
     if (!_player) {
+//        NSLog(@"哈哈哈哈哈哈%@", zyvideo.url);
         NSString *str = zyvideo.url;
         NSURL *url = [NSURL URLWithString:str];
         AVPlayerItem *playerItem = [AVPlayerItem playerItemWithURL:url];
-//        playerItem.currentTime = self.curTime;
-//        CMTime nowTime = playerItem.duration;
-//        nowTime.value = self.num * nowTime.timescale;
         _player = [AVPlayer playerWithPlayerItem:playerItem];
-//        [_player seekToTime:nowTime];
+        
+        
+        
         [self addobserverToplayerTtem:playerItem];
         [self addTimeobserver];
     }
