@@ -149,7 +149,7 @@
         WLZ_DanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
         cell.titleL.text = wlzlist.item_title;
         cell.personL.text = [NSString stringWithFormat:@"%@人在学",wlzlist.item_click];
-        [cell.imageV sd_setImageWithURL:[NSURL URLWithString:wlzlist.item_image]];
+        [cell.imageV sd_setImageWithURL:[NSURL URLWithString:wlzlist.item_image]placeholderImage:[UIImage imageNamed:@"kafei"]];
         return cell;
     }
 //    else {

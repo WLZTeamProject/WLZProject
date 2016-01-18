@@ -59,6 +59,8 @@
     [_radiosArr release];
     [_bodyDic release];
     [_jingxuanArr release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"night" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"day" object:nil];
     [super dealloc];
 }
 
@@ -70,14 +72,24 @@
     [self creatView];
     [self addHeaderRefresh];
     [WLZ_GIFT setGifWithImageName:@"pika2.gif"];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationNightAction) name:@"night" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDayAction) name:@"day" object:nil];
     // hahalalala
+}
+- (void)notificationNightAction
+{
+    self.tableV.backgroundColor = [UIColor blackColor];
+    
+}
+- (void)notificationDayAction
+{
+    self.tableV.backgroundColor = [UIColor whiteColor];
 }
 
 //创建视图
 - (void)creatView
 {
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"蠕动"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"蠕动"] forBarMetrics:UIBarMetricsDefault];
     //创建TableView
     [self creatTableView];
     //建立轮播图
@@ -91,13 +103,12 @@
     self.tableV = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
-//    self.tableV.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
     [self.view addSubview:self.tableV];
+    self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableV release];
     [self.tableV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
         make.top.equalTo(self.view).with.offset(150);
-        
     }];
 }
 
@@ -158,15 +169,15 @@
         static NSString *celld = @"celld";
         self.featuredCell = [tableView dequeueReusableCellWithIdentifier:celld];
            self.featuredCell.delegate = self;
-//        self.featuredCell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
+
         if (nil == self.featuredCell) {
             self.featuredCell = [[WLZ_Featured_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celld];
          
         }
         if (0 != self.featuredArr.count) {
-            [self.featuredCell.newImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[0]]];
-            [self.featuredCell.earlyImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[1]]];
-            [self.featuredCell.nightImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[2]]];
+            [self.featuredCell.newImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[0]] placeholderImage:[UIImage imageNamed:@"kafei"]];
+            [self.featuredCell.earlyImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[1]]placeholderImage:[UIImage imageNamed:@"kafei"]];
+            [self.featuredCell.nightImageV sd_setImageWithURL:[NSURL URLWithString:self.featuredArr[2]]placeholderImage:[UIImage imageNamed:@"kafei"]];
             
         }
         return self.featuredCell;
@@ -181,6 +192,8 @@
     if (0 != self.radiosArr.count) {
     WLZ_Radios_Model *model = self.radiosArr[indexPath.row];
     self.moviesCell.model = [self.radiosArr objectAtIndex:indexPath.row];
+        [self.moviesCell.RadiosImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]placeholderImage:[UIImage imageNamed:@"kafei"]];
+
         [self.moviesCell.RadiosImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
 //        self.moviesCell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
         self.moviesCell.titleL.text = model.title;
@@ -224,11 +237,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (0 == indexPath.section)
+    if (0 != indexPath.section)
     {
- 
-        
-    } else {
         WLZ_Details_ViewController *detailsVC = [[[WLZ_Details_ViewController alloc] init] autorelease];
         WLZ_Radios_Model *model = self.radiosArr[indexPath.row];
         detailsVC.scenicID = model.radioid;
@@ -319,6 +329,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.tableV.backgroundColor = [UIColor blackColor];
+    } else {
+        self.tableV.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 @end

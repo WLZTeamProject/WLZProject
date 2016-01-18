@@ -32,6 +32,7 @@
     
     self.nightSwitch = [[UISwitch alloc] init];
     [self.contentView addSubview:self.nightSwitch];
+    self.nightSwitch.on = NO;
     [self.nightSwitch addTarget:self action:@selector(nightSwitchAction:) forControlEvents:UIControlEventValueChanged];
     [_nightSwitch release];
     

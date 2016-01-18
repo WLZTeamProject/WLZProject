@@ -51,7 +51,6 @@
         _typleId = [typleId copy];
     }
     [self RefreshData];
-//    [self createNewData];
 }
 - (void)createTableView
 {
@@ -179,5 +178,15 @@
     //代理方法,将model传给VC
     [self.delegate didSelectedHandle:model];
     
+}
+- (void)layoutSubviews
+{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.tableView.backgroundColor = [UIColor blackColor];
+//        self.contentView.backgroundColor = [UIColor colorWithRed:0.1528 green:0.1528 blue:0.1528 alpha:1.0];
+    } else {
+        self.tableView.backgroundColor = [UIColor whiteColor];
+//        self.contentView.backgroundColor = [UIColor whiteColor];
+    }
 }
 @end

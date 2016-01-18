@@ -17,11 +17,14 @@
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSMutableArray *arr;
+@property (nonatomic, retain) UIImageView *imageV;
 @end
 
 @implementation WLZUserRootViewController
 - (void)dealloc
 {
+    [_imageV release];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"night"];
     [_arr release];
     [_tableView release];
     [super dealloc];
@@ -33,15 +36,33 @@
 }
 - (void)createView
 {
-    UIImageView *imageV = [[UIImageView alloc] initWithFrame:self.view.frame];
-    imageV.image = [UIImage imageNamed:@"user_bg"];
-    imageV.backgroundColor = [UIColor colorWithRed:0.841 green:0.9626 blue:0.9988 alpha:1.0];
-    imageV.userInteractionEnabled = YES;
-    [self.view addSubview:imageV];
-    [imageV release];
+    self.imageV = [[UIImageView alloc] initWithFrame:self.view.frame];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.imageV.backgroundColor = [UIColor blackColor];
+    } else {
+        self.imageV.image = [UIImage imageNamed:@"user_bg"];
+    }
+    self.imageV.userInteractionEnabled = YES;
+    [self.view addSubview:self.imageV];
+    [self.imageV release];
     [self createTableView];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationNightAction) name:@"night" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDayAction) name:@"day" object:nil];
+    
 }
+- (void)notificationNightAction
+{
+    self.imageV.image = nil;
+    self.imageV.backgroundColor = [UIColor blackColor];
+}
+- (void)notificationDayAction
+{
+    self.imageV.image = [UIImage imageNamed:@"user_bg"];
+}
+
+
 -(void)createTableView
 {
     self.arr = [NSMutableArray arrayWithObjects:@"阅读收藏", @"电台收藏", @"视频收藏", @"夜间模式", @"清除缓存", nil];
@@ -70,6 +91,7 @@
     if (3 != indexPath.row) {
         static NSString *cellStr = @"cell";
         WLZUserLabelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
+        
         if (nil == cell) {
             cell = [[WLZUserLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
         }
@@ -77,7 +99,7 @@
         cell.layer.cornerRadius = 5;
         cell.layer.borderColor = [UIColor whiteColor].CGColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = [self.arr objectAtIndex:indexPath.row];
+        cell.titleLabel.text = [self.arr objectAtIndex:indexPath.row];
         return cell;
     } else {
         static NSString *cellSStr = @"cellS";
@@ -85,6 +107,7 @@
         cell.delegate = self;
         cell.layer.borderWidth = 1;
         cell.layer.cornerRadius = 5;
+        cell.nightSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"night"];
          cell.layer.borderColor = [UIColor whiteColor].CGColor;
         cell.titleLabel.text = [self.arr objectAtIndex:indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -96,15 +119,17 @@
 {
     if (senderSwitch.on) {
         NSLog(@"夜间模式");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"night" object:nil];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"night"];
     } else {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"night"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"day" object:nil];
         NSLog(@"日间模式");
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AppDelegate *tempApp = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    NSLog(@"%ld", indexPath.row);
     WLZUserCollectViewController * collcetVC = nil;
     WLZ_Radios_Collection_ViewController *radiosCollectionVC = nil;
     switch (indexPath.row) {
@@ -115,7 +140,6 @@
             collcetVC = [[WLZUserCollectViewController alloc] init];
             UINavigationController *navNC = [[[UINavigationController alloc] initWithRootViewController:collcetVC] autorelease];
             navNC.navigationBar.translucent = NO;
-            navNC.navigationBar.tintColor = [UIColor blackColor];
             [self presentViewController:navNC animated:YES completion:^{
             }];
             [collcetVC release];
@@ -128,7 +152,6 @@
         {
             NSString *path = [[self class] getCachesDirectory];
             NSLog(@"%.2f", [[self class] folderSizeAtPath:path]);
-            NSLog(@"%@", path);
             NSString *romNumber = [NSString stringWithFormat:@"%.2fM", [[self class] folderSizeAtPath:path]];
             UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"清除缓存" message:romNumber preferredStyle:UIAlertControllerStyleAlert];
             [alertC addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -148,7 +171,6 @@
             radiosCollectionVC = [[WLZ_Radios_Collection_ViewController alloc] init];
             UINavigationController *navNC = [[[UINavigationController alloc] initWithRootViewController:radiosCollectionVC] autorelease];
             navNC.navigationBar.translucent = NO;
-            navNC.navigationBar.tintColor = [UIColor blackColor];
             [self presentViewController:navNC animated:YES completion:^{
             }];
             [radiosCollectionVC release];
