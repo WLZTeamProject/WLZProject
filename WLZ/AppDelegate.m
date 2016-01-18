@@ -44,7 +44,7 @@
     // Override point for customization after application launch.
     [UMSocialData setAppKey:@"5699b3a5e0f55a1f1c00159d"];
     [UMSocialQQHandler setQQWithAppId:@"1104881132" appKey:@"LTKWFVGSDaN52TOo" url:@"http://www.baidu.com"];
-    [UMSocialWechatHandler setWXAppId:@"wx18be625d62a52f1d" appSecret:@"fefe4996fd44436a3776b367772959df" url:@"http://www.baidu.com"];
+    [UMSocialWechatHandler setWXAppId:@"wx8296f2e05470ba30" appSecret:@"81a048ef1f51e2d83e01455d011cd4ca" url:@"http://www.baidu.com"];
     NSMutableArray *arr = [NSMutableArray array];//存放VC
 //    WLZNewRootViewController *newRootVC = [[WLZNewRootViewController alloc] init];
 //    UINavigationController *newNC = [[[UINavigationController alloc] initWithRootViewController:newRootVC] autorelease];

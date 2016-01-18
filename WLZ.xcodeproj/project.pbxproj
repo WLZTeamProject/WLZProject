@@ -100,6 +100,8 @@
 		92B705DE1C49EE45005CA39B /* libSocialWechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B705D61C49EE45005CA39B /* libSocialWechat.a */; };
 		92B705DF1C49EE45005CA39B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B705D71C49EE45005CA39B /* libWeChatSDK.a */; };
 		92B705E51C4A2E35005CA39B /* WLZ_Other_D_CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B705E41C4A2E35005CA39B /* WLZ_Other_D_CollectionViewCell.m */; };
+		92C94FE81C4C8D0D00564DD8 /* WLZ_LunBo_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C94FE71C4C8D0D00564DD8 /* WLZ_LunBo_View.m */; };
+		92C950251C4CE05A00564DD8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C950241C4CE05A00564DD8 /* Icon.png */; };
 		9FA4437D3665C00A45DDDE01 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D59BA53E477DD3A0DEB6E4D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -304,6 +306,9 @@
 		92B705DA1C49EE45005CA39B /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		92B705E31C4A2E35005CA39B /* WLZ_Other_D_CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Other_D_CollectionViewCell.h; sourceTree = "<group>"; };
 		92B705E41C4A2E35005CA39B /* WLZ_Other_D_CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Other_D_CollectionViewCell.m; sourceTree = "<group>"; };
+		92C94FE61C4C8D0D00564DD8 /* WLZ_LunBo_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_LunBo_View.h; sourceTree = "<group>"; };
+		92C94FE71C4C8D0D00564DD8 /* WLZ_LunBo_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_LunBo_View.m; sourceTree = "<group>"; };
+		92C950241C4CE05A00564DD8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = SecondPage/Controller/Icon.png; sourceTree = "<group>"; };
 		E1753F29B9FDA32391780B33 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -387,6 +392,8 @@
 		4966E14C1C43DE80009CFE51 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				92C94FE61C4C8D0D00564DD8 /* WLZ_LunBo_View.h */,
+				92C94FE71C4C8D0D00564DD8 /* WLZ_LunBo_View.m */,
 				4966E14D1C43DE80009CFE51 /* WLZ_ Introduce_CollectionViewCell.h */,
 				4966E14E1C43DE80009CFE51 /* WLZ_ Introduce_CollectionViewCell.m */,
 				4966E14F1C43DE80009CFE51 /* WLZ_Details_TableViewCell.h */,
@@ -536,6 +543,7 @@
 		496B36331C3FCF5400DC214F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				92C950241C4CE05A00564DD8 /* Icon.png */,
 				496B36341C3FCF5400DC214F /* main.m */,
 			);
 			name = "Supporting Files";
@@ -933,6 +941,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92C950251C4CE05A00564DD8 /* Icon.png in Resources */,
 				92A111F11C474C6F00479C3E /* pika2.gif in Resources */,
 				496B36461C3FCF5400DC214F /* LaunchScreen.storyboard in Resources */,
 				496B36431C3FCF5400DC214F /* Assets.xcassets in Resources */,
@@ -1043,6 +1052,7 @@
 				49C93B031C422F8F00898F22 /* WLZReadHomeCarouselModel.m in Sources */,
 				4966E19E1C43E1A4009CFE51 /* WLZ_Dance_Model.m in Sources */,
 				92B705CF1C49DB95005CA39B /* RadiosModel.m in Sources */,
+				92C94FE81C4C8D0D00564DD8 /* WLZ_LunBo_View.m in Sources */,
 				4966E1611C43DE80009CFE51 /* WLZ_List_TableViewCell.m in Sources */,
 				4966E1401C43DDEF009CFE51 /* WLZ_Music_ViewController.m in Sources */,
 				4966E1731C43DEA8009CFE51 /* WLZ_OtherO_Model.m in Sources */,
@@ -1160,7 +1170,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: jinming li (TU9772VBN2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: jinming li (TU9772VBN2)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1182,6 +1193,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "7671b195-5648-4339-8f46-8b76c41baf60";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1204,7 +1216,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: jinming li (TU9772VBN2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: jinming li (TU9772VBN2)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1219,6 +1232,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "7671b195-5648-4339-8f46-8b76c41baf60";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1240,7 +1254,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WLZ/ThirdParty/WLZ_PCH.pch";
 				INFOPLIST_FILE = WLZ/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1268,7 +1282,7 @@
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WLZ/ThirdParty/WLZ_PCH.pch";
 				INFOPLIST_FILE = WLZ/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
