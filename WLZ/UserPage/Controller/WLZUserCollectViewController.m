@@ -11,6 +11,7 @@
 #import <Masonry.h>
 #import "DocModel.h"
 #import "WLZReadWebViewController.h"
+#import "WLZBaseLabel.h"
 @interface WLZUserCollectViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, retain) UITableView *tableV;
 @property (nonatomic, retain) LQQCoreDataManager *dataManager;
@@ -29,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.navigationItem.title = @"我的收藏";
 
     [self createView];
@@ -43,16 +45,27 @@
         NSLog(@"%@", model.mid);
     }
     if (self.docArr.count == 0) {
-        
-        UILabel *label = [[UILabel alloc] init];
+        WLZBaseLabel *label = [[WLZBaseLabel alloc] init];
         label.text = @"收藏夹空, 快去逛逛吧";
-        label.textColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1.0];
         self.tableV.backgroundView = label;
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.view);
             
         }];
     }
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.tableV.backgroundColor = [UIColor blackColor];
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+    } else {
+        self.tableV.backgroundColor = [UIColor whiteColor];
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+        self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    }
+    
+    
+    
+    
     [self.tableV reloadData];
 }
 
@@ -112,6 +125,16 @@
     }
     DocModel *model = [self.docArr objectAtIndex:indexPath.row];
     cell.textLabel.text = model.title;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.backgroundColor = [UIColor blackColor];
+
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.backgroundColor = [UIColor whiteColor];
+      
+    }
+
     return cell;
     
 }

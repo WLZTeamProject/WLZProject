@@ -16,12 +16,17 @@
 
 #import "LeftSlideViewController.h"
 @interface AppDelegate ()
-
+@property (nonatomic, retain) UINavigationController *radioNC;
+@property (nonatomic, retain) UINavigationController *videoNC;
+@property (nonatomic, retain) UINavigationController *readNC;
 @end
 
 @implementation AppDelegate
 - (void)dealloc
 {
+    [_radioNC release];
+    [_videoNC release];
+    [_readNC release];
     [_window release];
     [_leftVC release];
     [_tabBar release];
@@ -37,10 +42,9 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
     [UMSocialData setAppKey:@"5699b3a5e0f55a1f1c00159d"];
     [UMSocialQQHandler setQQWithAppId:@"1104881132" appKey:@"LTKWFVGSDaN52TOo" url:@"http://www.baidu.com"];
-    [UMSocialWechatHandler setWXAppId:@"wxeb289671a0241fb2" appSecret:@"46f7b8d6629ae5119b6eccea75fa10ae" url:@"http://www.baidu.com"];
+    [UMSocialWechatHandler setWXAppId:@"wx8296f2e05470ba30" appSecret:@"81a048ef1f51e2d83e01455d011cd4ca" url:@"http://www.baidu.com"];
     NSMutableArray *arr = [NSMutableArray array];//存放VC
 //    WLZNewRootViewController *newRootVC = [[WLZNewRootViewController alloc] init];
 //    UINavigationController *newNC = [[[UINavigationController alloc] initWithRootViewController:newRootVC] autorelease];
@@ -54,42 +58,66 @@
     
     //音频VC
     WLZRadioRootViewController *radioRootVC =[[WLZRadioRootViewController alloc] init];
-    UINavigationController *radioNC = [[[UINavigationController alloc] initWithRootViewController:radioRootVC] autorelease];
-    radioNC.navigationBar.translucent = NO;
-    radioNC.tabBarItem.title = @"视频";
-    radioNC.tabBarItem.image = [UIImage imageNamed:@"tab_radio"];
-    [arr addObject:radioNC];
+    self.radioNC = [[[UINavigationController alloc] initWithRootViewController:radioRootVC] autorelease];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.radioNC.navigationBar.tintColor = [UIColor whiteColor];
+        self.radioNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+    } else {
+        self.radioNC.navigationBar.tintColor = [UIColor blackColor];
+        self.radioNC.navigationBar.barTintColor = [UIColor whiteColor];
+    }
+    self.radioNC.navigationBar.translucent = NO;
+    self.radioNC.tabBarItem.title = @"视频";
+    self.radioNC.tabBarItem.image = [UIImage imageNamed:@"tab_radio"];
+    [arr addObject:self.radioNC];
     [radioRootVC release];
 
     
     
     //视频VC
     WLZVideoRootViewController *videoRootVC = [[WLZVideoRootViewController alloc] init];
-    UINavigationController *videoNC = [[[UINavigationController alloc] initWithRootViewController:videoRootVC] autorelease];
-    videoNC.tabBarItem.title = @"电台";
-    videoNC.navigationBar.translucent = NO;
-    videoNC.tabBarItem.image = [UIImage imageNamed:@"tab_video"];
-    [arr addObject:videoNC];
+    self.videoNC = [[[UINavigationController alloc] initWithRootViewController:videoRootVC] autorelease];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.videoNC.navigationBar.tintColor = [UIColor whiteColor];
+        self.videoNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];    } else {
+        self.videoNC.navigationBar.tintColor = [UIColor blackColor];
+        self.videoNC.navigationBar.barTintColor = [UIColor whiteColor];
+    }
+    self.videoNC.tabBarItem.title = @"电台";
+    self.videoNC.navigationBar.translucent = NO;
+    self.videoNC.tabBarItem.image = [UIImage imageNamed:@"tab_video"];
+    [arr addObject:self.videoNC];
     [videoRootVC release];
     
     //阅读VC
     WLZReadRootViewController *readRootVC = [[WLZReadRootViewController alloc] init];
-    UINavigationController *readNC = [[[UINavigationController alloc] initWithRootViewController:readRootVC] autorelease];
-    readNC.navigationBar.translucent = NO;
-    readNC.tabBarItem.title = @"阅读";
-    readNC.tabBarItem.image = [UIImage imageNamed:@"tab_read"];
-    [arr addObject:readNC];
+    self.readNC = [[[UINavigationController alloc] initWithRootViewController:readRootVC] autorelease];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.readNC.navigationBar.tintColor = [UIColor whiteColor];
+        self.readNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];    } else {
+        self.readNC.navigationBar.tintColor = [UIColor blackColor];
+        self.readNC.navigationBar.barTintColor = [UIColor whiteColor];
+    }
+    self.readNC.navigationBar.translucent = NO;
+    self.readNC.tabBarItem.title = @"阅读";
+    self.readNC.tabBarItem.image = [UIImage imageNamed:@"tab_read"];
+    [arr addObject:self.readNC];
     [readRootVC release];
     
 
     
     
     self.tabBar = [[UITabBarController alloc] init];
-    self.tabBar.tabBar.tintColor = [UIColor colorWithRed:0.502 green:0.0 blue:1.0 alpha:1.0];
-    self.tabBar.tabBar.barTintColor = [UIColor colorWithRed:0.902 green:0.902 blue:0.902 alpha:1.0];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.tabBar.tabBar.tintColor = [UIColor colorWithRed:0.502 green:0.0 blue:1.0 alpha:1.0];
+        self.tabBar.tabBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+    } else {
+        self.tabBar.tabBar.tintColor = [UIColor colorWithRed:0.502 green:0.0 blue:1.0 alpha:1.0];
+        self.tabBar.tabBar.barTintColor = [UIColor colorWithRed:0.902 green:0.902 blue:0.902 alpha:1.0];
+    }
     self.tabBar.viewControllers = arr;
     self.tabBar.tabBar.translucent = NO;
-//    self.window.rootViewController = tabBarC;
     
     
     WLZUserRootViewController *userVC = [[WLZUserRootViewController alloc] init];
@@ -99,8 +127,47 @@
     [userVC release];
     
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationNightAction) name:@"night" object:nil];
+    [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(notificationDayAction) name:@"day" object:nil];
     return YES;
+}
+- (void)notificationNightAction
+{
+    self.radioNC.navigationBar.tintColor = [UIColor whiteColor];
+    self.radioNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+    
+    
+    self.videoNC.navigationBar.tintColor = [UIColor whiteColor];
+    self.videoNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+    
+    self.readNC.navigationBar.tintColor = [UIColor whiteColor];
+    self.readNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+    
+    
+    self.tabBar.tabBar.tintColor = [UIColor colorWithRed:0.502 green:0.0 blue:1.0 alpha:1.0];
+    self.tabBar.tabBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    
+
+}
+- (void)notificationDayAction
+{
+    self.radioNC.navigationBar.tintColor = [UIColor blackColor];
+    self.radioNC.navigationBar.barTintColor = [UIColor whiteColor];
+    
+    
+    self.videoNC.navigationBar.tintColor = [UIColor blackColor];
+    self.videoNC.navigationBar.barTintColor = [UIColor whiteColor];
+    
+    
+    self.readNC.navigationBar.tintColor = [UIColor blackColor];
+    self.readNC.navigationBar.barTintColor = [UIColor whiteColor];
+    self.tabBar.tabBar.tintColor = [UIColor colorWithRed:0.502 green:0.0 blue:1.0 alpha:1.0];
+    self.tabBar.tabBar.barTintColor = [UIColor colorWithRed:0.902 green:0.902 blue:0.902 alpha:1.0];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

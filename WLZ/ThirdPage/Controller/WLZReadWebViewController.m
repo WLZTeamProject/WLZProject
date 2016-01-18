@@ -55,10 +55,15 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+ 
     // Do any additional setup after loading the view.
     [self createSubviews];
     self.indexSize = 100;
-
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.view.backgroundColor = [UIColor blackColor];
+    } else {
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
     NSLog(@"%@", NSHomeDirectory());
 }
 #pragma 状态栏的style
@@ -145,7 +150,11 @@
     //夜间模式
     UIButton *nightB = [UIButton buttonWithType:UIButtonTypeCustom];
     nightB.frame = CGRectMake(0, 0, 40, 40);
-    nightB.selected = NO;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        nightB.selected = YES;
+    } else {
+        nightB.selected = NO;
+    }
     [nightB setImage:[UIImage imageNamed:@"tool_day"] forState:UIControlStateNormal];
     [nightB setImage:[UIImage imageNamed:@"tool_night-1"] forState:UIControlStateSelected];
     nightB.tag = 10001;
@@ -157,7 +166,7 @@
     [toolBarItems addObject:spaceButton];
     [toolBarItems addObject:nightButton];
 
-    //字体
+    //top
     UIButton *fontaddB = [UIButton buttonWithType:UIButtonTypeCustom];
     fontaddB.frame = CGRectMake(0, 0, 40, 40);
     fontaddB.selected = NO;
@@ -188,6 +197,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     self.coreArr = nil;
+ 
 }
 - (void)toolbarAction:(UIButton *)sender
 {
@@ -256,9 +266,11 @@
       [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout=‘none‘"];
     //更改网页中图片的大小以适应窗口
     [self changeWebImage];
-    
-    
-
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        [self changeWebToNight];
+    } else {
+        [self changeWebToDay];
+    }
     //将toolBar移动最前面
     [self.view bringSubviewToFront:self.mytoolbar];
 }
@@ -331,7 +343,6 @@
     }];
      
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

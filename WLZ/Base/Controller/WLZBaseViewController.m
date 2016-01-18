@@ -21,6 +21,13 @@
     UIImage *image = [UIImage imageNamed:@"user"];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleDone target:self action:@selector(userAction)];
+    
+//    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"night"]) {
+//        self.view.backgroundColor = [UIColor blackColor];
+//    } else {
+//        self.view.backgroundColor = [UIColor whiteColor];
+//    }
+    
 }
 - (void)userAction
 {

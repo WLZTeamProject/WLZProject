@@ -26,10 +26,6 @@
 @property (nonatomic, retain) UICollectionView *collectionV;
 @property (nonatomic, retain) NSMutableArray *radionameArr;
 @property (nonatomic, retain) NSMutableArray *coverimgArr;
-@property (nonatomic, retain) UIImage *imageCYes;
-@property (nonatomic, retain) UIImage *imageCNo;
-@property (nonatomic, retain) UIImage *imageC;
-
 
 @end
 
@@ -37,6 +33,13 @@
 
 - (void)dealloc
 {
+    [_titleM release];
+    [_musicVisitM release];
+    [_playInfo release];
+    [_url release];
+    [_titlePlay release];
+    [_tingid release];
+    [_model1 release];
     [_userinfoArr release];
     [_authorinfoArr release];
     [_collectionV release];
@@ -58,10 +61,12 @@
     return playPVC;
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-// 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+//
+    [self getData];
+    [self.collectionV reloadData];
 ////    [self playAction];
 //    if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
 //    {
@@ -76,7 +81,7 @@
 //    
 //       [self.collectionV reloadData];
 //    
-//}
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -226,7 +231,6 @@
         cell.headImageV.layer.cornerRadius = (WIDTH - 60) / 2;
         cell.titleL.text = [model.playInfo objectForKey:@"title"];
         cell.titleL.font = [UIFont systemFontOfSize:27];
-//        cell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
         return cell;
     }
     if (2 == indexPath.row) {
@@ -252,18 +256,7 @@
             WLZ_Other_Model *modelM = self.coverimgArr[indexPath.section];
             NSLog(@"%@", modelM.coverimg);
             if (0 != self.coverimgArr.count) {
-                WLZ_Other_Model *modelM1 = self.coverimgArr[0];
-                WLZ_Other_Model *modelM2 = self.coverimgArr[1];
-                WLZ_Other_Model *modelM3 = self.coverimgArr[2];
-                WLZ_Other_Model *modelM4 = self.coverimgArr[3];
-                WLZ_Other_Model *modelM5 = self.coverimgArr[4];
-                WLZ_Other_Model *modelM6 = self.coverimgArr[5];
-                [cell.imageOne sd_setImageWithURL:[NSURL URLWithString:modelM1.coverimg]];
-                [cell.imageTwo sd_setImageWithURL:[NSURL URLWithString:modelM2.coverimg]];
-                [cell.imageThree sd_setImageWithURL:[NSURL URLWithString:modelM3.coverimg]];
-                [cell.imageFore sd_setImageWithURL:[NSURL URLWithString:modelM4.coverimg]];
-                [cell.imageFive sd_setImageWithURL:[NSURL URLWithString:modelM5.coverimg]];
-                [cell.imageSix sd_setImageWithURL:[NSURL URLWithString:modelM6.coverimg]];
+                cell.imageArr = self.coverimgArr;
         }
         }
         return cell;
@@ -274,7 +267,7 @@
 - (void)changeVCColor
 {
     [self.player stop];
-    
+    [self getData];
     STKAudioPlayerOptions playerOptions = {YES, YES, {50, 100, 200, 400, 800, 1600, 2600, 16000}};
     self.player = [[[STKAudioPlayer alloc] initWithOptions:playerOptions] autorelease];
 
@@ -352,13 +345,11 @@
         [self.collectionV reloadData];
         [self playAction];
         [WLZ_GIFT dismiss];
+        [self.collectionV reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
-        
+    
     }];
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

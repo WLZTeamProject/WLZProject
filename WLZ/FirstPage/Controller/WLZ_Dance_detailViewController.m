@@ -293,17 +293,37 @@
 //    
 //    [wlzDanceVC release];
     
-    if (_isRotation) {
-        self.isRotation = NO;
-        [UIView animateWithDuration:0.2 animations:^{
-            [self.container removeFromSuperview];
-            self.container.transform = CGAffineTransformRotate(self.container.transform, -M_PI_2);
-            
-            
-        }];
-    }
     
-    self.container.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+//    if (_isRotation) {
+//        self.isRotation = NO;
+//        [UIView animateWithDuration:0.2 animations:^{
+//            [self.container removeFromSuperview];
+//            self.container.transform = CGAffineTransformRotate(self.container.transform, -M_PI_2);
+//            
+//            
+//        }];
+//    }
+    
+    
+//    WLZ_Dance_videoViewController *wlzDanceVC = [[WLZ_Dance_videoViewController alloc] init];
+//    wlzDanceVC.wlzdance = self.zyDance;
+//    
+//    AVPlayerItem *playerItem = self.player.currentItem;
+//    CMTime curTime = playerItem.currentTime;
+//    NSInteger nowSecond = (int)curTime.value / curTime.timescale;
+//    wlzDanceVC.num = nowSecond;
+//    
+//    [self.navigationController pushViewController:wlzDanceVC animated:YES];
+//    
+//    [self.player pause];
+////    [self.navigationController setToolbarHidden:YES animated:YES];
+//    [self.tabBarController.tabBar setHidden:YES];
+//    
+//    [wlzDanceVC release];
+    
+
+    
+//    self.container.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
     
 }
 
@@ -349,7 +369,7 @@
 {
     AVPlayerItem *playerItem = self.player.currentItem;
     CMTime curTime = playerItem.currentTime;
-    NSInteger seconds = curTime.value / curTime.timescale;
+    NSInteger seconds = (int)curTime.value / curTime.timescale;
     self.timeS.value = seconds;
 }
 

@@ -20,17 +20,7 @@
 
 @property (nonatomic, retain) WLZBaseLabel *comfromL;
 
-@property (nonatomic, retain) UIImageView *imageOne;
-
-@property (nonatomic, retain) UIImageView *imageTwo;
-
-@property (nonatomic, retain) UIImageView *imageThree;
-
-@property (nonatomic, retain) UIImageView *imageFore;
-
-@property (nonatomic, retain) UIImageView *imageFive;
-
-@property (nonatomic, retain) UIImageView *imageSix;
+@property (nonatomic, retain) NSMutableArray *imageArr;
 
 
 

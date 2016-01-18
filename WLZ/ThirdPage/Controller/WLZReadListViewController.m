@@ -55,8 +55,17 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        self.collectV.backgroundColor = [UIColor colorWithRed:0.4928 green:0.4856 blue:0.5 alpha:1.0];
+ 
+    } else {
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+        self.collectV.backgroundColor = [UIColor whiteColor];
+    }
+
 }
 #pragma 视图切换按键
 - (void)createRightButton
@@ -159,6 +168,7 @@
     newcell.delegate = self;
     
     WLZReadListHotCell *hotcell = [collectionView dequeueReusableCellWithReuseIdentifier:@"hot" forIndexPath:indexPath];
+    
     hotcell.delegate = self;
     if (0 == indexPath.row) {
         newcell.sort = @"addtime";

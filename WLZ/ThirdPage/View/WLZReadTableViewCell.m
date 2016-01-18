@@ -49,6 +49,11 @@
 //height 100;
 - (void)layoutSubviews
 {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.contentView.backgroundColor = [UIColor colorWithRed:0.1528 green:0.1528 blue:0.1528 alpha:1.0];
+    } else {
+        self.contentView.backgroundColor = [UIColor whiteColor];
+    }
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).offset(10);
         make.left.equalTo(self.contentView).offset(10);
