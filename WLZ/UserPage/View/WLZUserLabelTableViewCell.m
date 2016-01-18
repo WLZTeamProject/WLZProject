@@ -27,6 +27,7 @@
     self.backgroundColor =[UIColor clearColor];
     self.titleLabel = [[WLZBaseLabel alloc] init];
     [self.contentView addSubview:self.titleLabel];
+    [_titleLabel release];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.contentView);
         make.left.equalTo(self.contentView).offset(15);

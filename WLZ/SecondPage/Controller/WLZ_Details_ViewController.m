@@ -149,9 +149,9 @@
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
     [self.view addSubview:self.tableV];
+    self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableV release];
     [self.tableV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.view);
         make.top.equalTo(self.view);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
@@ -192,7 +192,7 @@
     if (0 != self.radioArr.count) {
         WLZ_Details_Model *model = self.radioArr[indexPath.row];
         self.detailsCell.model = [self.radioArr objectAtIndex:indexPath.row];
-        [self.detailsCell.coverimgImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
+        [self.detailsCell.coverimgImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg] placeholderImage:[UIImage imageNamed:@"kafei"]];
         self.detailsCell.titleL.text = model.title;
         self.detailsCell.musicVisitL.text = model.musicVisit;
         self.detailsCell.musicVisitL.font = [UIFont systemFontOfSize:11];
@@ -251,7 +251,10 @@
         
     }];
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

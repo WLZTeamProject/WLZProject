@@ -43,6 +43,19 @@
     [self createSubviews];
     [self createData];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationNightAction) name:@"night" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDayAction) name:@"day" object:nil];
+    
+    
+}
+
+- (void)notificationNightAction
+{
+    self.collectionV.backgroundColor = [UIColor colorWithRed:0.4928 green:0.4856 blue:0.5 alpha:1.0];
+}
+- (void)notificationDayAction
+{
+    self.collectionV.backgroundColor = [UIColor whiteColor];
 }
 #pragma 创建视图
 -(void)createSubviews
@@ -94,6 +107,7 @@
     self.collectionV = [[WLZBaseCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:fwl];
     self.collectionV.delegate = self;
     self.collectionV.dataSource = self;
+    self.collectionV.bounces = NO;
     [self.view addSubview:self.collectionV];
     [self.collectionV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
@@ -171,7 +185,6 @@
     
     WLZReadWebViewController *webVC = [[WLZReadWebViewController alloc] init];
     webVC.mId = [carouselModel.url substringFromIndex:17];
-//    NSLog(@"%@", webVC.mId);
     [self.navigationController pushViewController:webVC animated:YES];
     [webVC release];
     
@@ -182,10 +195,18 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.tabBarController.tabBar.hidden = NO;
     
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.tabBarController.tabBar.hidden = NO;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        self.collectionV.backgroundColor = [UIColor colorWithRed:0.4928 green:0.4856 blue:0.5 alpha:1.0];
+    } else {
+        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+        self.collectionV.backgroundColor = [UIColor whiteColor];
+    }
+
 
 }
 
