@@ -113,7 +113,7 @@
     self.index = 0;
     self.tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.index += 9;
-        NSString *str = [NSString stringWithFormat:@"%d", self.index];
+        NSString *str = [NSString stringWithFormat:@"%d", (int)self.index];
         [self.bodyDic setObject:str forKey:@"start"];
         [self getData:AGEGINURL body:self.bodyDic];
     }];
@@ -243,6 +243,7 @@
 {
 //    self.scrollView = [WLZ_LunBo_View cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height / 3) delegate:self placeholderImage:[UIImage imageNamed:@"kafei"]];
     self.scrollView = [[WLZ_LunBo_View alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT / 3)];
+    
     self.tableV.tableHeaderView = self.scrollView;
     [self.tableV reloadData];
 }
@@ -267,8 +268,10 @@
             [self.imgArr addObject:[dic objectForKey:@"img"]] ;
             
         }
+        NSLog(@"------%ld",self.imgArr.count);
         //轮播图赋值
 //        self.scrollView.imageURLStringsGroup = self.imgArr;
+        self.scrollView.imageArr = [NSMutableArray arrayWithArray:self.imgArr];
         //精选数据解析
         NSArray *hotlistArr = [dataDic objectForKey:@"hotlist"];
         for (NSMutableDictionary *dic in hotlistArr) {
