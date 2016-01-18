@@ -10,6 +10,15 @@
 #import "WLZ_PCH.pch"
 @implementation WLZ_Play_CollectionViewCell
 
+- (void)dealloc
+{
+    [_headImageV release];
+    [_titleL release];
+    [_slider release];
+    [_link release];
+    [super dealloc];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

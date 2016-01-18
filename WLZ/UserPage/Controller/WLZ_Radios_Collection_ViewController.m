@@ -85,7 +85,7 @@
 {
     if (UITableViewCellEditingStyleDelete == editingStyle) {
         RadiosModel *model = [self.docArr objectAtIndex:indexPath.row];
-        [self.dataManager RadiosDelete:model.title];
+        [self.dataManager RadiosDelete:model.scenicID];
         [self.docArr removeObjectAtIndex:indexPath.row];
     }
     [self.tableV reloadData];

@@ -8,7 +8,27 @@
 
 #import "WLZ_Other_CollectionViewCell.h"
 #import "WLZ_PCH.pch"
+#import "WLZ_Other_D_CollectionViewCell.h"
+#import "WLZ_Other_Model.h"
+
+@interface WLZ_Other_CollectionViewCell () <UICollectionViewDelegate, UICollectionViewDataSource>
+
+@property (nonatomic, retain) UICollectionView *collectionV;
+
+@end
+
 @implementation WLZ_Other_CollectionViewCell
+
+- (void)dealloc
+{
+    [_mainL release];
+    [_mainImageV release];
+    [_comfromL release];
+    [_imageArr release];
+    [_originalL release];
+    [_originalImageV release];
+    [super dealloc];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -53,30 +73,6 @@
     otherL.text = @"主播其他作品";
     otherL.font = [UIFont systemFontOfSize:27];
     [self addSubview:otherL];
-    
-    self.imageOne = [UIImageView new];
-    self.imageOne.layer.cornerRadius = 10;
-    [self addSubview:self.imageOne];
-    
-    self.imageTwo = [UIImageView new];
-    self.imageTwo.layer.cornerRadius = 10;
-    [self addSubview:self.imageTwo];
-    
-    self.imageThree = [UIImageView new];
-    self.imageThree.layer.cornerRadius = 10;
-    [self addSubview:self.imageThree];
-    
-    self.imageFore = [UIImageView new];
-    self.imageFore.layer.cornerRadius = 10;
-    [self addSubview:self.imageFore];
-    
-    self.imageFive = [UIImageView new];
-    self.imageFive.layer.cornerRadius = 10;
-    [self addSubview:self.imageFive];
-    
-    self.imageSix = [UIImageView new];
-    self.imageSix.layer.cornerRadius = 10;
-    [self addSubview:self.imageSix];
     
     [mainL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(30);
@@ -149,61 +145,45 @@
         
     }];
     
-    [self.imageOne mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(otherL.mas_bottom).with.offset(20);
-        make.left.equalTo(self).with.offset(20);
-        make.right.equalTo(self.imageTwo.mas_left).with.offset(-10);
-        make.height.mas_equalTo(self.imageOne.mas_width);
-        make.width.mas_equalTo(@[self.imageTwo, self.imageThree]);
-
+    UICollectionViewFlowLayout *fwl = [[UICollectionViewFlowLayout alloc] init];
+    fwl.itemSize = CGSizeMake(UIWIDTH / 3 - 10, UIWIDTH / 3 - 12);
+    fwl.minimumLineSpacing = 3;
+    fwl.minimumInteritemSpacing = 3;
+    fwl.sectionInset = UIEdgeInsetsMake(0, 8, 0, 8);
+    self.collectionV = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:fwl];
+    self.collectionV.delegate = self;
+    self.collectionV.dataSource = self;
+    self.collectionV.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.collectionV];
+    [self.collectionV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.top.equalTo(otherL.mas_bottom).with.offset(30);
+        make.bottom.equalTo(self.mas_bottom);
         
     }];
-    
-    [self.imageTwo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(otherL.mas_bottom).with.offset(20);
-//        make.centerY.mas_equalTo(self);
-        make.height.mas_equalTo(self.imageOne);
-        make.width.equalTo(@[self.imageOne, self.imageThree]);
-        
-    }];
-
-    [self.imageThree mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(otherL.mas_bottom).with.offset(20);
-//        make.centerY.mas_equalTo(self);
-        make.left.equalTo(self.imageTwo.mas_right).with.offset(10);
-        make.right.equalTo(self).with.offset(-20);
-        make.height.mas_equalTo(self.imageOne);
-        make.width.mas_equalTo(@[self.imageOne, self.imageThree]);
-        
-    }];
-    
-    [self.imageFore mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imageOne.mas_bottom).with.offset(20);
-        make.left.equalTo(self).with.offset(20);
-        make.right.equalTo(self.imageFive.mas_left).with.offset(-10);
-        make.height.mas_equalTo(self.imageFore.mas_width);
-        make.width.mas_equalTo(@[self.imageFive, self.imageSix]);
-        
-        
-    }];
-    
-    [self.imageFive mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imageTwo.mas_bottom).with.offset(20);
-        make.height.mas_equalTo(self.imageFore);
-        make.width.equalTo(@[self.imageFore, self.imageSix]);
-        
-    }];
-    
-    [self.imageSix mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.imageThree.mas_bottom).with.offset(20);
-        make.left.equalTo(self.imageFive.mas_right).with.offset(10);
-        make.right.equalTo(self).with.offset(-20);
-        make.height.mas_equalTo(self.imageFore);
-        make.width.mas_equalTo(@[self.imageFore, self.imageSix]);
-        
-    }];
-
+    [self.collectionV registerClass:[WLZ_Other_D_CollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 
 }
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    if (0 != self.imageArr.count) {
+        return self.imageArr.count;
+    }
+    return 10;
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    WLZ_Other_D_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    WLZ_Other_Model *model = self.imageArr[indexPath.row];
+    [cell.imageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
+    return cell;
+}
+
 
 @end

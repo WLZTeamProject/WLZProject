@@ -10,6 +10,13 @@
 
 @implementation WLZ_List_TableViewCell
 
+- (void)dealloc
+{
+    [_titleL release];
+    [_musicVisitL release];
+    [super dealloc];
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {

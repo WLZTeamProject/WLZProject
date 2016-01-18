@@ -53,6 +53,8 @@
     [_imgArr release];
     [_featuredArr release];
     [_radiosArr release];
+    [_bodyDic release];
+    [_jingxuanArr release];
     [super dealloc];
 }
 

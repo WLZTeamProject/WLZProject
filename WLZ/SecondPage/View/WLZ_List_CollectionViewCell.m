@@ -17,6 +17,15 @@
 
 @implementation WLZ_List_CollectionViewCell
 
+- (void)dealloc
+{
+    [_tableV release];
+    [_titleML release];
+    [_musicVisitML release];
+    [_listCell release];
+    [super release];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

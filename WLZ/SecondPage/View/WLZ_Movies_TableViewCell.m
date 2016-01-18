@@ -11,6 +11,16 @@
 #define PAD 10
 @implementation WLZ_Movies_TableViewCell
 
+- (void)dealloc
+{
+    [_titleL release];
+    [_model release];
+    [_descL release];
+    [_unameL release];
+    [_RadiosImageV release];
+    [super dealloc];
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {

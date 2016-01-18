@@ -31,6 +31,15 @@
 @end
 
 @implementation WLZ_Details_ViewController
+- (void)dealloc
+{
+    [_tableV release];
+    [_detailsCell release];
+    [_headerImageV release];
+    [_radioArr release];
+    [_coreManager release];
+    [super dealloc];
+}
 //
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
