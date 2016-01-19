@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol LunBoTapDelegate <NSObject>
 
+- (void)sendTapImfo:(NSInteger)index;
+
+@end
 @interface WLZ_LunBo_View : UIView<UIScrollViewDelegate>
-@property (strong,nonatomic)UIScrollView *scrollView;
-@property (strong,nonatomic)NSMutableArray *slideImages;
-@property (strong,nonatomic)UIPageControl *pageControl;
-@property (strong, nonatomic)UITextField *text;
-- (void)createSubviews;
+@property (nonatomic, assign) id<LunBoTapDelegate> delegate;
+@property (nonatomic, retain) NSArray *imageArr;
+@property (nonatomic, retain) NSArray *newsTitleArr;
 @end

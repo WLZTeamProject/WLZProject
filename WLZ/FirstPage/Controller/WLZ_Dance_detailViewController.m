@@ -14,7 +14,7 @@
 #import "WLZ_Dance_detailCollectionViewCell.h"
 #import "WLZ_Dance_contentCollectionViewCell.h"
 @interface WLZ_Dance_detailViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLZ_Dance_detailCollectionViewCellDelegate>
-@property (nonatomic, retain) AVPlayer *player;
+
 @property (nonatomic, retain) UIView *container;
 @property (nonatomic, retain) UILabel *timeLabel;
 @property (nonatomic, retain) UILabel *totalTimeL;
@@ -35,7 +35,8 @@
 @property (nonatomic, retain) UIView *totalView;
 
 @property (nonatomic, retain) NSMutableArray *arr;
-//@property (nonatomic, retain)
+@property (nonatomic, assign) BOOL isRotation;
+@property (nonatomic, assign) CGRect originalFrame;
 
 @end
 
@@ -77,6 +78,7 @@
     [_relateBut release];
     [_collectionV release];
     [_totalView release];
+    [_arr release];
     [super dealloc];
     
 }
@@ -86,14 +88,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:131 / 256.0 green:59 / 256.0 blue:149 / 256.0 alpha:1.0];
-    
+    self.numtime = 0;
     self.arr = [NSMutableArray array];
-    
+    self.originalFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3);
     [self getrelateData];
     
     [self createPlayerView];
     
     [self createunderView];
+    
+    
+    
 }
 
 
@@ -123,9 +128,11 @@
 }
 
 //建立播放页面
-- (void)createPlayerView
+- (void)createPlayerView:(CGRect)originalFrame
 {
-    self.totalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, ([[UIScreen mainScreen] bounds].size.height / 2 -  [[UIScreen mainScreen] bounds].size.height / 3) / 2 + [[UIScreen mainScreen] bounds].size.height / 3)];
+//    self.totalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3)];
+    self.totalView = [[UIView alloc] initWithFrame:originalFrame];
+//    self.totalView.frame = self.originalFrame;
     self.totalView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.totalView];
     
@@ -155,20 +162,20 @@
     [self.totalView addSubview:self.sliderView];
     [_sliderView release];
     
-    self.timeS = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width, 0)];
+    self.timeS = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width, 10)];
     [self.timeS addTarget:self action:@selector(timeAction) forControlEvents:UIControlEventValueChanged];
     [self.timeS setThumbImage:[UIImage imageNamed:@"roundimage"] forState:UIControlStateNormal];
     [self.sliderView addSubview:self.timeS];
     [_timeS release];
     
-    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width / 6, self.sliderView.frame.size.height)];
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, self.sliderView.frame.size.width / 6, self.sliderView.frame.size.height - 10)];
     self.timeLabel.textColor = [UIColor whiteColor];
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     self.timeLabel.text = @"00:00/";
     [_timeLabel release];
     [self.sliderView addSubview:self.timeLabel];
     
-    self.totalTimeL = [[UILabel alloc] initWithFrame:CGRectMake(self.timeLabel.frame.size.width, 0, self.sliderView.frame.size.width / 6, self.sliderView.frame.size.height)];
+    self.totalTimeL = [[UILabel alloc] initWithFrame:CGRectMake(self.timeLabel.frame.size.width, 10, self.sliderView.frame.size.width / 6, self.sliderView.frame.size.height - 10)];
     self.totalTimeL.textColor = [UIColor whiteColor];
     self.totalTimeL.textAlignment = NSTextAlignmentLeft;
     self.totalTimeL.text = @"00:00";
@@ -176,7 +183,7 @@
     [_totalTimeL release];
     
     self.startBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.startBut.frame = CGRectMake(self.timeLabel.frame.size.width, 0, self.sliderView.frame.size.width / 3, self.sliderView.frame.size.height);
+    self.startBut.frame = CGRectMake(self.totalTimeL.frame.size.width + self.totalTimeL.frame.origin.x, 10, self.sliderView.frame.size.width / 3, self.sliderView.frame.size.height - 10);
     [self.startBut setImage:[UIImage imageNamed:@"stopImage"] forState:UIControlStateNormal];
     [self.startBut setImage:[UIImage imageNamed:@"startImage"] forState:UIControlStateSelected];
     [self.startBut addTarget:self action:@selector(playClick) forControlEvents:UIControlEventTouchUpInside];
@@ -193,30 +200,13 @@
     [self.view addSubview:self.backBut];
     
     self.screenBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.screenBut.frame = CGRectMake(self.sliderView.frame.size.width - self.sliderView.frame.size.height, 0, self.sliderView.frame.size.height, self.sliderView.frame.size.height);
+    self.screenBut.frame = CGRectMake(self.sliderView.frame.size.width - self.sliderView.frame.size.height, 10, self.sliderView.frame.size.height, self.sliderView.frame.size.height - 10);
     [self.screenBut setImage:[UIImage imageNamed:@"screenImage"] forState:UIControlStateNormal];
     [self.screenBut addTarget:self action:@selector(screenButAction) forControlEvents:UIControlEventTouchUpInside];
     
     [self.sliderView addSubview:self.screenBut];
     
-    self.butView = [[UIView alloc] initWithFrame:CGRectMake(0, self.container.frame.origin.y + self.container.frame.size.height, self.container.frame.size.width, ([[UIScreen mainScreen] bounds].size.height / 2 -  [[UIScreen mainScreen] bounds].size.height / 3) / 2)];
-    self.butView.backgroundColor = [UIColor orangeColor];
-    [self.totalView addSubview:self.butView];
     
-    self.detailBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.detailBut.frame = CGRectMake(0, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
-    [self.detailBut setTitle:@"详情" forState:UIControlStateNormal];
-    [self.detailBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
-    self.detailBut.backgroundColor = [UIColor colorWithRed:49 / 255.0 green:1 / 255.0 blue:47 / 255.0 alpha:1.0];
-    [self.detailBut addTarget:self action:@selector(detailButAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.butView addSubview:self.detailBut];
-    
-    self.relateBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.relateBut.frame = CGRectMake(self.detailBut.frame.size.width, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
-    self.relateBut.backgroundColor = [UIColor colorWithRed:49 / 255.0 green:1 / 255.0 blue:47 / 255.0 alpha:1.0];
-    [self.relateBut setTitle:@"相关" forState:UIControlStateNormal];
-    [self.relateBut addTarget:self action:@selector(relateButAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.butView addSubview:self.relateBut];
     
     
     
@@ -231,8 +221,7 @@
     self.collectionV.contentOffset = CGPointMake(0, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
     [self.detailBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
     [self.relateBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
-    
+
 }
 //相关but
 - (void)relateButAction
@@ -290,24 +279,51 @@
 - (void)screenButAction
 {
 
-    
-    WLZ_Dance_videoViewController *wlzDanceVC = [[WLZ_Dance_videoViewController alloc] init];
-    wlzDanceVC.wlzdance = self.zyDance;
-    
-    AVPlayerItem *playerItem = self.player.currentItem;
-    CMTime curTime = playerItem.currentTime;
-    NSInteger nowSecond = (int)curTime.value / curTime.timescale;
-    wlzDanceVC.num = nowSecond;
-    
-    [self.navigationController pushViewController:wlzDanceVC animated:YES];
-    
-    [self.player pause];
-//    [self.navigationController setToolbarHidden:YES animated:YES];
-    [self.tabBarController.tabBar setHidden:YES];
-    
-    [wlzDanceVC release];
+//    WLZ_Dance_videoViewController *wlzDanceVC = [[WLZ_Dance_videoViewController alloc] init];
+//    wlzDanceVC.wlzdance = self.zyDance;
+//    
+//    NSInteger num = (int)self.timeS.value * 10;
+//    wlzDanceVC.num = num;
+//    
+//    [self.navigationController pushViewController:wlzDanceVC animated:YES];
+//    
+//    [self.player pause];
+////    [self.navigationController setToolbarHidden:YES animated:YES];
+//    [self.tabBarController.tabBar setHidden:YES];
+//    
+//    [wlzDanceVC release];
     
     
+//    if (_isRotation) {
+//        self.isRotation = NO;
+//        [UIView animateWithDuration:0.2 animations:^{
+//            [self.container removeFromSuperview];
+//            self.container.transform = CGAffineTransformRotate(self.container.transform, -M_PI_2);
+//            
+//            
+//        }];
+//    }
+    
+    
+//    WLZ_Dance_videoViewController *wlzDanceVC = [[WLZ_Dance_videoViewController alloc] init];
+//    wlzDanceVC.wlzdance = self.zyDance;
+//    
+//    AVPlayerItem *playerItem = self.player.currentItem;
+//    CMTime curTime = playerItem.currentTime;
+//    NSInteger nowSecond = (int)curTime.value / curTime.timescale;
+//    wlzDanceVC.num = nowSecond;
+//    
+//    [self.navigationController pushViewController:wlzDanceVC animated:YES];
+//    
+//    [self.player pause];
+////    [self.navigationController setToolbarHidden:YES animated:YES];
+//    [self.tabBarController.tabBar setHidden:YES];
+//    
+//    [wlzDanceVC release];
+    
+
+    
+//    self.container.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
     
 }
 
@@ -337,7 +353,16 @@
 //进度条
 - (void)timeAction
 {
-    
+    if (0 == self.player.rate) {
+        [self.player seekToTime:CMTimeMake((int)self.timeS.value * 10, 10.0)];
+        [self.player play];
+//        [self.startBut setImage:[UIImage imageNamed:@"stopImage"] forState:UIControlStateNormal];
+        self.startBut.selected = NO;
+    } else if (1 == self.player.rate) {
+        [self.player pause];
+        [self.player seekToTime:CMTimeMake((int)self.timeS.value * 10, 10.0)];
+        [self.player play];
+    }
 }
 
 - (void)currentTime
@@ -348,22 +373,36 @@
     self.timeS.value = seconds;
 }
 
+- (void)customVideozSlider:(CMTime)duration
+{
+    self.timeS.maximumValue = CMTimeGetSeconds(duration);
+    self.timeS.minimumValue = 0.0;
+    NSLog(@"%f", self.timeS.maximumValue);
+}
+
 //添加进度条
 - (void)addTimeobserver
 {
     AVPlayerItem *playerItem = self.player.currentItem;
-    
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(currentTime) userInfo:nil repeats:YES];
     
     [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        if (self.numtime != 0) {
+        [self.player seekToTime:CMTimeMake(self.numtime, 10.0)];
+        }
+
         CGFloat total = CMTimeGetSeconds([playerItem duration]);
         CGFloat current = CMTimeGetSeconds(time);
 //        self.timeS.value = current;
+        
         NSString *newtime = [self changeTimer:current];
         NSString *totaltime = [self changeTimer:total];
         self.timeLabel.text = [NSString stringWithFormat:@"%@/",  newtime];
         self.totalTimeL.text = [NSString stringWithFormat:@"%@", totaltime];
 //        self.timeS.maximumValue = total;
+        
+        [self.timeS setValue:current animated:YES];
+        
         
     }];
     
@@ -394,6 +433,9 @@
     
 }
 
+
+
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     AVPlayerItem *playerItem = object;
@@ -401,13 +443,16 @@
         AVPlayerStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerStatusReadyToPlay) {
 //            NSLog(@"正在播放........");
+            [self customVideozSlider:playerItem.duration];
+            
+        
         }
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
-        NSArray *array = playerItem.loadedTimeRanges;
-        CMTimeRange timeRange = [array.firstObject CMTimeRangeValue];
-        float startSecond = CMTimeGetSeconds(timeRange.start);
-        float durationSeconds = CMTimeGetSeconds(timeRange.duration);
-        NSTimeInterval totalBuffer = startSecond + durationSeconds;
+//        NSArray *array = playerItem.loadedTimeRanges;
+//        CMTimeRange timeRange = [array.firstObject CMTimeRangeValue];
+//        float startSecond = CMTimeGetSeconds(timeRange.start);
+//        float durationSeconds = CMTimeGetSeconds(timeRange.duration);
+//        NSTimeInterval totalBuffer = startSecond + durationSeconds;
 //        NSLog(@"一共缓存多少秒%0.2f", totalBuffer);
     }
     
@@ -420,7 +465,10 @@
     if (!_player) {
         AVPlayerItem *playerItem = [self getPlayItem:wlzvideo.url];
         _player = [AVPlayer playerWithPlayerItem:playerItem];
-
+        
+//        if (self.numtime != 0) {
+            [self.player seekToTime:CMTimeMake(self.numtime, 10.0)];
+//        }
         [self addobserverToplayerItem:playerItem];
         [self addTimeobserver];
         
@@ -432,6 +480,25 @@
 
 - (void)createunderView
 {
+    self.butView = [[UIView alloc] initWithFrame:CGRectMake(0, self.container.frame.origin.y + self.container.frame.size.height, self.container.frame.size.width, ([[UIScreen mainScreen] bounds].size.height / 2 -  [[UIScreen mainScreen] bounds].size.height / 3) / 2)];
+    self.butView.backgroundColor = [UIColor orangeColor];
+    [self.view addSubview:self.butView];
+    
+    self.detailBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.detailBut.frame = CGRectMake(0, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
+    [self.detailBut setTitle:@"详情" forState:UIControlStateNormal];
+    [self.detailBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+    self.detailBut.backgroundColor = [UIColor colorWithRed:49 / 255.0 green:1 / 255.0 blue:47 / 255.0 alpha:1.0];
+    [self.detailBut addTarget:self action:@selector(detailButAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.butView addSubview:self.detailBut];
+    
+    self.relateBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.relateBut.frame = CGRectMake(self.detailBut.frame.size.width, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
+    self.relateBut.backgroundColor = [UIColor colorWithRed:49 / 255.0 green:1 / 255.0 blue:47 / 255.0 alpha:1.0];
+    [self.relateBut setTitle:@"相关" forState:UIControlStateNormal];
+    [self.relateBut addTarget:self action:@selector(relateButAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.butView addSubview:self.relateBut];
+    
     
     UICollectionViewFlowLayout *flowL = [[[UICollectionViewFlowLayout alloc] init] autorelease];
 //    flowL.headerReferenceSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width , ([[UIScreen mainScreen] bounds].size.height / 2 - [[UIScreen mainScreen] bounds].size.height / 3) / 2 + [[UIScreen mainScreen] bounds].size.height / 3);
@@ -445,7 +512,7 @@
     flowL.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
     
-    self.collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.totalView.frame.size.height, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height) collectionViewLayout:flowL];
+    self.collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.butView.frame.size.height + self.butView.frame.origin.y, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height) collectionViewLayout:flowL];
     self.collectionV.delegate = self;
     self.collectionV.dataSource = self;
     self.collectionV.backgroundColor = [UIColor clearColor];
@@ -471,9 +538,6 @@
    
     if (0 == indexPath.row) {
         WLZ_Dance_contentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell2" forIndexPath:indexPath];
-        cell.tag = 20001;
-//        cell.wlzDance = self.zyDance;
-
         cell.titleL.numberOfLines = 0;
         cell.titleL.text = self.zyDance.item_title;
         cell.catalogL.text = self.zyDance.item_catalog;
@@ -487,8 +551,6 @@
     }
     if (1 == indexPath.row) {
         WLZ_Dance_detailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-        cell.tag = 20002;
-        
         cell.arr = self.arr;
         cell.delegate = self;
 //        NSLog(@"哈哈哈哈%@", cell.title);

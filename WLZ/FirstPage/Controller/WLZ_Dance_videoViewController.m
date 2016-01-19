@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "WLZ_Dance_ListModel.h"
 #import "WLZ_Dance_videoModel.h"
+#import "WLZ_Dance_detailViewController.h"
 @interface WLZ_Dance_videoViewController ()
 @property (nonatomic, retain) UIView *container;
 
@@ -37,6 +38,7 @@
 - (void)dealloc
 {
     [self removeObserverFromPlayerItem:self.player.currentItem];
+    [self removeNotification];
     [_player release];
     [_wlzdance release];
     [_container release];
@@ -45,6 +47,8 @@
     [_backView release];
     [_titleL release];
     [_nativetimeL release];
+    [_collectBut release];
+    [_shareBut release];
     [super dealloc];
 }
 
@@ -59,6 +63,7 @@
     
     
 }
+
 //横屏
 - (void)screenView
 {
@@ -151,18 +156,19 @@
     [self.sliderView setAlpha:0.5];
     [self.view addSubview:self.sliderView];
     
-    self.timeS = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width, 0)];
+    self.timeS = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, self.sliderView.frame.size.width, 10)];
+    [self.timeS addTarget:self action:@selector(timerSliderAction) forControlEvents:UIControlEventTouchUpInside];
     [self.timeS setThumbImage:[UIImage imageNamed:@"roundimage"] forState:UIControlStateNormal];
     [self.sliderView addSubview:self.timeS];
     
     self.startBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.startBut.frame = CGRectMake(0, 0, self.sliderView.frame.size.width / 11, self.sliderView.frame.size.height);
+    self.startBut.frame = CGRectMake(0, 10, self.sliderView.frame.size.width / 11, self.sliderView.frame.size.height - 10);
     [self.startBut setImage:[UIImage imageNamed:@"stopImage"] forState:UIControlStateNormal];
     [self.startBut addTarget:self action:@selector(playClick) forControlEvents:UIControlEventTouchUpInside];
     self.startBut.backgroundColor = [UIColor clearColor];
     [self.sliderView addSubview:self.startBut];
     
-    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.sliderView.frame.size.width - self.sliderView.frame.size.width / 11 * 2, 0, self.sliderView.frame.size.width / 11 * 2, self.sliderView.frame.size.height)];
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.sliderView.frame.size.width - self.sliderView.frame.size.width / 11 * 2, 10, self.sliderView.frame.size.width / 11 * 2, self.sliderView.frame.size.height - 10)];
     self.timeLabel.text = @"00:00/00:00";
     self.timeLabel.backgroundColor = [UIColor clearColor];
     self.timeLabel.textColor = [UIColor whiteColor];
@@ -172,11 +178,45 @@
     
 }
 
+//添加播放结束通知
+- (void)addNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerbackFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.player.currentItem];
+}
+- (void)removeNotification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)playerbackFinished:(NSNotification *)notfication
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.player pause];
+    [self erectView];
+}
+
+//视频根据滑动条动
+- (void)timerSliderAction
+{
+    if (0 == self.player.rate) {
+        [self.player seekToTime:CMTimeMake((int)self.timeS.value * 10, 10.0)];
+        [self.player play];
+        [self.startBut setImage:[UIImage imageNamed:@"stopImage"] forState:UIControlStateNormal];
+    } else if (1 == self.player.rate) {
+        [self.player pause];
+        [self.player seekToTime:CMTimeMake((int)self.timeS.value * 10, 10.0)];
+        [self.player play];
+        
+    }
+    
+}
+
 - (void)collectButAction
 {
     
 }
 
+//获取系统时间
 - (void)getcurrentTimer
 {
     NSDate *currentTime = [NSDate date];
@@ -185,7 +225,7 @@
     [dateformatter setDateFormat:@"HH:mm"];
     NSString *locationStr = [dateformatter stringFromDate:currentTime];
     self.nativetimeL.text = locationStr;
-    NSLog(@"locationString:%@", locationStr);
+//    NSLog(@"locationString:%@", locationStr);
     [dateformatter release];
 }
 
@@ -228,8 +268,12 @@
 //返回
 - (void)backButAction
 {
+    WLZ_Dance_detailViewController *wlzdanceVC = [[WLZ_Dance_detailViewController alloc] init];
+    NSInteger num = (int)self.timeS.value * 10;
+    wlzdanceVC.numtime = num;
+//    [wlzdanceVC.player play];
     [self.navigationController popViewControllerAnimated:YES];
-//    [self.tabBarController.tabBar setHidden:NO];
+//    [self.navigationController popToViewController:wlzdanceVC animated:YES];
     [self.player pause];
     [self erectView];
     
@@ -244,17 +288,19 @@
 //    [self.player seekToTime:nowTime];
     
     [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        [self addNotification];
         CGFloat total = CMTimeGetSeconds([playerItem duration]);
         CGFloat current = CMTimeGetSeconds(time);
         NSString *newtime = [self changeTimer:current];
         NSString *totalTime = [self changeTimer:total];
         self.timeLabel.text = [NSString stringWithFormat:@"%@/%@", newtime, totalTime];
+        [self.timeS setValue:current animated:YES];
 //        self.timeS.value = current;
 //        self.timeS.maximumValue = total;
         
     }];
 }
-
+//转化时间
 - (NSString *)changeTimer:(CGFloat)time
 {
     NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:time];
@@ -277,21 +323,30 @@
     [playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
 }
 
+//slider赋最大值&最小值
+- (void)createSlider:(CMTime)duration
+{
+    self.timeS.maximumValue = CMTimeGetSeconds(duration);
+    self.timeS.minimumValue = 0.0;
+    
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     AVPlayerItem *playerItem = object;
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerStatusReadyToPlay) {
-            NSLog(@"正在播放......");
+            [self createSlider:playerItem.duration];
+//            NSLog(@"正在播放......");
         }
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
-        NSArray *array = playerItem.loadedTimeRanges;
-        CMTimeRange timeRange = [array.firstObject CMTimeRangeValue];
-        float startSecond = CMTimeGetSeconds(timeRange.start);
-        float durationSeconds = CMTimeGetSeconds(timeRange.duration);
-        NSTimeInterval totalBuffer = startSecond + durationSeconds;
-        NSLog(@"共缓冲: %.2f", totalBuffer);
+//        NSArray *array = playerItem.loadedTimeRanges;
+//        CMTimeRange timeRange = [array.firstObject CMTimeRangeValue];
+//        float startSecond = CMTimeGetSeconds(timeRange.start);
+//        float durationSeconds = CMTimeGetSeconds(timeRange.duration);
+//        NSTimeInterval totalBuffer = startSecond + durationSeconds;
+//        NSLog(@"共缓冲: %.2f", totalBuffer);
     }
 }
 - (AVPlayer *)player
@@ -305,9 +360,11 @@
         _player = [AVPlayer playerWithPlayerItem:playerItem];
         
         
-        
+        [self.player seekToTime:CMTimeMake(self.num, 10.0)];
         [self addobserverToplayerTtem:playerItem];
         [self addTimeobserver];
+        
+        
     }
     return _player;
 }
