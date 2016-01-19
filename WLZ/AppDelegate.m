@@ -62,9 +62,12 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
         self.radioNC.navigationBar.tintColor = [UIColor whiteColor];
         self.radioNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+       
     } else {
         self.radioNC.navigationBar.tintColor = [UIColor blackColor];
         self.radioNC.navigationBar.barTintColor = [UIColor whiteColor];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }
     self.radioNC.navigationBar.translucent = NO;
     self.radioNC.tabBarItem.title = @"视频";

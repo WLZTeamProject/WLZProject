@@ -254,6 +254,17 @@
 - (void)rightAction
 {
     NSLog(@"分享");
+    NSString *shareStr = [NSString stringWithFormat:@"%@ %@", self.shareInfoModel.title, self.shareInfoModel.url];
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:@"5699b3a5e0f55a1f1c00159d"
+                                      shareText:shareStr
+                                     shareImage:nil
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent,UMShareToRenren,UMShareToQQ, UMShareToQzone,UMShareToWechatSession,UMShareToWechatTimeline,nil]
+                                       delegate:nil];
+    //图文时,点击点击跳连接
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = self.shareInfoModel.url;
+    // 如果是朋友圈, 则替换平台参数
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.shareInfoModel.url;
     
 }
 
