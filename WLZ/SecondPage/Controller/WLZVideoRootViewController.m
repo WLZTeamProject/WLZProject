@@ -124,8 +124,8 @@
     self.index = 0;
     self.tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.index += 9;
-        NSString *str = [NSString stringWithFormat:@"%ld", self.index];
-//        NSString *str = [NSString stringWithFormat:@"%d", (int)self.index];
+//        NSString *str = [NSString stringWithFormat:@"%ld", self.index];
+        NSString *str = [NSString stringWithFormat:@"%d", (int)self.index];
         [self.bodyDic setObject:str forKey:@"start"];
         [self getData:AGEGINURL body:self.bodyDic];
     }];
