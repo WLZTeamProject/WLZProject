@@ -23,6 +23,7 @@
 {
     self.pic_pathV = [UIImageView new];
     [self addSubview:self.pic_pathV];
+    self.pic_pathV.image = [UIImage imageNamed:@"kafei"];
     self.pic_pathV.layer.cornerRadius = 10;
     [self.pic_pathV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(10);
