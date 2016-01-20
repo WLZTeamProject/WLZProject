@@ -24,6 +24,8 @@
 - (void)dealloc
 {
     [_imageV release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"night" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"day" object:nil];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"night"];
     [_arr release];
     [_tableView release];
@@ -38,9 +40,9 @@
 {
     self.imageV = [[UIImageView alloc] initWithFrame:self.view.frame];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
-        self.imageV.backgroundColor = [UIColor blackColor];
-    } else {
         self.imageV.image = [UIImage imageNamed:@"user_bg"];
+    } else {
+        self.imageV.image = [UIImage imageNamed:@"user_bg_1"];
     }
     self.imageV.userInteractionEnabled = YES;
     [self.view addSubview:self.imageV];
@@ -54,12 +56,12 @@
 }
 - (void)notificationNightAction
 {
-    self.imageV.image = nil;
-    self.imageV.backgroundColor = [UIColor blackColor];
+     self.imageV.image = [UIImage imageNamed:@"user_bg"];
+    
 }
 - (void)notificationDayAction
 {
-    self.imageV.image = [UIImage imageNamed:@"user_bg"];
+    self.imageV.image = [UIImage imageNamed:@"user_bg_1"];
 }
 
 

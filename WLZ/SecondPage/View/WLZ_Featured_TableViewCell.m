@@ -29,6 +29,13 @@
 
 - (void)creatSubView
 {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.backgroundColor = [UIColor colorWithRed:0.1904 green:0.1904 blue:0.1904 alpha:1.0];
+    } else {
+        self.backgroundColor = [UIColor whiteColor];
+    }
+    
+    
     self.userInteractionEnabled = YES;
 //    self.contentView.userInteractionEnabled = NO;
     self.newImageV = [UIImageView new];
@@ -96,7 +103,20 @@
     [self.nightImageV addGestureRecognizer:tapGR3];
     [tapGR3 release];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationNightAction) name:@"night" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDayAction) name:@"day" object:nil];
 
+}
+- (void)notificationNightAction
+{
+    self.backgroundColor = [UIColor colorWithRed:0.1904 green:0.1904 blue:0.1904 alpha:1.0];
+
+}
+- (void)notificationDayAction
+{
+    self.backgroundColor = [UIColor whiteColor];
 }
 - (void)tapAction1:(UITapGestureRecognizer *)sender
 {
