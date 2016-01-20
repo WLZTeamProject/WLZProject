@@ -117,6 +117,18 @@
     // Initialization code
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.contentView.backgroundColor = [UIColor blackColor];
+    } else {
+        self.contentView.backgroundColor = [UIColor whiteColor];
+    }
+    
+    
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -102,6 +102,14 @@
 		92B705E51C4A2E35005CA39B /* WLZ_Other_D_CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B705E41C4A2E35005CA39B /* WLZ_Other_D_CollectionViewCell.m */; };
 		92C94FE81C4C8D0D00564DD8 /* WLZ_LunBo_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C94FE71C4C8D0D00564DD8 /* WLZ_LunBo_View.m */; };
 		92C950251C4CE05A00564DD8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 92C950241C4CE05A00564DD8 /* Icon.png */; };
+		92D7C3351C4DC8F100598C87 /* WLZ_News_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7C3341C4DC8F100598C87 /* WLZ_News_ViewController.m */; };
+		92D7C3381C4DC90A00598C87 /* WLZ_News_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7C3371C4DC90A00598C87 /* WLZ_News_View.m */; };
+		92D7C33B1C4DC92300598C87 /* WLZ_News_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7C33A1C4DC92300598C87 /* WLZ_News_Model.m */; };
+		92D7C33E1C4DCBDF00598C87 /* WLZ_Happy_CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7C33D1C4DCBDF00598C87 /* WLZ_Happy_CollectionViewCell.m */; };
+		92D7C3411C4DCC0B00598C87 /* WLZ_Korean_CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7C3401C4DCC0B00598C87 /* WLZ_Korean_CollectionViewCell.m */; };
+		92D7C3441C4DD16400598C87 /* WLZ_Happy_TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7C3431C4DD16400598C87 /* WLZ_Happy_TableViewCell.m */; };
+		92D7C3471C4DE08700598C87 /* WLZ_Happy_No_TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7C3461C4DE08700598C87 /* WLZ_Happy_No_TableViewCell.m */; };
+		92D7C3C71C4E202E00598C87 /* WLZ_News_Details_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D7C3C61C4E202E00598C87 /* WLZ_News_Details_ViewController.m */; };
 		9FA4437D3665C00A45DDDE01 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D59BA53E477DD3A0DEB6E4D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -309,6 +317,22 @@
 		92C94FE61C4C8D0D00564DD8 /* WLZ_LunBo_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_LunBo_View.h; sourceTree = "<group>"; };
 		92C94FE71C4C8D0D00564DD8 /* WLZ_LunBo_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_LunBo_View.m; sourceTree = "<group>"; };
 		92C950241C4CE05A00564DD8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = SecondPage/Controller/Icon.png; sourceTree = "<group>"; };
+		92D7C3331C4DC8F100598C87 /* WLZ_News_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_News_ViewController.h; sourceTree = "<group>"; };
+		92D7C3341C4DC8F100598C87 /* WLZ_News_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_News_ViewController.m; sourceTree = "<group>"; };
+		92D7C3361C4DC90A00598C87 /* WLZ_News_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WLZ_News_View.h; path = ../Model/WLZ_News_View.h; sourceTree = "<group>"; };
+		92D7C3371C4DC90A00598C87 /* WLZ_News_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WLZ_News_View.m; path = ../Model/WLZ_News_View.m; sourceTree = "<group>"; };
+		92D7C3391C4DC92300598C87 /* WLZ_News_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_News_Model.h; sourceTree = "<group>"; };
+		92D7C33A1C4DC92300598C87 /* WLZ_News_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_News_Model.m; sourceTree = "<group>"; };
+		92D7C33C1C4DCBDF00598C87 /* WLZ_Happy_CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Happy_CollectionViewCell.h; sourceTree = "<group>"; };
+		92D7C33D1C4DCBDF00598C87 /* WLZ_Happy_CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Happy_CollectionViewCell.m; sourceTree = "<group>"; };
+		92D7C33F1C4DCC0B00598C87 /* WLZ_Korean_CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Korean_CollectionViewCell.h; sourceTree = "<group>"; };
+		92D7C3401C4DCC0B00598C87 /* WLZ_Korean_CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Korean_CollectionViewCell.m; sourceTree = "<group>"; };
+		92D7C3421C4DD16400598C87 /* WLZ_Happy_TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Happy_TableViewCell.h; sourceTree = "<group>"; };
+		92D7C3431C4DD16400598C87 /* WLZ_Happy_TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Happy_TableViewCell.m; sourceTree = "<group>"; };
+		92D7C3451C4DE08700598C87 /* WLZ_Happy_No_TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Happy_No_TableViewCell.h; sourceTree = "<group>"; };
+		92D7C3461C4DE08700598C87 /* WLZ_Happy_No_TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Happy_No_TableViewCell.m; sourceTree = "<group>"; };
+		92D7C3C51C4E202E00598C87 /* WLZ_News_Details_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_News_Details_ViewController.h; sourceTree = "<group>"; };
+		92D7C3C61C4E202E00598C87 /* WLZ_News_Details_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_News_Details_ViewController.m; sourceTree = "<group>"; };
 		E1753F29B9FDA32391780B33 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -512,6 +536,7 @@
 		496B36321C3FCF5400DC214F /* WLZ */ = {
 			isa = PBXGroup;
 			children = (
+				92D7C32F1C4DC8BE00598C87 /* newPage */,
 				4966E18B1C43E1A4009CFE51 /* FirstPage */,
 				49AD31B21C45366400C5B1F6 /* FourPage */,
 				4966E1211C43DDEF009CFE51 /* SecondPage */,
@@ -814,6 +839,53 @@
 			path = Wechat;
 			sourceTree = "<group>";
 		};
+		92D7C32F1C4DC8BE00598C87 /* newPage */ = {
+			isa = PBXGroup;
+			children = (
+				92D7C3301C4DC8BE00598C87 /* Controller */,
+				92D7C3311C4DC8BE00598C87 /* Model */,
+				92D7C3321C4DC8BE00598C87 /* View */,
+			);
+			path = newPage;
+			sourceTree = "<group>";
+		};
+		92D7C3301C4DC8BE00598C87 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				92D7C3331C4DC8F100598C87 /* WLZ_News_ViewController.h */,
+				92D7C3341C4DC8F100598C87 /* WLZ_News_ViewController.m */,
+				92D7C3C51C4E202E00598C87 /* WLZ_News_Details_ViewController.h */,
+				92D7C3C61C4E202E00598C87 /* WLZ_News_Details_ViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		92D7C3311C4DC8BE00598C87 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				92D7C3391C4DC92300598C87 /* WLZ_News_Model.h */,
+				92D7C33A1C4DC92300598C87 /* WLZ_News_Model.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		92D7C3321C4DC8BE00598C87 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				92D7C3361C4DC90A00598C87 /* WLZ_News_View.h */,
+				92D7C3371C4DC90A00598C87 /* WLZ_News_View.m */,
+				92D7C33C1C4DCBDF00598C87 /* WLZ_Happy_CollectionViewCell.h */,
+				92D7C33D1C4DCBDF00598C87 /* WLZ_Happy_CollectionViewCell.m */,
+				92D7C3451C4DE08700598C87 /* WLZ_Happy_No_TableViewCell.h */,
+				92D7C3461C4DE08700598C87 /* WLZ_Happy_No_TableViewCell.m */,
+				92D7C3421C4DD16400598C87 /* WLZ_Happy_TableViewCell.h */,
+				92D7C3431C4DD16400598C87 /* WLZ_Happy_TableViewCell.m */,
+				92D7C33F1C4DCC0B00598C87 /* WLZ_Korean_CollectionViewCell.h */,
+				92D7C3401C4DCC0B00598C87 /* WLZ_Korean_CollectionViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		EA9DB4D046A87D5577F2216B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1028,6 +1100,7 @@
 				490050E51C40FB0D008BF2D5 /* WLZReadRootViewController.m in Sources */,
 				4966E1631C43DE80009CFE51 /* WLZ_Other_CollectionViewCell.m in Sources */,
 				49788E951C452DBB00434253 /* WLZ_Dance_videoViewController.m in Sources */,
+				92D7C33E1C4DCBDF00598C87 /* WLZ_Happy_CollectionViewCell.m in Sources */,
 				49D2D3261C4227A7001ED63D /* WLZBaseModel.m in Sources */,
 				49AD31CA1C455CCE00C5B1F6 /* WLZNewsHomeCollectionCell.m in Sources */,
 				49C93B091C4231C500898F22 /* WLZReadHomeCollectionCell.m in Sources */,
@@ -1065,6 +1138,8 @@
 				4920F5ED1C48D9850018DE3D /* WLZUserTableViewCell.m in Sources */,
 				4966E15D1C43DE80009CFE51 /* WLZ_ Introduce_CollectionViewCell.m in Sources */,
 				49FC3BDA1C474B0800141A1E /* WLZ_Dance_contentCollectionViewCell.m in Sources */,
+				92D7C3411C4DCC0B00598C87 /* WLZ_Korean_CollectionViewCell.m in Sources */,
+				92D7C3C71C4E202E00598C87 /* WLZ_News_Details_ViewController.m in Sources */,
 				92B705C91C491D62005CA39B /* WLZ_Radios_Collection_ViewController.m in Sources */,
 				49712C9B1C47B45000B39887 /* DocModel.m in Sources */,
 				4966E1741C43DEA8009CFE51 /* WLZ_Radios_Model.m in Sources */,
@@ -1072,12 +1147,15 @@
 				4916162E1C473D45003F2BCC /* WLZ_Dance_relateTableViewCell.m in Sources */,
 				4966E11D1C43D410009CFE51 /* WLZBaseWebView.m in Sources */,
 				496A1E271C463BAF004A1658 /* WLZNewsAVPlayerViewController.m in Sources */,
+				92D7C3471C4DE08700598C87 /* WLZ_Happy_No_TableViewCell.m in Sources */,
 				4966E1A61C43E83C009CFE51 /* WLZReadWebFirstLevelModel.m in Sources */,
 				496B36841C3FF42000DC214F /* LQQAFNetTool.m in Sources */,
 				496B36871C3FF49C00DC214F /* WLZBaseViewController.m in Sources */,
 				496B368A1C3FF4E100DC214F /* WLZBaseView.m in Sources */,
+				92D7C3381C4DC90A00598C87 /* WLZ_News_View.m in Sources */,
 				49A589661C4371A9005017A6 /* WLZReadListViewController.m in Sources */,
 				49AD31B81C4536B400C5B1F6 /* WLZNewRootViewController.m in Sources */,
+				92D7C3441C4DD16400598C87 /* WLZ_Happy_TableViewCell.m in Sources */,
 				49C93B0C1C42326400898F22 /* WLZBaseLabel.m in Sources */,
 				496A1DA31C45EDF3004A1658 /* WLZNewsListViewController.m in Sources */,
 				49C93B061C42319200898F22 /* WLZBaseCollectionViewCell.m in Sources */,
@@ -1086,6 +1164,7 @@
 				4966E1A31C43E59C009CFE51 /* WLZReadWebViewController.m in Sources */,
 				496A1E2A1C464291004A1658 /* WLZNewPlayer.m in Sources */,
 				490050E81C40FB25008BF2D5 /* WLZUserRootViewController.m in Sources */,
+				92D7C33B1C4DC92300598C87 /* WLZ_News_Model.m in Sources */,
 				49AD31BE1C4536E800C5B1F6 /* WLZNewFirstView.m in Sources */,
 				49A589631C4358D2005017A6 /* WLZReadHeadCycleView.m in Sources */,
 				4966E1621C43DE80009CFE51 /* WLZ_Movies_TableViewCell.m in Sources */,
@@ -1096,6 +1175,7 @@
 				4966E19F1C43E1A4009CFE51 /* WLZ_DD_Model.m in Sources */,
 				49A5896F1C43838A005017A6 /* WLZReadTableViewCell.m in Sources */,
 				4954B7851C448C85001A1CD3 /* WLZ_Dance_videoModel.m in Sources */,
+				92D7C3351C4DC8F100598C87 /* WLZ_News_ViewController.m in Sources */,
 				497217731C48811300D89F58 /* UIView_extra.m in Sources */,
 				4966E1AF1C43E9D6009CFE51 /* WLZReadWebShareInfoModel.m in Sources */,
 				92A545CB1C4167BA00A60D7D /* WLZ_Base_Model.m in Sources */,
