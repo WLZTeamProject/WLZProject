@@ -135,12 +135,22 @@
     NSMutableArray *arr = [NSMutableArray array];//存放VC
     //资讯
     WLZ_News_ViewController *newsVC = [[WLZ_News_ViewController alloc] init];
-    UINavigationController *newsNC = [[[UINavigationController alloc] initWithRootViewController:newsVC] autorelease];
-    newsNC.navigationBar.translucent = NO;
-        newsNC.navigationBar.tintColor = [UIColor blackColor];
-        newsNC.tabBarItem.title = @"资讯";
-        newsNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
-        [arr addObject:newsNC];
+    self.newsNC = [[[UINavigationController alloc] initWithRootViewController:newsVC] autorelease];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.newsNC.navigationBar.tintColor = [UIColor whiteColor];
+        self.newsNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+        
+    } else {
+        self.newsNC.navigationBar.tintColor = [UIColor blackColor];
+        self.newsNC.navigationBar.barTintColor = [UIColor whiteColor];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    }
+    self.newsNC.navigationBar.translucent = NO;
+        self.newsNC.navigationBar.tintColor = [UIColor blackColor];
+        self.newsNC.tabBarItem.title = @"资讯";
+        self.newsNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
+        [arr addObject:self.newsNC];
         [newsVC release];
     
     //音频VC
@@ -223,6 +233,9 @@
 }
 - (void)notificationNightAction
 {
+    self.newsNC.navigationBar.tintColor = [UIColor whiteColor];
+    self.newsNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+    
     self.radioNC.navigationBar.tintColor = [UIColor whiteColor];
     self.radioNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
     
@@ -243,6 +256,9 @@
 }
 - (void)notificationDayAction
 {
+    self.newsNC.navigationBar.tintColor = [UIColor blackColor];
+    self.newsNC.navigationBar.barTintColor = [UIColor whiteColor];
+    
     self.radioNC.navigationBar.tintColor = [UIColor blackColor];
     self.radioNC.navigationBar.barTintColor = [UIColor whiteColor];
     

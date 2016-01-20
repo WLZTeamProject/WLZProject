@@ -17,7 +17,12 @@
 @end
 
 @implementation WLZ_News_Details_ViewController
-
+- (void)dealloc
+{
+    [_webView release];
+    [_sourceWebUrl release];
+    [super dealloc];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     self.tabBarController.tabBar.hidden = YES;
