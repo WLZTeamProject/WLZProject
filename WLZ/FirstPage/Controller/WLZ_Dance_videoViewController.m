@@ -57,6 +57,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor grayColor];
+    [[WLZ_Music_ViewController sharePlayPageVC].player stop];
+
     [self screenView];
     
     [self createPlayerView];

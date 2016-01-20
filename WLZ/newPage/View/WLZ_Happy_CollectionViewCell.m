@@ -87,6 +87,10 @@
             if (nil == self.listCell) {
                 self.listCell = [[WLZ_Happy_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celld];
             }
+
+            
+            
+            self.listCell.pic_pathV.image = [UIImage imageNamed:@"kafei"] ;
             [self.listCell.pic_pathV sd_setImageWithURL:[NSURL URLWithString:model.pic_path]];
             self.listCell.titleLL.text = model.title;
             self.listCell.summaryL.text = model.summary;
