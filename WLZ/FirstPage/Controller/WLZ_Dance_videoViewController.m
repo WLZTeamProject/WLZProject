@@ -366,7 +366,12 @@
     return _player;
 }
 
-
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    //退出视频播放界面
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"videoStop" object:nil];
+//    
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

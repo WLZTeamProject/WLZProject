@@ -39,4 +39,5 @@
 @property (nonatomic, retain) STKAudioPlayer *player;
 
 + (instancetype)sharePlayPageVC;
+- (void)audioPlayerStop;
 @end

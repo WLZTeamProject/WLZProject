@@ -83,7 +83,11 @@
     [self creatTableView];
     [self creatHeaderView];
     [self addHeaderRefresh];
+    
+   
 }
+
+
 
 - (void)collectAction:(UIButton *)sender
 {
