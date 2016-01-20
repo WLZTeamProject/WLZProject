@@ -36,7 +36,6 @@
 		4966E19C1C43E1A4009CFE51 /* WLZRadioRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966E1901C43E1A4009CFE51 /* WLZRadioRootViewController.m */; };
 		4966E19D1C43E1A4009CFE51 /* WLZ_Dance_ListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966E1931C43E1A4009CFE51 /* WLZ_Dance_ListModel.m */; };
 		4966E19E1C43E1A4009CFE51 /* WLZ_Dance_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966E1951C43E1A4009CFE51 /* WLZ_Dance_Model.m */; };
-		4966E19F1C43E1A4009CFE51 /* WLZ_DD_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966E1971C43E1A4009CFE51 /* WLZ_DD_Model.m */; };
 		4966E1A01C43E1A4009CFE51 /* WLZ_DanceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966E19A1C43E1A4009CFE51 /* WLZ_DanceTableViewCell.m */; };
 		4966E1A31C43E59C009CFE51 /* WLZReadWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966E1A21C43E59C009CFE51 /* WLZReadWebViewController.m */; };
 		4966E1A61C43E83C009CFE51 /* WLZReadWebFirstLevelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966E1A51C43E83C009CFE51 /* WLZReadWebFirstLevelModel.m */; };
@@ -78,7 +77,6 @@
 		49AD31C41C453D0F00C5B1F6 /* WLZNewsFirstItemListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD31C31C453D0F00C5B1F6 /* WLZNewsFirstItemListModel.m */; };
 		49AD31C71C45518600C5B1F6 /* WLZNewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD31C61C45518600C5B1F6 /* WLZNewTableViewCell.m */; };
 		49AD31CA1C455CCE00C5B1F6 /* WLZNewsHomeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AD31C91C455CCE00C5B1F6 /* WLZNewsHomeCollectionCell.m */; };
-		49BA67381C4E4F9C0073A507 /* WLZ_Dance_SearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BA67371C4E4F9C0073A507 /* WLZ_Dance_SearchModel.m */; };
 		49C93B031C422F8F00898F22 /* WLZReadHomeCarouselModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C93B021C422F8F00898F22 /* WLZReadHomeCarouselModel.m */; };
 		49C93B061C42319200898F22 /* WLZBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C93B051C42319200898F22 /* WLZBaseCollectionViewCell.m */; };
 		49C93B091C4231C500898F22 /* WLZReadHomeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C93B081C4231C500898F22 /* WLZReadHomeCollectionCell.m */; };
@@ -192,8 +190,6 @@
 		4966E1931C43E1A4009CFE51 /* WLZ_Dance_ListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_ListModel.m; sourceTree = "<group>"; };
 		4966E1941C43E1A4009CFE51 /* WLZ_Dance_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_Model.h; sourceTree = "<group>"; };
 		4966E1951C43E1A4009CFE51 /* WLZ_Dance_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_Model.m; sourceTree = "<group>"; };
-		4966E1961C43E1A4009CFE51 /* WLZ_DD_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_DD_Model.h; sourceTree = "<group>"; };
-		4966E1971C43E1A4009CFE51 /* WLZ_DD_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_DD_Model.m; sourceTree = "<group>"; };
 		4966E1991C43E1A4009CFE51 /* WLZ_DanceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_DanceTableViewCell.h; sourceTree = "<group>"; };
 		4966E19A1C43E1A4009CFE51 /* WLZ_DanceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_DanceTableViewCell.m; sourceTree = "<group>"; };
 		4966E1A11C43E59C009CFE51 /* WLZReadWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZReadWebViewController.h; sourceTree = "<group>"; };
@@ -274,8 +270,6 @@
 		49AD31C61C45518600C5B1F6 /* WLZNewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZNewTableViewCell.m; sourceTree = "<group>"; };
 		49AD31C81C455CCE00C5B1F6 /* WLZNewsHomeCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZNewsHomeCollectionCell.h; sourceTree = "<group>"; };
 		49AD31C91C455CCE00C5B1F6 /* WLZNewsHomeCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZNewsHomeCollectionCell.m; sourceTree = "<group>"; };
-		49BA67361C4E4F9C0073A507 /* WLZ_Dance_SearchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_SearchModel.h; sourceTree = "<group>"; };
-		49BA67371C4E4F9C0073A507 /* WLZ_Dance_SearchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_SearchModel.m; sourceTree = "<group>"; };
 		49C93B011C422F8F00898F22 /* WLZReadHomeCarouselModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZReadHomeCarouselModel.h; sourceTree = "<group>"; };
 		49C93B021C422F8F00898F22 /* WLZReadHomeCarouselModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZReadHomeCarouselModel.m; sourceTree = "<group>"; };
 		49C93B041C42319200898F22 /* WLZBaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZBaseCollectionViewCell.h; sourceTree = "<group>"; };
@@ -498,14 +492,10 @@
 				4966E1931C43E1A4009CFE51 /* WLZ_Dance_ListModel.m */,
 				4966E1941C43E1A4009CFE51 /* WLZ_Dance_Model.h */,
 				4966E1951C43E1A4009CFE51 /* WLZ_Dance_Model.m */,
-				4966E1961C43E1A4009CFE51 /* WLZ_DD_Model.h */,
-				4966E1971C43E1A4009CFE51 /* WLZ_DD_Model.m */,
 				4954B7831C448C85001A1CD3 /* WLZ_Dance_videoModel.h */,
 				4954B7841C448C85001A1CD3 /* WLZ_Dance_videoModel.m */,
 				92A784FA1C47395F00F0DEA6 /* WLZ_GIFT.h */,
 				92A784FB1C47395F00F0DEA6 /* WLZ_GIFT.m */,
-				49BA67361C4E4F9C0073A507 /* WLZ_Dance_SearchModel.h */,
-				49BA67371C4E4F9C0073A507 /* WLZ_Dance_SearchModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1160,7 +1150,6 @@
 				496A1E271C463BAF004A1658 /* WLZNewsAVPlayerViewController.m in Sources */,
 				92D7C3471C4DE08700598C87 /* WLZ_Happy_No_TableViewCell.m in Sources */,
 				49785E6E1C4DD36600D6BD76 /* WLZ_Dance_searchdetailViewController.m in Sources */,
-				49BA67381C4E4F9C0073A507 /* WLZ_Dance_SearchModel.m in Sources */,
 				49EB474E1C4D0C9E00B20D5E /* WLZ_Dance_searchViewController.m in Sources */,
 				4966E1A61C43E83C009CFE51 /* WLZReadWebFirstLevelModel.m in Sources */,
 				496B36841C3FF42000DC214F /* LQQAFNetTool.m in Sources */,
@@ -1186,7 +1175,6 @@
 				49A589691C437922005017A6 /* WLZReadListModel.m in Sources */,
 				4966E13F1C43DDEF009CFE51 /* WLZ_Details_ViewController.m in Sources */,
 				4966E19B1C43E1A4009CFE51 /* WLZ_Dance_detailViewController.m in Sources */,
-				4966E19F1C43E1A4009CFE51 /* WLZ_DD_Model.m in Sources */,
 				49A5896F1C43838A005017A6 /* WLZReadTableViewCell.m in Sources */,
 				4954B7851C448C85001A1CD3 /* WLZ_Dance_videoModel.m in Sources */,
 				92D7C3351C4DC8F100598C87 /* WLZ_News_ViewController.m in Sources */,
