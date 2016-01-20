@@ -150,7 +150,6 @@
     return self.danceArr.count;
     
     
-
     
 }
 

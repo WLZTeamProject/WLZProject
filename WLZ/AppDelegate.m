@@ -13,7 +13,6 @@
 #import "WLZUserRootViewController.h"
 #import "WLZNewRootViewController.h"
 #import "WLZ_PCH.pch"
-#import "WLZ_Dance_SearchModel.h"
 
 #import "LeftSlideViewController.h"
 @interface AppDelegate ()
@@ -174,12 +173,6 @@
 
 }
 
-- (void)addAllsearchArr
-{
-    
-    [WLZ_Dance_SearchModel shareData].searchArr = [NSMutableArray array];
-    
-}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
