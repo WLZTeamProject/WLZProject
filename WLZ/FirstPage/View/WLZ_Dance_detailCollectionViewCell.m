@@ -131,28 +131,28 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/search?word=%@&perpage=10&page=1",self.title];
     ;
-    [LQQAFNetTool getNetWithURL:urlStr body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
-        
-        
-        for (NSMutableDictionary *tempDic in resultArr) {
-            WLZ_Dance_ListModel *zylist = [WLZ_Dance_ListModel baseModelWithDic:tempDic];
-            [self.arr addObject:zylist];
-            zylist.item_videos = [NSMutableArray array];
-            NSMutableArray *videoArr = [tempDic objectForKey:@"item_videos"];
-            for (NSMutableDictionary *videoDic in videoArr) {
-                WLZ_Dance_videoModel *wlzvideo = [WLZ_Dance_videoModel baseModelWithDic:videoDic];
-                [zylist.item_videos addObject:wlzvideo];
-            }
-  
-        }
-        [self.tableV reloadData];
-//        NSLog(@"娃哈哈哈哈哈啊哈哈%ld", self.arr.count);
- 
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
-        
-    }];
+//    [LQQAFNetTool getNetWithURL:urlStr body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
+//        
+//        
+//        for (NSMutableDictionary *tempDic in resultArr) {
+//            WLZ_Dance_ListModel *zylist = [WLZ_Dance_ListModel baseModelWithDic:tempDic];
+//            [self.arr addObject:zylist];
+//        
+//            NSMutableArray *videoArr = [tempDic objectForKey:@"item_videos"];
+//            for (NSMutableDictionary *videoDic in videoArr) {
+//                WLZ_Dance_videoModel *wlzvideo = [WLZ_Dance_videoModel baseModelWithDic:videoDic];
+//                [zylist.item_videos addObject:wlzvideo];
+//            }
+//  
+//        }
+//        [self.tableV reloadData];
+////        NSLog(@"娃哈哈哈哈哈啊哈哈%ld", self.arr.count);
+// 
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        
+//        
+//    }];
     
     
     

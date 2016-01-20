@@ -32,6 +32,8 @@
     // Do any additional setup after loading the view.
     self.arr = [NSMutableArray array];
     self.page = 1;
+    
+    self.navigationItem.title = self.str;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backImage"] style:UIBarButtonItemStylePlain target:self action:@selector(leftAction)];
     
     [self getData];
@@ -138,14 +140,5 @@
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
