@@ -14,6 +14,7 @@
 #import "WLZNewRootViewController.h"
 #import "WLZ_News_ViewController.h"
 #import "WLZ_PCH.pch"
+#import "WLZ_Dance_SearchModel.h"
 
 #import "LeftSlideViewController.h"
 @interface AppDelegate ()
@@ -73,9 +74,12 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
         self.radioNC.navigationBar.tintColor = [UIColor whiteColor];
         self.radioNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+       
     } else {
         self.radioNC.navigationBar.tintColor = [UIColor blackColor];
         self.radioNC.navigationBar.barTintColor = [UIColor whiteColor];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }
     self.radioNC.navigationBar.translucent = NO;
     self.radioNC.tabBarItem.title = @"视频";
@@ -180,6 +184,14 @@
     
 
 }
+
+- (void)addAllsearchArr
+{
+    
+    [WLZ_Dance_SearchModel shareData].searchArr = [NSMutableArray array];
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

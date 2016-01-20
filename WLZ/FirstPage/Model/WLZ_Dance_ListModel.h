@@ -24,6 +24,7 @@
 
 @property (nonatomic, copy) NSString *item_suitable;
 @property (nonatomic, retain) NSMutableArray *item_videos;
+@property (nonatomic, retain) NSString *url;
 
 
 @end

@@ -14,6 +14,7 @@
 #import "MJRefresh.h"
 #import "WLZ_Dance_detailViewController.h"
 #import "WLZ_Dance_videoModel.h"
+#import "WLZ_Dance_searchViewController.h"
 @interface WLZRadioRootViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, retain) NSMutableArray *danceLunboArr;
 @property (nonatomic, retain) NSMutableArray *danceArr;
@@ -58,10 +59,23 @@
     self.view.backgroundColor = color;
     self.danceArr = [NSMutableArray array];
     self.page = 1;
-    [self createTableV];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStylePlain target:self action:@selector(rightAction)];
+    
+    [self createTableV];
     [self getData];
     [self getTableVData];
+    
+}
+
+- (void)rightAction
+{
+    WLZ_Dance_searchViewController *wlzSearchVC = [[WLZ_Dance_searchViewController alloc] init];
+    [self.navigationController pushViewController:wlzSearchVC animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.tabBarController.tabBar setHidden:YES];
+    
+    
     
 }
 
@@ -80,7 +94,6 @@
     self.tableV.mj_footer = [MJRefreshAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     
         [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
-
     
     
 }
@@ -172,11 +185,10 @@
         NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
         for (NSMutableDictionary *tempDic in resultArr) {
             WLZ_Dance_ListModel *wlzdance = [WLZ_Dance_ListModel baseModelWithDic:tempDic];
-            wlzdance.item_videos = [NSMutableArray array];
             NSMutableArray *arr = [tempDic objectForKey:@"item_videos"];
             for (NSMutableDictionary *newDic in arr) {
-                WLZ_Dance_videoModel *zyvideo = [WLZ_Dance_videoModel baseModelWithDic:newDic];
-                [wlzdance.item_videos addObject:zyvideo];
+                NSString *url = [newDic objectForKey:@"url"];
+                wlzdance.url = url;
             }
             [self.danceArr addObject:wlzdance];
        

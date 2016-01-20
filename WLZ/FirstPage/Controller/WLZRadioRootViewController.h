@@ -10,4 +10,5 @@
 
 @interface WLZRadioRootViewController : WLZBaseViewController
 @property (nonatomic, copy) NSString *urlStr;
+
 @end
