@@ -64,7 +64,9 @@
     self.danceArr = [NSMutableArray array];
     self.page = 1;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"search"] style:UIBarButtonItemStylePlain target:self action:@selector(rightAction)];
+    UIImage *image = [UIImage imageNamed:@"search"];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(rightAction)];
     
     [self createTableV];
     [self getData];
@@ -171,7 +173,6 @@
 - (void)getTableVData
 {
     NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/type?&page=%ld&perpage=10&type=normal&word=", self.page];
-//    NSLog(@"哼哼合格呢个看见他和人%@", urlStr);
     [LQQAFNetTool getNetWithURL:urlStr body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
         for (NSMutableDictionary *tempDic in resultArr) {

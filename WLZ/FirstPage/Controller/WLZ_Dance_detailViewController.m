@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "WLZ_Dance_videoModel.h"
 #import "WLZ_Dance_ListModel.h"
-#import "WLZ_Dance_videoViewController.h"
 #import "WLZ_Dance_detailCollectionViewCell.h"
 #import "WLZ_Dance_contentCollectionViewCell.h"
 @interface WLZ_Dance_detailViewController () <UICollectionViewDataSource, UICollectionViewDelegate, WLZ_Dance_detailCollectionViewCellDelegate>
@@ -39,6 +38,9 @@
 @property (nonatomic, assign) CGRect originalFrame;
 
 @property (nonatomic, assign) NSInteger page;
+
+@property (nonatomic, retain) UIView *titleView;
+@property (nonatomic, retain) UILabel *localTimeL;
 
 @end
 
@@ -81,6 +83,8 @@
     [_collectionV release];
     [_totalView release];
     [_arr release];
+    [_titleView release];
+    [_localTimeL release];
     [super dealloc];
     
 }
@@ -136,7 +140,7 @@
 //    self.totalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3)];
     self.totalView = [[UIView alloc] initWithFrame:originalFrame];
 //    self.totalView.frame = self.originalFrame;
-    self.totalView.backgroundColor = [UIColor redColor];
+    self.totalView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.totalView];
     
     self.container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.totalView.frame.size.width, self.totalView.frame.size.height)];
@@ -186,11 +190,21 @@
     [_totalTimeL release];
     
     self.startBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.startBut.frame = CGRectMake(self.totalTimeL.frame.size.width + self.totalTimeL.frame.origin.x, 10, self.sliderView.frame.size.width / 3, self.sliderView.frame.size.height - 10);
+    self.startBut.frame = CGRectMake(self.totalTimeL.frame.size.width + self.totalTimeL.frame.origin.x, 10, self.sliderView.frame.size.width / 6, self.sliderView.frame.size.height - 10);
     [self.startBut setImage:[UIImage imageNamed:@"stopImage"] forState:UIControlStateNormal];
     [self.startBut setImage:[UIImage imageNamed:@"startImage"] forState:UIControlStateSelected];
     [self.startBut addTarget:self action:@selector(playClick) forControlEvents:UIControlEventTouchUpInside];
     [self.sliderView addSubview:self.startBut];
+    
+    
+    self.screenBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.screenBut.frame = CGRectMake(self.sliderView.frame.size.width - self.sliderView.frame.size.height, 10, self.sliderView.frame.size.height, self.sliderView.frame.size.height - 10);
+    [self.screenBut setImage:[UIImage imageNamed:@"screenImage"] forState:UIControlStateNormal];
+    [self.screenBut addTarget:self action:@selector(screenButAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.sliderView addSubview:self.screenBut];
+    
+    
     
     
     self.backBut = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -202,13 +216,41 @@
     [self.backBut addTarget:self action:@selector(backButAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backBut];
     
-    self.screenBut = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.screenBut.frame = CGRectMake(self.sliderView.frame.size.width - self.sliderView.frame.size.height, 10, self.sliderView.frame.size.height, self.sliderView.frame.size.height - 10);
-    [self.screenBut setImage:[UIImage imageNamed:@"screenImage"] forState:UIControlStateNormal];
-    [self.screenBut addTarget:self action:@selector(screenButAction) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.sliderView addSubview:self.screenBut];
+    
+    self.titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.container.frame.size.width, self.container.frame.size.height / 6)];
+    self.titleView.backgroundColor = [UIColor blackColor];
+    self.titleView.alpha = 0.5;
+    [self.totalView addSubview:self.titleView];
+    [_titleView release];
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,self.titleView.frame.size.width / 11 * 8, self.titleView.frame.size.height)];
+    titleL.text = self.zyDance.item_title;
+    titleL.textColor = [UIColor whiteColor];
+    [self.titleView addSubview:titleL];
+    [titleL release];
+    
+    self.localTimeL = [[UILabel alloc] initWithFrame:CGRectMake(titleL.frame.size.width + titleL.frame.origin.x, titleL.frame.origin.y, self.titleView.frame.size.width / 11, self.titleView.frame.size.height)];
+    self.localTimeL.textColor = [UIColor whiteColor];
+    [self.titleView addSubview:self.localTimeL];
+    [_localTimeL release];
+    [self getcurrentTimer];
+    
+    [self.titleView setHidden:YES];
 
+}
+
+//获取系统时间
+- (void)getcurrentTimer
+{
+    NSDate *currentTime = [NSDate date];
+    NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+    //    [dateformatter setDateStyle:kCFDateFormatterFullStyle];
+    [dateformatter setDateFormat:@"HH:mm"];
+    NSString *locationStr = [dateformatter stringFromDate:currentTime];
+    self.localTimeL.text = locationStr;
+    //    NSLog(@"locationString:%@", locationStr);
+    [dateformatter release];
 }
 
 //详情but
@@ -228,6 +270,7 @@
     
 }
 
+//滑动
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     if (0 == self.collectionV.contentOffset.x) {
@@ -254,23 +297,43 @@
 //隐藏view
 - (void)tapAction
 {
-    
-    if (YES == self.sliderView.hidden  ) {
-        
-        //        删除self.sliderView这个控件
-        //        [self.sliderView removeFromSuperview];
-        
-        [self.sliderView setHidden:NO];
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerAction) userInfo:nil repeats:NO];
-    } else if (NO == self.sliderView.hidden ) {
-        [self.sliderView setHidden:YES];
+    if (_isRotation) {
+        if (YES == self.sliderView.hidden  ) {
+            
+            //        删除self.sliderView这个控件
+            //        [self.sliderView removeFromSuperview];
+            
+            [self.sliderView setHidden:NO];
+             [self.titleView setHidden:NO];
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerAction) userInfo:nil repeats:NO];
+        } else if (NO == self.sliderView.hidden ) {
+            [self.sliderView setHidden:YES];
+            [self.titleView setHidden:YES];
+        }
+    } else {
+        if (YES == self.sliderView.hidden) {
+            
+            //        删除self.sliderView这个控件
+            //        [self.sliderView removeFromSuperview];
+            
+            [self.sliderView setHidden:NO];
+           
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerAction) userInfo:nil repeats:NO];
+        } else if (NO == self.sliderView.hidden ) {
+            [self.sliderView setHidden:YES];
+            
+        }
     }
+    
+    
+    
     
 }
 
 - (void)timerAction
 {
     [self.sliderView setHidden:YES];
+    [self.titleView setHidden:YES];
 }
 
 //横屏方法
@@ -314,6 +377,7 @@
             self.totalView.center = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2.0, [[UIScreen mainScreen] bounds].size.height / 2.0);
             self.totalView.transform = CGAffineTransformRotate(self.container.transform, M_PI_2);
             self.backBut.hidden = YES;
+            self.titleView.hidden = NO;
         }];
     }
     
@@ -551,11 +615,11 @@
 //点击 协议 方法
 - (void)transferValue:(WLZ_Dance_ListModel *)wlzdance
 {
-    WLZ_Dance_videoModel *zyVideo =[wlzdance.item_videos objectAtIndex:0];
+//    WLZ_Dance_videoModel *zyVideo =[wlzdance.item_videos objectAtIndex:0];
     
     
     [self removeObserverFromPlayerItem:self.player.currentItem];
-    AVPlayerItem *playerItem = [self getPlayItem:zyVideo.url];
+    AVPlayerItem *playerItem = [self getPlayItem:wlzdance.url];
     [self addobserverToplayerItem:playerItem];
     [self.player replaceCurrentItemWithPlayerItem:playerItem];
     self.zyDance = wlzdance;
