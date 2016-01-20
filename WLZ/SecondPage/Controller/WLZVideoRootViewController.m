@@ -279,7 +279,6 @@
             [self.imgArr addObject:[dic objectForKey:@"img"]] ;
             
         }
-        NSLog(@"------%ld",self.imgArr.count);
         //轮播图赋值
 //        self.scrollView.imageURLStringsGroup = self.imgArr;
         self.scrollView.imageArr = [NSMutableArray arrayWithArray:self.imgArr];
@@ -330,14 +329,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-- (void)viewWillAppear:(BOOL)animated
-{
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
-        self.tableV.backgroundColor = [UIColor blackColor];
-    } else {
-        self.tableV.backgroundColor = [UIColor whiteColor];
-    }
 }
 
 @end

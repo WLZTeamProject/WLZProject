@@ -166,8 +166,7 @@
     //记住每一次改变后的图片前一页是哪一张
     self.previousPage = self.scrollV.contentOffset.x / self.bounds.size.width;
     
-    [self.scrollV setContentOffset: CGPointMake(self.bounds.size.width * (self.pageC.currentPage + 1), 0) animated:YES] ;
-    
+    [self.scrollV setContentOffset: CGPointMake(self.bounds.size.width * (self.pageC.currentPage + 1), 0) animated:NO] ;
 }
 //点随页动
 /**
@@ -188,6 +187,35 @@
         self.scrollV.contentOffset = CGPointMake(self.bounds.size.width, 0);
     }
     self.pageC.currentPage = (self.scrollV.contentOffset.x / self.bounds.size.width) - 1;
+//#pragma 点随页动 - 通过scrollView的偏移量获取并计算页面下标
+//    NSInteger index = scrollView.contentOffset.x / scrollView.frame.size.width;
+//    self.pageC.currentPage = index - 1;
+//    NSLog(@"%ld", self.pageC.currentPage);
+//    
+//    // 循环起来
+//    if (0 == index) {
+//        self.scrollV.contentOffset = CGPointMake(self.frame.size.width * (self.imageArr.count + 2), 0);
+//        self.pageC.currentPage = (self.imageArr.count + 1);
+//    }
+//    if ((self.imageArr.count + 1) == index) {
+//        self.scrollV.contentOffset = CGPointMake(self.frame.size.width, 0);
+//        self.pageC.currentPage = 0;
+//    }
+//    
+    
+//    if (self.num != self.pageC.currentPage) {
+//        
+//        for (UIScrollView *scrollV in self.scrollV.subviews) {
+//            //            if ([scrollV isKindOfClass:[UIScrollView class]]) {
+//            //                [scrollV setZoomScale:1.0];
+//            //            }
+//            if (scrollV.subviews.firstObject) {
+//                [scrollV setZoomScale:1.0];
+//            }
+//        }
+//        
+//        self.num = self.pageC.currentPage;
+//    }
     
     
 }

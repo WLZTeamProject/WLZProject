@@ -22,6 +22,7 @@
     [_item_summary release];
     [_item_product release];
     [_item_purpose release];
+    [_url release];
     [super dealloc];
 }
 @end

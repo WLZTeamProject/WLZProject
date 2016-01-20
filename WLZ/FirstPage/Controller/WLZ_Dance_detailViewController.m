@@ -93,11 +93,10 @@
     self.originalFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3);
     [self getrelateData];
     
-    [self createPlayerView];
+    [self createPlayerView:self.originalFrame];
     
     [self createunderView];
-    
-    
+
     
 }
 
@@ -136,7 +135,7 @@
     self.totalView.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.totalView];
     
-    self.container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3)];
+    self.container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.totalView.frame.size.width, self.totalView.frame.size.height)];
     self.container.backgroundColor = [UIColor clearColor];
     [self.totalView addSubview:self.container];
     [_container release];
@@ -205,23 +204,15 @@
     [self.screenBut addTarget:self action:@selector(screenButAction) forControlEvents:UIControlEventTouchUpInside];
     
     [self.sliderView addSubview:self.screenBut];
-    
-    
-    
-    
-    
-    
 
 }
 
 //详情but
 - (void)detailButAction
 {
-    
     self.collectionV.contentOffset = CGPointMake(0, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
     [self.detailBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
     [self.relateBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
 }
 //相关but
 - (void)relateButAction
@@ -230,6 +221,7 @@
     self.collectionV.contentOffset = CGPointMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
     [self.detailBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.relateBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
+    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -241,6 +233,7 @@
         
         [self.detailBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.relateBut setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        
     }
     
 }
@@ -268,6 +261,7 @@
     } else if (NO == self.sliderView.hidden ) {
         [self.sliderView setHidden:YES];
     }
+    
 }
 
 - (void)timerAction
@@ -294,32 +288,31 @@
 //    [wlzDanceVC release];
     
     
-//    if (_isRotation) {
-//        self.isRotation = NO;
-//        [UIView animateWithDuration:0.2 animations:^{
-//            [self.container removeFromSuperview];
-//            self.container.transform = CGAffineTransformRotate(self.container.transform, -M_PI_2);
-//            
-//            
-//        }];
-//    }
+    if (_isRotation) {
+        self.isRotation = NO;
+        [UIView animateWithDuration:0.2 animations:^{
+            [self.totalView removeFromSuperview];
+            self.totalView.transform = CGAffineTransformRotate(self.container.transform, -M_PI_2);
+            [self createPlayerView:self.originalFrame];
+            self.totalView.center = CGPointMake(self.originalFrame.origin.x + self.originalFrame.size.width / 2.0, self.originalFrame.origin.y + self.originalFrame.size.height / 2);
+            self.backBut.hidden = NO;
+            
+        }];
+    } else {
+        
+        self.isRotation = YES;
+        [self.totalView removeFromSuperview];
+        [UIView animateWithDuration:0.2 animations:^{
+            
+            CGRect FullFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width);
+            [self createPlayerView:FullFrame];
+            
+            self.totalView.center = CGPointMake([[UIScreen mainScreen] bounds].size.width / 2.0, [[UIScreen mainScreen] bounds].size.height / 2.0);
+            self.totalView.transform = CGAffineTransformRotate(self.container.transform, M_PI_2);
+            self.backBut.hidden = YES;
+        }];
+    }
     
-    
-//    WLZ_Dance_videoViewController *wlzDanceVC = [[WLZ_Dance_videoViewController alloc] init];
-//    wlzDanceVC.wlzdance = self.zyDance;
-//    
-//    AVPlayerItem *playerItem = self.player.currentItem;
-//    CMTime curTime = playerItem.currentTime;
-//    NSInteger nowSecond = (int)curTime.value / curTime.timescale;
-//    wlzDanceVC.num = nowSecond;
-//    
-//    [self.navigationController pushViewController:wlzDanceVC animated:YES];
-//    
-//    [self.player pause];
-////    [self.navigationController setToolbarHidden:YES animated:YES];
-//    [self.tabBarController.tabBar setHidden:YES];
-//    
-//    [wlzDanceVC release];
     
 
     
@@ -365,26 +358,17 @@
     }
 }
 
-- (void)currentTime
-{
-    AVPlayerItem *playerItem = self.player.currentItem;
-    CMTime curTime = playerItem.currentTime;
-    NSInteger seconds = (int)curTime.value / curTime.timescale;
-    self.timeS.value = seconds;
-}
-
 - (void)customVideozSlider:(CMTime)duration
 {
     self.timeS.maximumValue = CMTimeGetSeconds(duration);
     self.timeS.minimumValue = 0.0;
-    NSLog(@"%f", self.timeS.maximumValue);
+//    NSLog(@"%f", self.timeS.maximumValue);
 }
 
 //添加进度条
 - (void)addTimeobserver
 {
     AVPlayerItem *playerItem = self.player.currentItem;
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(currentTime) userInfo:nil repeats:YES];
     
     [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
         if (self.numtime != 0) {
@@ -461,18 +445,16 @@
 //初始化播放器
 - (AVPlayer *)player
 {
-    WLZ_Dance_videoModel *wlzvideo = [self.zyDance.item_videos objectAtIndex:0];
+//    WLZ_Dance_videoModel *wlzvideo = [self.zyDance.item_videos objectAtIndex:0];
     if (!_player) {
-        AVPlayerItem *playerItem = [self getPlayItem:wlzvideo.url];
+        AVPlayerItem *playerItem = [self getPlayItem:self.zyDance.url];
         _player = [AVPlayer playerWithPlayerItem:playerItem];
         
-//        if (self.numtime != 0) {
-            [self.player seekToTime:CMTimeMake(self.numtime, 10.0)];
-//        }
         [self addobserverToplayerItem:playerItem];
         [self addTimeobserver];
         
     }
+    
     return _player;
 }
 
@@ -594,11 +576,10 @@
         for (NSMutableDictionary *tempDic in resultArr) {
             WLZ_Dance_ListModel *zylist = [WLZ_Dance_ListModel baseModelWithDic:tempDic];
             [self.arr addObject:zylist];
-            zylist.item_videos = [NSMutableArray array];
             NSMutableArray *videoArr = [tempDic objectForKey:@"item_videos"];
             for (NSMutableDictionary *videoDic in videoArr) {
-                WLZ_Dance_videoModel *wlzvideo = [WLZ_Dance_videoModel baseModelWithDic:videoDic];
-                [zylist.item_videos addObject:wlzvideo];
+                NSString *url = [videoDic objectForKey:@"url"];
+                zylist.url = url;
             }
             
         }

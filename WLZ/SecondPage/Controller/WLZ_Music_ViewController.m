@@ -216,7 +216,6 @@
 {
     if (1 == indexPath.row) {
         WLZ_List_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-        cell.backgroundColor = [UIColor greenColor];
         cell.delegate = self;
         cell.titleML = self.titleM;
         cell.musicVisitML = self.musicVisitM;

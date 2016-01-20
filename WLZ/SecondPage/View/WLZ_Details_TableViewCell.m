@@ -65,6 +65,7 @@
 }
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
         self.contentView.backgroundColor = [UIColor blackColor];
     } else {

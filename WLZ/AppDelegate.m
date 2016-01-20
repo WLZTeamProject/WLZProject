@@ -12,13 +12,16 @@
 #import "WLZReadRootViewController.h"
 #import "WLZUserRootViewController.h"
 #import "WLZNewRootViewController.h"
+#import "WLZ_News_ViewController.h"
 #import "WLZ_PCH.pch"
+#import "WLZ_Dance_SearchModel.h"
 
 #import "LeftSlideViewController.h"
 @interface AppDelegate ()
 @property (nonatomic, retain) UINavigationController *radioNC;
 @property (nonatomic, retain) UINavigationController *videoNC;
 @property (nonatomic, retain) UINavigationController *readNC;
+@property (nonatomic, retain) UINavigationController *newsNC;
 @end
 
 @implementation AppDelegate
@@ -27,6 +30,7 @@
     [_radioNC release];
     [_videoNC release];
     [_readNC release];
+    [_newsNC release];
     [_window release];
     [_leftVC release];
     [_tabBar release];
@@ -54,7 +58,15 @@
 //    newNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
 //    [arr addObject:newNC];
 //    [newRootVC release];
-    
+    //资讯
+    WLZ_News_ViewController *newsVC = [[WLZ_News_ViewController alloc] init];
+    UINavigationController *newsNC = [[[UINavigationController alloc] initWithRootViewController:newsVC] autorelease];
+    newsNC.navigationBar.translucent = NO;
+        newsNC.navigationBar.tintColor = [UIColor blackColor];
+        newsNC.tabBarItem.title = @"资讯";
+        newsNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
+        [arr addObject:newsNC];
+        [newsVC release];
     
     //音频VC
     WLZRadioRootViewController *radioRootVC =[[WLZRadioRootViewController alloc] init];
@@ -172,6 +184,14 @@
     
 
 }
+
+- (void)addAllsearchArr
+{
+    
+    [WLZ_Dance_SearchModel shareData].searchArr = [NSMutableArray array];
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
