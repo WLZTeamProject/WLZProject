@@ -13,6 +13,7 @@
 #import "WLZUserRootViewController.h"
 #import "WLZNewRootViewController.h"
 #import "WLZ_PCH.pch"
+#import "WLZ_Dance_SearchModel.h"
 
 #import "LeftSlideViewController.h"
 @interface AppDelegate ()
@@ -169,6 +170,14 @@
     
 
 }
+
+- (void)addAllsearchArr
+{
+    
+    [WLZ_Dance_SearchModel shareData].searchArr = [NSMutableArray array];
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
