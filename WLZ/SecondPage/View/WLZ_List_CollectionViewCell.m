@@ -23,7 +23,7 @@
     [_titleML release];
     [_musicVisitML release];
     [_listCell release];
-    [super release];
+    [super dealloc];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame

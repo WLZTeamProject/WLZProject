@@ -12,6 +12,7 @@
 #import "WLZReadRootViewController.h"
 #import "WLZUserRootViewController.h"
 #import "WLZNewRootViewController.h"
+#import "WLZ_News_ViewController.h"
 #import "WLZ_PCH.pch"
 
 #import "LeftSlideViewController.h"
@@ -19,6 +20,7 @@
 @property (nonatomic, retain) UINavigationController *radioNC;
 @property (nonatomic, retain) UINavigationController *videoNC;
 @property (nonatomic, retain) UINavigationController *readNC;
+@property (nonatomic, retain) UINavigationController *newsNC;
 @end
 
 @implementation AppDelegate
@@ -27,6 +29,7 @@
     [_radioNC release];
     [_videoNC release];
     [_readNC release];
+    [_newsNC release];
     [_window release];
     [_leftVC release];
     [_tabBar release];
@@ -54,7 +57,15 @@
 //    newNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
 //    [arr addObject:newNC];
 //    [newRootVC release];
-    
+    //资讯
+    WLZ_News_ViewController *newsVC = [[WLZ_News_ViewController alloc] init];
+    UINavigationController *newsNC = [[[UINavigationController alloc] initWithRootViewController:newsVC] autorelease];
+    newsNC.navigationBar.translucent = NO;
+        newsNC.navigationBar.tintColor = [UIColor blackColor];
+        newsNC.tabBarItem.title = @"资讯";
+        newsNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
+        [arr addObject:newsNC];
+        [newsVC release];
     
     //音频VC
     WLZRadioRootViewController *radioRootVC =[[WLZRadioRootViewController alloc] init];
