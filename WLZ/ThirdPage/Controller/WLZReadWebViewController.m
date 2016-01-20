@@ -120,9 +120,11 @@
         
     }];
     //占位键:指定宽度
-    UIBarButtonItem *spaceButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    spaceButton.width = UIWIDTH / 9;
+    UIBarButtonItem *spaceButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+    spaceButton.width = UIWIDTH / 8;
     [toolBarItems addObject:spaceButton];
+    
+    
     //收藏键
     UIButton *collectB = [UIButton buttonWithType:UIButtonTypeCustom];
     collectB.frame = CGRectMake(0, 0, 40, 40);
@@ -180,6 +182,7 @@
     [toolBarItems addObject:fontButton];
     
     [self.mytoolbar setItems:toolBarItems animated:YES];
+    
     [self.view bringSubviewToFront:self.mytoolbar];
 }
 

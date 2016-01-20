@@ -655,16 +655,16 @@
     }];
 
 }
-//- (void)reloadCellTabel {
-//
-//    NSArray *arr = [self.collectionV visibleCells];
-//    WLZ_Dance_detailCollectionViewCell *cell = arr[0];
-//    if (cell.tag == 20002) {
-//        NSLog(@"dsadsadasd");
-//        [cell.tableV reloadData];
-//    }
-//    
-//}
+- (void)viewWillAppear:(BOOL)animated
+{
+    //进入视频播放界面
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"videoPlay" object:nil];
+}
+- (void)viewDidDisappear:(BOOL)animated
+{
+    //退出视频界面
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"videoStop" object:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

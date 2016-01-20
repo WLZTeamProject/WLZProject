@@ -28,7 +28,17 @@
 @end
 
 @implementation WLZ_News_ViewController
-
+- (void)dealloc
+{
+    [_collectionV release];
+    [_happyArr release];
+    [_koreanArr release];
+    [_koearButton release];
+    [_happyButton release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"night" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"day" object:nil];
+    [super dealloc];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -40,13 +50,28 @@
 {
     [self creatCollectionView];
     [self creatButton];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationNightAction) name:@"night" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDayAction) name:@"day" object:nil];
 }
-
+- (void)notificationNightAction
+{
+    self.koearButton.backgroundColor = [UIColor colorWithRed:0.439 green:0.439 blue:0.439 alpha:1.0];
+    self.happyButton.backgroundColor = [UIColor colorWithRed:0.439 green:0.439 blue:0.439 alpha:1.0];
+}
+- (void)notificationDayAction
+{
+    self.koearButton.backgroundColor = [UIColor colorWithRed:0.9897 green:0.9897 blue:0.9897 alpha:1.0];
+    self.happyButton.backgroundColor = [UIColor colorWithRed:0.9897 green:0.9897 blue:0.9897 alpha:1.0];
+    
+}
 - (void)creatButton
 {
     self.koearButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.koearButton.frame = CGRectMake(0, 0, WIDTH / 2, 50);
-    self.koearButton.backgroundColor = [UIColor whiteColor];
+    self.koearButton.backgroundColor = [UIColor colorWithRed:0.439 green:0.439 blue:0.439 alpha:1.0];
     self.koearButton.selected = YES;
     [self.koearButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.koearButton setTitle:@"韩国" forState:UIControlStateNormal];
@@ -56,13 +81,20 @@
     
     self.happyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.happyButton.frame = CGRectMake(WIDTH / 2, 0, WIDTH / 2, 50);
-    self.happyButton.backgroundColor = [UIColor whiteColor];
+    self.happyButton.backgroundColor = [UIColor colorWithRed:0.439 green:0.439 blue:0.439 alpha:1.0];
     self.happyButton.selected = NO;
     [self.happyButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.happyButton setTitle:@"娱乐" forState:UIControlStateNormal];
     [self.happyButton setTitleColor:[UIColor colorWithWhite:0.800 alpha:1.000] forState:UIControlStateNormal];
     [self.happyButton setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
     [self.view addSubview:self.happyButton];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+       self.koearButton.backgroundColor = [UIColor colorWithRed:0.439 green:0.439 blue:0.439 alpha:1.0];
+        self.happyButton.backgroundColor = [UIColor colorWithRed:0.439 green:0.439 blue:0.439 alpha:1.0];
+    } else {
+        self.koearButton.backgroundColor = [UIColor colorWithRed:0.9897 green:0.9897 blue:0.9897 alpha:1.0];
+        self.happyButton.backgroundColor = [UIColor colorWithRed:0.9897 green:0.9897 blue:0.9897 alpha:1.0];
+    }
 }
 
 #pragma 按键随着界面动
@@ -151,7 +183,10 @@
     [self.navigationController pushViewController:webVC animated:YES];
     
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    self.tabBarController.tabBar.hidden = NO;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

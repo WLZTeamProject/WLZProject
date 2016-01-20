@@ -14,13 +14,15 @@
 #import "WLZNewRootViewController.h"
 #import "WLZ_News_ViewController.h"
 #import "WLZ_PCH.pch"
-
+#import "WN_Leader_ViewController.h"
 #import "LeftSlideViewController.h"
-@interface AppDelegate ()
+#import "WLZ_PCH.pch"
+@interface AppDelegate () <UIScrollViewDelegate>
 @property (nonatomic, retain) UINavigationController *radioNC;
 @property (nonatomic, retain) UINavigationController *videoNC;
 @property (nonatomic, retain) UINavigationController *readNC;
 @property (nonatomic, retain) UINavigationController *newsNC;
+@property (nonatomic, assign) BOOL isOut;
 @end
 
 @implementation AppDelegate
@@ -48,23 +50,107 @@
     [UMSocialData setAppKey:@"5699b3a5e0f55a1f1c00159d"];
     [UMSocialQQHandler setQQWithAppId:@"1104881132" appKey:@"LTKWFVGSDaN52TOo" url:@"http://www.baidu.com"];
     [UMSocialWechatHandler setWXAppId:@"wx8296f2e05470ba30" appSecret:@"81a048ef1f51e2d83e01455d011cd4ca" url:@"http://www.baidu.com"];
+    self.isOut = NO;
+    NSString *isFirst = [[NSUserDefaults standardUserDefaults] objectForKey:@"isFirst"];
+    
+    if (![isFirst isEqualToString:@"4"]) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"4" forKey:@"isFirst"];
+        [userDefaults synchronize];
+        [self makeLaunchView];//为假表示没有文件，没有进入过主页
+    }else{
+        [self creatAPP];//为真表示已有文件 曾经进入过主页
+    }
+    return YES;
+}
+
+//引导页面
+-(void)makeLaunchView{
+    
+    WN_Leader_ViewController *leader = [[WN_Leader_ViewController alloc]init];
+    self.window.rootViewController = leader;
+    
+    NSArray *arr = [NSArray arrayWithObjects:@"yindao1",@"yindao2",@"yindao3", nil ,nil];//数组内存放的是我要显示的假引导页面图片
+    //通过scrollView 将这些图片添加在上面，从而达到滚动这些图片
+    UIScrollView *scr = [[UIScrollView alloc] initWithFrame:self.window.bounds];
+    scr.contentSize = CGSizeMake(UIWIDTH, self.window.frame.size.height  * arr.count);
+    scr.pagingEnabled = YES;
+    scr.tag = 7000;
+    scr.delegate = self;
+    [leader.view addSubview:scr];
+    for (int i = 0; i < arr.count; i++) {
+        UIImageView *img = [[UIImageView alloc] initWithFrame:CGRectMake(0, i*UIHEIGHT, UIWIDTH, self.window.frame.size.height)];
+        img.image = [UIImage imageNamed:arr[i]];
+        [scr addSubview:img];
+        [img release];
+    }
+    
+    
+}
+#pragma mark scrollView的代理
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //这里是在滚动的时候判断 我滚动到哪张图片了，如果滚动到了最后一张图片，那么
+    //如果在往下面滑动的话就该进入到主界面了，我这里利用的是偏移量来判断的，当
+    //一共五张图片，所以当图片全部滑完后 又像后多滑了30 的时候就做下一个动作
+    scrollView.showsHorizontalScrollIndicator = NO;
+    if (scrollView.contentOffset.y > 2 * UIHEIGHT + 30) {
+        
+        self.isOut=YES;//这是我声明的一个全局变量Bool 类型的，初始值为no，当达到我需求的条件时将值改为yes
+        
+    }
+}
+//停止滑动
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    //判断isout为真 就要进入主界面了
+    if (self.isOut) {
+        //这里添加了一个动画
+        [UIView animateWithDuration:.5 animations:^{
+            //            scrollView.alpha=0;//让scrollview 渐变消失
+            
+        }completion:^(BOOL finished) {
+            [scrollView  removeFromSuperview];//将scrollView移除
+            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"states"];
+            [self creatAPP];//进入主界面
+            
+        } ];
+    }
+    
+}
+
+- (void)creatAPP
+{
+    //如果第一次进入没有文件，我们就创建这个文件
+    NSFileManager *manager=[NSFileManager defaultManager];
+    //判断 我是否创建了文件，如果没创建 就创建这个文件（这种情况就运行一次，也就是第一次启动程序的时候）
+    if (![manager fileExistsAtPath:[NSHomeDirectory() stringByAppendingString:@"aa.txt"]]) {
+        [manager createFileAtPath:[NSHomeDirectory() stringByAppendingString:@"aa.txt"] contents:nil attributes:nil];
+    }
+    
+
+    
+    
+    
+    
+    
     NSMutableArray *arr = [NSMutableArray array];//存放VC
-//    WLZNewRootViewController *newRootVC = [[WLZNewRootViewController alloc] init];
-//    UINavigationController *newNC = [[[UINavigationController alloc] initWithRootViewController:newRootVC] autorelease];
-//    newNC.navigationBar.translucent = NO;
-//    newNC.navigationBar.tintColor = [UIColor blackColor];
-//    newNC.tabBarItem.title = @"新闻";
-//    newNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
-//    [arr addObject:newNC];
-//    [newRootVC release];
     //资讯
     WLZ_News_ViewController *newsVC = [[WLZ_News_ViewController alloc] init];
-    UINavigationController *newsNC = [[[UINavigationController alloc] initWithRootViewController:newsVC] autorelease];
-    newsNC.navigationBar.translucent = NO;
-        newsNC.navigationBar.tintColor = [UIColor blackColor];
-        newsNC.tabBarItem.title = @"资讯";
-        newsNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
-        [arr addObject:newsNC];
+    self.newsNC = [[[UINavigationController alloc] initWithRootViewController:newsVC] autorelease];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.newsNC.navigationBar.tintColor = [UIColor whiteColor];
+        self.newsNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+        
+    } else {
+        self.newsNC.navigationBar.tintColor = [UIColor blackColor];
+        self.newsNC.navigationBar.barTintColor = [UIColor whiteColor];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    }
+    self.newsNC.navigationBar.translucent = NO;
+        self.newsNC.navigationBar.tintColor = [UIColor blackColor];
+        self.newsNC.tabBarItem.title = @"资讯";
+        self.newsNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
+        [arr addObject:self.newsNC];
         [newsVC release];
     
     //音频VC
@@ -143,10 +229,13 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationNightAction) name:@"night" object:nil];
     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(notificationDayAction) name:@"day" object:nil];
-    return YES;
+    
 }
 - (void)notificationNightAction
 {
+    self.newsNC.navigationBar.tintColor = [UIColor whiteColor];
+    self.newsNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+    
     self.radioNC.navigationBar.tintColor = [UIColor whiteColor];
     self.radioNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
     
@@ -167,6 +256,9 @@
 }
 - (void)notificationDayAction
 {
+    self.newsNC.navigationBar.tintColor = [UIColor blackColor];
+    self.newsNC.navigationBar.barTintColor = [UIColor whiteColor];
+    
     self.radioNC.navigationBar.tintColor = [UIColor blackColor];
     self.radioNC.navigationBar.barTintColor = [UIColor whiteColor];
     

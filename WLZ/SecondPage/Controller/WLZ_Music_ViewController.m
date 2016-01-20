@@ -33,6 +33,8 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"videoPlay" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"videoStop" object:nil];
     [_titleM release];
     [_musicVisitM release];
     [_playInfo release];
@@ -64,23 +66,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//
     [self getData];
     [self.collectionV reloadData];
-////    [self playAction];
-//    if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
-//    {
-//        [self changeVCColor];
-//        
-//    }
-//    else
-//    {
-//        [self playAction];
-//    }
-//
-//    
-//       [self.collectionV reloadData];
-//    
 }
 
 - (void)viewDidLoad {
@@ -95,7 +82,6 @@
     if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
     {
         [self changeVCColor];
-        
     }
     else
     {
@@ -103,8 +89,19 @@
     }
     [self.collectionV reloadData];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationRadioPauseAction) name:@"videoPlay" object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationRadioResumeAction) name:@"videoStop" object:nil];
+ 
 }
-
+- (void)notificationRadioPauseAction
+{
+    [self.player pause];
+}
+-(void)notificationRadioResumeAction
+{
+    [self.player resume];
+}
 - (void)leftAction
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -295,6 +292,10 @@
     }
 
     [self.collectionV reloadData];
+}
+- (void)audioPlayerStop
+{
+    [self.player stop];
 }
 
 - (void)nextAction
