@@ -11,6 +11,7 @@
 #import "WLZ_Dance_ListModel.h"
 #import "WLZ_Dance_videoModel.h"
 #import "WLZ_Dance_detailViewController.h"
+#import "WLZ_Music_ViewController.h"
 @interface WLZ_Dance_videoViewController ()
 @property (nonatomic, retain) UIView *container;
 
@@ -60,10 +61,7 @@
     
     [self createPlayerView];
     
-    
-    
 }
-
 //横屏
 - (void)screenView
 {
@@ -74,7 +72,6 @@
         [invocation setTarget:[UIDevice currentDevice]];
         //选择屏幕旋转样式
         int val = UIInterfaceOrientationLandscapeLeft;
-        
         [invocation setArgument:&val atIndex:2];
         [invocation invoke];
         

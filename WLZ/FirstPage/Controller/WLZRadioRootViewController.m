@@ -74,9 +74,6 @@
     [self.navigationController pushViewController:wlzSearchVC animated:YES];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.tabBarController.tabBar setHidden:YES];
-    
-    
-    
 }
 
 - (void)createTableV
@@ -110,48 +107,19 @@
     
 }
 
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        self.hidesBottomBarWhenPushed = YES;
-//    }
-//    return self;
-//}
-
 //上拉刷新
 - (void)refreshAction
 {
     self.page++;
     [self getTableVData];
     [self.tableV reloadData];
-    //    [self createTableV];
     
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return [[UIScreen mainScreen] bounds].size.height / 3.0;
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    if (0 != self.danceArr.count) {
     return self.danceArr.count;
-//    }
-//    return 2;
-
-//    NSLog(@"%ld", self.danceArr.count);
-//    if (self.danceArr == nil) {
-//        return 0;
-//    } else {
-//        return self.danceArr.count;
-//    }
-    return self.danceArr.count;
-    
-    
-
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

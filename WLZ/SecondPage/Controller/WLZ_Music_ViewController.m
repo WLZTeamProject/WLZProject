@@ -64,23 +64,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//
     [self getData];
     [self.collectionV reloadData];
-////    [self playAction];
-//    if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
-//    {
-//        [self changeVCColor];
-//        
-//    }
-//    else
-//    {
-//        [self playAction];
-//    }
-//
-//    
-//       [self.collectionV reloadData];
-//    
 }
 
 - (void)viewDidLoad {
@@ -95,13 +80,13 @@
     if ((STKAudioPlayerStatePlaying == self.player.state) || (STKAudioPlayerStatePaused == self.player.state))
     {
         [self changeVCColor];
-        
     }
     else
     {
         [self playAction];
     }
     [self.collectionV reloadData];
+    
     
 }
 
