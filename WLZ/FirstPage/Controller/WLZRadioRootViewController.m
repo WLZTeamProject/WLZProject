@@ -8,6 +8,7 @@
 
 #import "WLZRadioRootViewController.h"
 #import "LQQAFNetTool.h"
+#import <MBProgressHUD.h>
 #import "WLZ_Dance_Model.h"
 #import "WLZ_Dance_ListModel.h"
 #import "WLZ_DanceTableViewCell.h"
@@ -20,6 +21,8 @@
 @property (nonatomic, retain) NSMutableArray *danceArr;
 @property (nonatomic, retain) UITableView *tableV;
 @property (nonatomic, assign) NSInteger page;
+
+@property (nonatomic,retain) MBProgressHUD *hud;
 
 @end
 
@@ -37,6 +40,7 @@
 
 - (void)dealloc
 {
+    [_hud release];
     self.tableV.delegate = nil;
     self.tableV.dataSource = nil;
     [_danceLunboArr release];
@@ -66,6 +70,10 @@
     [self getData];
     [self getTableVData];
     [self addrefresh];
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
     
 }
 
@@ -177,6 +185,11 @@
        
         }
         [self.tableV.mj_footer endRefreshing];
+        
+        
+        [self.hud removeFromSuperview];
+        [self.hud release];
+        self.hud = nil;
         [self.tableV reloadData];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -193,10 +206,9 @@
     [LQQAFNetTool getNetWithURL:str body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *commonArr = [responseObject objectForKey:@"common"];
         self.danceLunboArr = [WLZ_Dance_Model baseModelWithArr:commonArr];
-        [self.tableV reloadData];
-        
-        
-        
+        if (self.danceLunboArr.count != 0) {
+            [self.tableV reloadData];
+        }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         
