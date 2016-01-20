@@ -38,6 +38,8 @@
 @property (nonatomic, assign) BOOL isRotation;
 @property (nonatomic, assign) CGRect originalFrame;
 
+@property (nonatomic, assign) NSInteger page;
+
 @end
 
 @implementation WLZ_Dance_detailViewController
@@ -89,8 +91,10 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:131 / 256.0 green:59 / 256.0 blue:149 / 256.0 alpha:1.0];
     self.numtime = 0;
+    self.page = 1;
     self.arr = [NSMutableArray array];
     self.originalFrame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3);
+    
     [self getrelateData];
     
     [self createPlayerView:self.originalFrame];
@@ -490,9 +494,7 @@
     flowL.itemSize = CGSizeMake(self.view.frame.size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
     flowL.headerReferenceSize = CGSizeMake(0, 0);
     
-    
     flowL.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    
     
     self.collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.butView.frame.size.height + self.butView.frame.origin.y, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height) collectionViewLayout:flowL];
     self.collectionV.delegate = self;
@@ -514,7 +516,6 @@
     
 }
 
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
    
@@ -533,9 +534,13 @@
     }
     if (1 == indexPath.row) {
         WLZ_Dance_detailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        cell.tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            self.page ++;
+            [self getrelateData];
+            
+        }];
         cell.arr = self.arr;
         cell.delegate = self;
-//        NSLog(@"哈哈哈哈%@", cell.title);
         return cell;
     }
     return nil;
@@ -546,10 +551,6 @@
 //点击 协议 方法
 - (void)transferValue:(WLZ_Dance_ListModel *)wlzdance
 {
-//    NSLog(@"啦啦啦啦啦啦啦啦啦");
-    
-    
-    
     WLZ_Dance_videoModel *zyVideo =[wlzdance.item_videos objectAtIndex:0];
     
     
@@ -561,13 +562,11 @@
     
     [self.arr removeAllObjects];
     [self getrelateData];
-
-//    [zyVideo release];
 }
 
 - (void)getrelateData
 {
-    NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/search?word=%@&perpage=10&page=1",self.zyDance.item_title];
+    NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/search?word=%@&perpage=10&page=%ld",self.zyDance.item_title, self.page];
     ;
     [LQQAFNetTool getNetWithURL:urlStr body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
@@ -583,6 +582,7 @@
             }
             
         }
+        
         [self.collectionV reloadData];
 //        [self reloadCellTabel];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -606,14 +606,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
