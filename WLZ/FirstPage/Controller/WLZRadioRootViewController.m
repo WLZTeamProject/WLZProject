@@ -65,6 +65,7 @@
     [self createTableV];
     [self getData];
     [self getTableVData];
+    [self addrefresh];
     
 }
 
@@ -88,11 +89,24 @@
     }];
     self.tableV.rowHeight = [[UIScreen mainScreen] bounds].size.height / 3.0;
     //设置上拉刷新
-    self.tableV.mj_footer = [MJRefreshAutoFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    
     
         [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
     
     
+}
+
+- (void)addrefresh
+{
+    self.tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        self.page ++;
+        [self getTableVData];
+        
+    }];
+    [self.tableV reloadData];
+    
+    NSLog(@"哇哇哇哇哇哇哇哇哇%ld", self.page);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -149,6 +163,7 @@
 - (void)getTableVData
 {
     NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/type?&page=%ld&perpage=10&type=normal&word=", self.page];
+//    NSLog(@"哼哼合格呢个看见他和人%@", urlStr);
     [LQQAFNetTool getNetWithURL:urlStr body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
         for (NSMutableDictionary *tempDic in resultArr) {
@@ -161,6 +176,7 @@
             [self.danceArr addObject:wlzdance];
        
         }
+        [self.tableV.mj_footer endRefreshing];
         [self.tableV reloadData];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -178,6 +194,7 @@
         NSMutableArray *commonArr = [responseObject objectForKey:@"common"];
         self.danceLunboArr = [WLZ_Dance_Model baseModelWithArr:commonArr];
         [self.tableV reloadData];
+        
         
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {

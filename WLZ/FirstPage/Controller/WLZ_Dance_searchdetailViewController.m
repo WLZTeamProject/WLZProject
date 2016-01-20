@@ -9,9 +9,11 @@
 #import "WLZ_Dance_searchdetailViewController.h"
 #import "WLZ_DanceTableViewCell.h"
 #import "WLZ_Dance_ListModel.h"
+#import "WLZ_Dance_detailViewController.h"
 @interface WLZ_Dance_searchdetailViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, retain) UITableView *tableV;
 @property (nonatomic, retain) NSMutableArray *arr;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -29,6 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.arr = [NSMutableArray array];
+    self.page = 1;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backImage"] style:UIBarButtonItemStylePlain target:self action:@selector(leftAction)];
     
     [self getData];
@@ -42,6 +45,12 @@
     self.tableV.dataSource = self;
     [self.view addSubview:self.tableV];
     
+    self.tableV.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.page ++;
+        [self getData];
+        
+    }];
+    
     [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
     
 }
@@ -54,13 +63,25 @@
     }];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WLZ_Dance_ListModel *zylist = [self.arr objectAtIndex:indexPath.row];
+    WLZ_Dance_detailViewController *wlzdetailVC = [[WLZ_Dance_detailViewController alloc] init];
+    wlzdetailVC.zyDance = zylist;
+    [self.navigationController pushViewController:wlzdetailVC animated:YES];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [[UIScreen mainScreen] bounds].size.height / 3.0;
 }
 - (void)getData
 {
-    NSString *str = [NSString stringWithFormat:@"http://api3.dance365.com/video/search?word=%@&perpage=10&page=1", self.str];
+    NSString *str = [NSString stringWithFormat:@"http://api3.dance365.com/video/search?word=%@&perpage=10&page=%ld", self.str, self.page];
     [LQQAFNetTool getNetWithURL:str body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         
         NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
@@ -73,8 +94,10 @@
             }
             [self.arr addObject:wlzDance];
         }
+        [self.tableV.mj_footer endRefreshing];
         [self.tableV reloadData];
-        NSLog(@"叔叔世俗化俗话说%ld", self.arr.count);
+        
+//        NSLog(@"叔叔世俗化俗话说%ld", self.arr.count);
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
@@ -95,7 +118,14 @@
         WLZ_DanceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         [cell.imageV sd_setImageWithURL:[NSURL URLWithString:wlzList.item_image] placeholderImage:[UIImage imageNamed:@"kafei"]];
         cell.titleL.text = wlzList.item_title;
+        NSMutableAttributedString *attributed = [[NSMutableAttributedString alloc] initWithString:cell.titleL.text];
+        NSRange range = [cell.titleL.text rangeOfString:self.str];
+        [attributed addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+        cell.titleL.attributedText = attributed;
+        
         cell.personL.text = [NSString stringWithFormat:@"%@人在学",wlzList.item_click];
+        
+        
         return cell;
     }
     return nil;

@@ -8,7 +8,6 @@
 
 #import "WLZ_Dance_searchViewController.h"
 #import "WLZ_Dance_searchdetailViewController.h"
-#import "WLZ_Dance_SearchModel.h"
 @interface WLZ_Dance_searchViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (nonatomic, retain) UITableView *tableV;
 @property (nonatomic, retain) UITextField *searchField;

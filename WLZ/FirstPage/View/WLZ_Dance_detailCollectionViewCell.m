@@ -87,7 +87,7 @@
     [self.contentView addSubview:self.tableV];
     
     [self.tableV registerClass:[WLZ_Dance_relateTableViewCell class] forCellReuseIdentifier:@"cell"];
-
+    
     
 }
 
