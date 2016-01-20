@@ -31,8 +31,26 @@
     self.summaryL.font = [UIFont systemFontOfSize:14];
 //    self.summaryL.backgroundColor = [UIColor magentaColor];
 
+    
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.contentView.backgroundColor = [UIColor colorWithRed:0.2448 green:0.2448 blue:0.2448 alpha:1.0];
+    } else {
+        self.contentView.backgroundColor = [UIColor whiteColor];
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationNightAction) name:@"night" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationDayAction) name:@"day" object:nil];
 }
-
+- (void)notificationNightAction
+{
+    self.contentView.backgroundColor = [UIColor colorWithRed:0.2448 green:0.2448 blue:0.2448 alpha:1.0];
+}
+- (void)notificationDayAction
+{
+    self.contentView.backgroundColor = [UIColor whiteColor];
+}
 - (void)layoutSubviews
 {
     [self.titleLL mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -26,7 +26,6 @@
 @end
 
 @implementation WLZ_Happy_CollectionViewCell
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -71,7 +70,7 @@
 //tableView行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-        return self.happyArr.count;
+    return self.happyArr.count;
     
 }
 
@@ -88,9 +87,6 @@
             if (nil == self.listCell) {
                 self.listCell = [[WLZ_Happy_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celld];
             }
-            
-            
-            
             [self.listCell.pic_pathV sd_setImageWithURL:[NSURL URLWithString:model.pic_path]];
             self.listCell.titleLL.text = model.title;
             self.listCell.summaryL.text = model.summary;
