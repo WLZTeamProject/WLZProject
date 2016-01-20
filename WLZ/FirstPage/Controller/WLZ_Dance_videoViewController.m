@@ -11,6 +11,7 @@
 #import "WLZ_Dance_ListModel.h"
 #import "WLZ_Dance_videoModel.h"
 #import "WLZ_Dance_detailViewController.h"
+#import "WLZ_Music_ViewController.h"
 @interface WLZ_Dance_videoViewController ()
 @property (nonatomic, retain) UIView *container;
 
@@ -56,6 +57,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor grayColor];
+    [[WLZ_Music_ViewController sharePlayPageVC].player stop];
+
     [self screenView];
     
     [self createPlayerView];
