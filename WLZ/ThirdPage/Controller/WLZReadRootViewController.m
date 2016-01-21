@@ -35,6 +35,10 @@
     [_listArr release];
     [_carouselArr release];
     [_collectionV release];
+    
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"night" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"day" object:nil];
     [super dealloc];
 }
 - (void)viewDidLoad {

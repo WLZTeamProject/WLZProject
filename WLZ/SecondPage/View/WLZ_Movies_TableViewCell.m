@@ -81,21 +81,21 @@
 }
 - (void)notificationNightAction
 {
-    self.contentView.backgroundColor = [UIColor blackColor];
+    self.contentView.backgroundColor = [UIColor colorWithRed:0.298 green:0.298 blue:0.298 alpha:1.0];
 }
 - (void)notificationDayAction
 {
     self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
-//- (void)layoutSubviews
-//{
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
-//        self.contentView.backgroundColor = [UIColor blackColor];
-//    } else {
-//        self.contentView.backgroundColor = [UIColor whiteColor];
-//    }
-//}
+- (void)layoutSubviews
+{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+        self.contentView.backgroundColor = [UIColor colorWithRed:0.298 green:0.298 blue:0.298 alpha:1.0];
+    } else {
+        self.contentView.backgroundColor = [UIColor whiteColor];
+    }
+}
 - (void)awakeFromNib {
     // Initialization code
 }

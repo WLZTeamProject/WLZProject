@@ -31,10 +31,8 @@
 {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
         self.backgroundColor = [UIColor colorWithRed:0.1904 green:0.1904 blue:0.1904 alpha:1.0];
-//        self.contentView.backgroundColor = [UIColor colorWithRed:0.1904 green:0.1904 blue:0.1904 alpha:1.0];
     } else {
         self.backgroundColor = [UIColor whiteColor];
-//        self.contentView.backgroundColor =[UIColor whiteColor];
     }
     
     

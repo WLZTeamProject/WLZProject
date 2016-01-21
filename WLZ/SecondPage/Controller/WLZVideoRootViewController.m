@@ -78,7 +78,7 @@
 }
 - (void)notificationNightAction
 {
-    self.tableV.backgroundColor = [UIColor blackColor];
+    self.tableV.backgroundColor = [UIColor colorWithRed:0.298 green:0.298 blue:0.298 alpha:1.0];
     
 }
 - (void)notificationDayAction
