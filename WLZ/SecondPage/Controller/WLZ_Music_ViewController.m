@@ -16,7 +16,7 @@
 #import "WLZ_Other_Model.h"
 #import "WLZ_OtherO_Model.h"
 #import "WLZ_Details_Model.h"
-@interface WLZ_Music_ViewController () <UICollectionViewDelegate, UICollectionViewDataSource, RootViewDelegate, WLZ_Play_CollectionViewCellDelegate>
+@interface WLZ_Music_ViewController () <UICollectionViewDelegate, UICollectionViewDataSource, RootViewDelegate>
 
 
 
@@ -221,7 +221,7 @@
     if (0 == indexPath.row) {
         
         WLZ_Play_CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell1" forIndexPath:indexPath];
-        cell.delegate = self;
+//        cell.delegate = self;
         WLZ_Details_Model *model = self.titleM[self.row];
         [cell.headImageV sd_setImageWithURL:[NSURL URLWithString:[model.playInfo objectForKey:@"imgUrl"]]];
         cell.headImageV.layer.cornerRadius = (WIDTH - 60) / 2;
@@ -310,10 +310,10 @@
     [self changeVCColor];
 }
 
-- (void)exchangeVol:(float)vol
-{
-    self.player.volume = vol;
-}
+//- (void)exchangeVol:(float)vol
+//{
+//    self.player.volume = vol;
+//}
 //获取数据
 - (void)getData
 {

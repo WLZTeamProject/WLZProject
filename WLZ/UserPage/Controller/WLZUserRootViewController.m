@@ -40,9 +40,9 @@
 {
     self.imageV = [[UIImageView alloc] initWithFrame:self.view.frame];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
-        self.imageV.image = [UIImage imageNamed:@"user_bg"];
+        self.imageV.image = [UIImage imageNamed:@"33"];
     } else {
-        self.imageV.image = [UIImage imageNamed:@"user_bg_1"];
+        self.imageV.image = [UIImage imageNamed:@"22"];
     }
     self.imageV.userInteractionEnabled = YES;
     [self.view addSubview:self.imageV];
@@ -56,12 +56,12 @@
 }
 - (void)notificationNightAction
 {
-     self.imageV.image = [UIImage imageNamed:@"user_bg"];
+     self.imageV.image = [UIImage imageNamed:@"33"];
     
 }
 - (void)notificationDayAction
 {
-    self.imageV.image = [UIImage imageNamed:@"user_bg_1"];
+    self.imageV.image = [UIImage imageNamed:@"22"];
 }
 
 
