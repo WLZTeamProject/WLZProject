@@ -49,6 +49,8 @@
 - (void)creatView
 {
     [self creatCollectionView];
+    
+    
     [self creatButton];
     
     
@@ -88,6 +90,8 @@
     [self.happyButton setTitleColor:[UIColor colorWithWhite:0.800 alpha:1.000] forState:UIControlStateNormal];
     [self.happyButton setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
     [self.view addSubview:self.happyButton];
+    
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
        self.koearButton.backgroundColor = [UIColor colorWithRed:0.439 green:0.439 blue:0.439 alpha:1.0];
         self.happyButton.backgroundColor = [UIColor colorWithRed:0.439 green:0.439 blue:0.439 alpha:1.0];
@@ -116,33 +120,18 @@
     
     if (self.koearButton == sender) {
         
-        self.collectionV.contentOffset = CGPointMake(0, HEIGHT - 60);
+        self.collectionV.contentOffset = CGPointMake(0, 0);
         self.koearButton.selected = YES;
         self.happyButton.selected = NO;
-        
-//        if (self.koearButton.selected == YES) {
-//            self.collectionV.contentOffset = CGPointMake(0, 0);
-//        } else {
-//            self.collectionV.contentOffset = CGPointMake(WIDTH, 0);
-//        }
-//        self.happyButton.selected = !self.happyButton.selected;
-//        
-        
     } else {
-        self.collectionV.contentOffset = CGPointMake(WIDTH, HEIGHT - 60);
+        self.collectionV.contentOffset = CGPointMake(UIWIDTH, 0);
+        
         self.koearButton.selected = NO;
         self.happyButton.selected = YES;
-//        if (self.happyButton.selected == NO) {
-//            self.collectionV.contentOffset = CGPointMake(0, 0);
-//        } else {
-//            self.collectionV.contentOffset = CGPointMake(WIDTH, 0);
-//        }
-//        
-//        self.koearButton.selected = !self.koearButton.selected;
     }
-    
-    
-    sender.selected = !sender.selected;
+    [self.koearButton setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
+    [self.happyButton setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
+    NSLog(@"%0.2f", self.collectionV.contentOffset.x);
 }
 
 
@@ -157,9 +146,10 @@
     self.collectionV.delegate = self;
     self.collectionV.dataSource = self;
     self.collectionV.pagingEnabled = YES;
+    self.collectionV.bounces = NO;
     self.collectionV.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.collectionV];
-    
+    [_collectionV release];
     [self.collectionV registerClass:[WLZ_Happy_CollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 }
 

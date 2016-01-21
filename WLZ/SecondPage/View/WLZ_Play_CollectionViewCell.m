@@ -14,7 +14,7 @@
 {
     [_headImageV release];
     [_titleL release];
-    [_slider release];
+//    [_slider release];
     [_link release];
     [super dealloc];
 }
@@ -56,26 +56,26 @@
         make.height.equalTo(@50);
         make.width.equalTo(@(VWIDTH));
     }];
-    
-    self.slider = [UISlider new];
-//    self.slider.value = 0.3;
-    [self.slider addTarget:self action:@selector(volAction:) forControlEvents:UIControlEventValueChanged];
-    [self addSubview:self.slider];
-    
-    [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleL).with.offset(80);
-        make.left.equalTo(@100);
-        make.width.equalTo(@(VWIDTH - 200));
-        
-    }];
-    
+//    
+//    self.slider = [UISlider new];
+////    self.slider.value = 0.3;
+//    [self.slider addTarget:self action:@selector(volAction:) forControlEvents:UIControlEventValueChanged];
+//    [self addSubview:self.slider];
+//    
+//    [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.titleL).with.offset(80);
+//        make.left.equalTo(@100);
+//        make.width.equalTo(@(VWIDTH - 200));
+//        
+//    }];
+//    
 
 }
-- (void)volAction:(UISlider *)sender
-{
-    [self.delegate exchangeVol:self.slider.value];
-    
-    
-}
+//- (void)volAction:(UISlider *)sender
+//{
+//    [self.delegate exchangeVol:self.slider.value];
+//    
+//    
+//}
 
 @end

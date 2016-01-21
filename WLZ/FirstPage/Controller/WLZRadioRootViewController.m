@@ -8,6 +8,7 @@
 
 #import "WLZRadioRootViewController.h"
 #import "LQQAFNetTool.h"
+#import <MBProgressHUD.h>
 #import "WLZ_Dance_Model.h"
 #import "WLZ_Dance_ListModel.h"
 #import "WLZ_DanceTableViewCell.h"
@@ -22,6 +23,8 @@
 @property (nonatomic, retain) UITableView *tableV;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, retain) WLZ_MumView *wlzMum;
+
+@property (nonatomic,retain) MBProgressHUD *hud;
 
 @end
 
@@ -39,6 +42,7 @@
 
 - (void)dealloc
 {
+    [_hud release];
     self.tableV.delegate = nil;
     self.tableV.dataSource = nil;
     [_danceLunboArr release];
@@ -72,9 +76,15 @@
     [self getTableVData];
     [self addrefresh];
     
+
     self.wlzMum = [[WLZ_MumView alloc] initWithFrame:self.view.frame];
     [self.view addSubview:self.wlzMum];
     [_wlzMum release];
+
+    self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:self.hud];
+    [self.hud show:YES];
+
     
 }
 
@@ -99,9 +109,13 @@
     self.tableV.rowHeight = [[UIScreen mainScreen] bounds].size.height / 3.0;
     //设置上拉刷新
 
+
     [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
     
     
+
+    [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
+
 }
 
 - (void)addrefresh
@@ -113,8 +127,13 @@
         
     }];
     [self.tableV reloadData];
+
     
+
 //    NSLog(@"哇哇哇哇哇哇哇哇哇%ld", self.page);
+
+
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -155,15 +174,6 @@
         [cell.imageV sd_setImageWithURL:[NSURL URLWithString:wlzlist.item_image]placeholderImage:[UIImage imageNamed:@"kafei"]];
         return cell;
     }
-//    else {
-//        static NSString *cellStr = @"cell2";
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
-//        if (nil == cell) {
-//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
-//        }
-//        return cell;
-//    }
-   
     return 0;
 }
 
@@ -184,6 +194,11 @@
        
         }
         [self.tableV.mj_footer endRefreshing];
+        
+        
+        [self.hud removeFromSuperview];
+        [self.hud release];
+        self.hud = nil;
         [self.tableV reloadData];
         [self.wlzMum stopActivityIndicator];
         
@@ -201,7 +216,13 @@
     [LQQAFNetTool getNetWithURL:str body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
         NSMutableArray *commonArr = [responseObject objectForKey:@"common"];
         self.danceLunboArr = [WLZ_Dance_Model baseModelWithArr:commonArr];
+
         [self.tableV reloadData];
+
+
+        if (self.danceLunboArr.count != 0) {
+            [self.tableV reloadData];
+        }
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         

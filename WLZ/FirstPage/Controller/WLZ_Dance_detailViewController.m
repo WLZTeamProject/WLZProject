@@ -137,9 +137,7 @@
 //建立播放页面
 - (void)createPlayerView:(CGRect)originalFrame
 {
-//    self.totalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 3)];
     self.totalView = [[UIView alloc] initWithFrame:originalFrame];
-//    self.totalView.frame = self.originalFrame;
     self.totalView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.totalView];
     
@@ -147,9 +145,6 @@
     self.container.backgroundColor = [UIColor clearColor];
     [self.totalView addSubview:self.container];
     [_container release];
-    
-    
-    
     
     AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     playerLayer.frame = self.container.frame;
@@ -245,18 +240,17 @@
 {
     NSDate *currentTime = [NSDate date];
     NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
-    //    [dateformatter setDateStyle:kCFDateFormatterFullStyle];
     [dateformatter setDateFormat:@"HH:mm"];
     NSString *locationStr = [dateformatter stringFromDate:currentTime];
     self.localTimeL.text = locationStr;
-    //    NSLog(@"locationString:%@", locationStr);
     [dateformatter release];
 }
 
 //详情but
 - (void)detailButAction
 {
-    self.collectionV.contentOffset = CGPointMake(0, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
+//    self.collectionV.contentOffset = CGPointMake(0, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
+    self.collectionV.contentOffset = CGPointMake(0, 0);
     [self.detailBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
     [self.relateBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
@@ -264,7 +258,8 @@
 - (void)relateButAction
 {
     
-    self.collectionV.contentOffset = CGPointMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
+//    self.collectionV.contentOffset = CGPointMake([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
+    self.collectionV.contentOffset = CGPointMake(UIWIDTH, 0);
     [self.detailBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.relateBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
     
@@ -299,10 +294,6 @@
 {
     if (_isRotation) {
         if (YES == self.sliderView.hidden  ) {
-            
-            //        删除self.sliderView这个控件
-            //        [self.sliderView removeFromSuperview];
-            
             [self.sliderView setHidden:NO];
              [self.titleView setHidden:NO];
             self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerAction) userInfo:nil repeats:NO];
@@ -312,10 +303,6 @@
         }
     } else {
         if (YES == self.sliderView.hidden) {
-            
-            //        删除self.sliderView这个控件
-            //        [self.sliderView removeFromSuperview];
-            
             [self.sliderView setHidden:NO];
            
             self.timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(timerAction) userInfo:nil repeats:NO];
@@ -324,10 +311,6 @@
             
         }
     }
-    
-    
-    
-    
 }
 
 - (void)timerAction
@@ -339,22 +322,6 @@
 //横屏方法
 - (void)screenButAction
 {
-
-//    WLZ_Dance_videoViewController *wlzDanceVC = [[WLZ_Dance_videoViewController alloc] init];
-//    wlzDanceVC.wlzdance = self.zyDance;
-//    
-//    NSInteger num = (int)self.timeS.value * 10;
-//    wlzDanceVC.num = num;
-//    
-//    [self.navigationController pushViewController:wlzDanceVC animated:YES];
-//    
-//    [self.player pause];
-////    [self.navigationController setToolbarHidden:YES animated:YES];
-//    [self.tabBarController.tabBar setHidden:YES];
-//    
-//    [wlzDanceVC release];
-    
-    
     if (_isRotation) {
         self.isRotation = NO;
         [UIView animateWithDuration:0.2 animations:^{
@@ -380,12 +347,6 @@
             self.titleView.hidden = NO;
         }];
     }
-    
-    
-
-    
-//    self.container.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-    
 }
 
 
@@ -408,7 +369,6 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.tabBarController.tabBar setHidden:NO];
     [self.player pause];
-//    [self removeN];
 }
 
 //进度条
@@ -417,7 +377,6 @@
     if (0 == self.player.rate) {
         [self.player seekToTime:CMTimeMake((int)self.timeS.value * 10, 10.0)];
         [self.player play];
-//        [self.startBut setImage:[UIImage imageNamed:@"stopImage"] forState:UIControlStateNormal];
         self.startBut.selected = NO;
     } else if (1 == self.player.rate) {
         [self.player pause];
@@ -430,7 +389,6 @@
 {
     self.timeS.maximumValue = CMTimeGetSeconds(duration);
     self.timeS.minimumValue = 0.0;
-//    NSLog(@"%f", self.timeS.maximumValue);
 }
 
 //添加进度条
@@ -442,20 +400,13 @@
         if (self.numtime != 0) {
         [self.player seekToTime:CMTimeMake(self.numtime, 10.0)];
         }
-
         CGFloat total = CMTimeGetSeconds([playerItem duration]);
         CGFloat current = CMTimeGetSeconds(time);
-//        self.timeS.value = current;
-        
         NSString *newtime = [self changeTimer:current];
         NSString *totaltime = [self changeTimer:total];
         self.timeLabel.text = [NSString stringWithFormat:@"%@/",  newtime];
         self.totalTimeL.text = [NSString stringWithFormat:@"%@", totaltime];
-//        self.timeS.maximumValue = total;
-        
         [self.timeS setValue:current animated:YES];
-        
-        
     }];
     
 }
@@ -496,8 +447,6 @@
         if (status == AVPlayerStatusReadyToPlay) {
 //            NSLog(@"正在播放........");
             [self customVideozSlider:playerItem.duration];
-            
-        
         }
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
 //        NSArray *array = playerItem.loadedTimeRanges;
@@ -532,6 +481,9 @@
 {
     self.butView = [[UIView alloc] initWithFrame:CGRectMake(0, self.container.frame.origin.y + self.container.frame.size.height, self.container.frame.size.width, ([[UIScreen mainScreen] bounds].size.height / 2 -  [[UIScreen mainScreen] bounds].size.height / 3) / 2)];
     self.butView.backgroundColor = [UIColor blackColor];
+
+    self.butView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+
     [self.view addSubview:self.butView];
     
     self.detailBut = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -551,10 +503,8 @@
     
     
     UICollectionViewFlowLayout *flowL = [[[UICollectionViewFlowLayout alloc] init] autorelease];
-//    flowL.headerReferenceSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width , ([[UIScreen mainScreen] bounds].size.height / 2 - [[UIScreen mainScreen] bounds].size.height / 3) / 2 + [[UIScreen mainScreen] bounds].size.height / 3);
     flowL.minimumLineSpacing = 0;
     flowL.minimumInteritemSpacing = 0;
-//    flowL.ba
     flowL.itemSize = CGSizeMake(self.view.frame.size.width, [[UIScreen mainScreen] bounds].size.height - self.totalView.frame.size.height);
     flowL.headerReferenceSize = CGSizeMake(0, 0);
     
@@ -615,9 +565,6 @@
 //点击 协议 方法
 - (void)transferValue:(WLZ_Dance_ListModel *)wlzdance
 {
-//    WLZ_Dance_videoModel *zyVideo =[wlzdance.item_videos objectAtIndex:0];
-    
-    
     [self removeObserverFromPlayerItem:self.player.currentItem];
     AVPlayerItem *playerItem = [self getPlayItem:wlzdance.url];
     [self addobserverToplayerItem:playerItem];
