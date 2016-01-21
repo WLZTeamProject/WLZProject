@@ -193,6 +193,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma 记录上一次是否是夜间模式
 - (void)viewWillAppear:(BOOL)animated
 {
     
