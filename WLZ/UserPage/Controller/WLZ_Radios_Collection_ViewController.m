@@ -53,6 +53,13 @@
             make.center.equalTo(self.view);
             
         }];
+//        UIImageView *imageV = [[UIImageView alloc] init];
+//        imageV.image = [UIImage imageNamed:@"11"];
+//        self.tableV.backgroundView = imageV;
+//        [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.center.equalTo(self.view);
+//            
+//        }];
     }
     [self.tableV reloadData];
 }
@@ -63,6 +70,7 @@
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
     [self.view addSubview:self.tableV];
+    self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableV release];
     [self.tableV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);

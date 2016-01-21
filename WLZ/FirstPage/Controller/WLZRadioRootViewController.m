@@ -108,7 +108,6 @@
     }];
     [self.tableV reloadData];
     
-    NSLog(@"哇哇哇哇哇哇哇哇哇%ld", self.page);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
