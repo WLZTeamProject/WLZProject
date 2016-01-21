@@ -89,7 +89,6 @@
 //创建视图
 - (void)creatView
 {
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"蠕动"] forBarMetrics:UIBarMetricsDefault];
     //创建TableView
     [self creatTableView];
     //建立轮播图
@@ -196,7 +195,6 @@
         [self.moviesCell.RadiosImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]placeholderImage:[UIImage imageNamed:@"kafei"]];
 
         [self.moviesCell.RadiosImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg]];
-//        self.moviesCell.backgroundColor = [UIColor colorWithRed:0.400 green:1.000 blue:0.800 alpha:1.000];
         self.moviesCell.titleL.text = model.title;
         self.moviesCell.unameL.text = [NSString stringWithFormat:@"%@%@",@"by:" ,[model.userinfo objectForKey:@"uname"]];
         self.moviesCell.unameL.font = [UIFont systemFontOfSize:11];
@@ -252,7 +250,6 @@
 //建立轮播图
 - (void)wheelView
 {
-//    self.scrollView = [WLZ_LunBo_View cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height / 3) delegate:self placeholderImage:[UIImage imageNamed:@"kafei"]];
     self.scrollView = [[WLZ_LunBo_View alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT / 3)];
     
     self.tableV.tableHeaderView = self.scrollView;
@@ -319,8 +316,6 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
-//    [self.tableV.mj_header endRefreshing];
-//    [self.tableV.mj_footer endRefreshing];
 
     
 }

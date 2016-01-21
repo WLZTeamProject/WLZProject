@@ -133,26 +133,20 @@
     
     
     NSMutableArray *arr = [NSMutableArray array];//存放VC
-    //资讯
-    WLZ_News_ViewController *newsVC = [[WLZ_News_ViewController alloc] init];
-    self.newsNC = [[[UINavigationController alloc] initWithRootViewController:newsVC] autorelease];
+    //阅读VC
+    WLZReadRootViewController *readRootVC = [[WLZReadRootViewController alloc] init];
+    self.readNC = [[[UINavigationController alloc] initWithRootViewController:readRootVC] autorelease];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
-        self.newsNC.navigationBar.tintColor = [UIColor whiteColor];
-        self.newsNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        
-    } else {
-        self.newsNC.navigationBar.tintColor = [UIColor blackColor];
-        self.newsNC.navigationBar.barTintColor = [UIColor whiteColor];
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    }
-    self.newsNC.navigationBar.translucent = NO;
-        self.newsNC.navigationBar.tintColor = [UIColor blackColor];
-        self.newsNC.tabBarItem.title = @"资讯";
-        self.newsNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
-        [arr addObject:self.newsNC];
-        [newsVC release];
-    
+        self.readNC.navigationBar.tintColor = [UIColor whiteColor];
+        self.readNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];    } else {
+            self.readNC.navigationBar.tintColor = [UIColor blackColor];
+            self.readNC.navigationBar.barTintColor = [UIColor whiteColor];
+        }
+    self.readNC.navigationBar.translucent = NO;
+    self.readNC.tabBarItem.title = @"阅读";
+    self.readNC.tabBarItem.image = [UIImage imageNamed:@"tab_read"];
+    [arr addObject:self.readNC];
+    [readRootVC release];
     //音频VC
     WLZRadioRootViewController *radioRootVC =[[WLZRadioRootViewController alloc] init];
     self.radioNC = [[[UINavigationController alloc] initWithRootViewController:radioRootVC] autorelease];
@@ -189,20 +183,26 @@
     [arr addObject:self.videoNC];
     [videoRootVC release];
     
-    //阅读VC
-    WLZReadRootViewController *readRootVC = [[WLZReadRootViewController alloc] init];
-    self.readNC = [[[UINavigationController alloc] initWithRootViewController:readRootVC] autorelease];
+
+    //资讯
+    WLZ_News_ViewController *newsVC = [[WLZ_News_ViewController alloc] init];
+    self.newsNC = [[[UINavigationController alloc] initWithRootViewController:newsVC] autorelease];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
-        self.readNC.navigationBar.tintColor = [UIColor whiteColor];
-        self.readNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];    } else {
-        self.readNC.navigationBar.tintColor = [UIColor blackColor];
-        self.readNC.navigationBar.barTintColor = [UIColor whiteColor];
+        self.newsNC.navigationBar.tintColor = [UIColor whiteColor];
+        self.newsNC.navigationBar.barTintColor = [UIColor colorWithRed:0.2166 green:0.2155 blue:0.2176 alpha:1.0];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+        
+    } else {
+        self.newsNC.navigationBar.tintColor = [UIColor blackColor];
+        self.newsNC.navigationBar.barTintColor = [UIColor whiteColor];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }
-    self.readNC.navigationBar.translucent = NO;
-    self.readNC.tabBarItem.title = @"阅读";
-    self.readNC.tabBarItem.image = [UIImage imageNamed:@"tab_read"];
-    [arr addObject:self.readNC];
-    [readRootVC release];
+    self.newsNC.navigationBar.translucent = NO;
+    self.newsNC.navigationBar.tintColor = [UIColor blackColor];
+    self.newsNC.tabBarItem.title = @"资讯";
+    self.newsNC.tabBarItem.image = [UIImage imageNamed:@"tab_news"];
+    [arr addObject:self.newsNC];
+    [newsVC release];
     
 
     

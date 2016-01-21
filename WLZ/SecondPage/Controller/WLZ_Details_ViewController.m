@@ -40,19 +40,6 @@
     [_coreManager release];
     [super dealloc];
 }
-//
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        self.hidesBottomBarWhenPushed = YES;
-//    }
-//    return self;
-//}
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    self.tabBarController.tabBar.hidden = YES;
-//}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -198,6 +185,7 @@
         self.detailsCell.model = [self.radioArr objectAtIndex:indexPath.row];
         [self.detailsCell.coverimgImageV sd_setImageWithURL:[NSURL URLWithString:model.coverimg] placeholderImage:[UIImage imageNamed:@"kafei"]];
         self.detailsCell.titleL.text = model.title;
+        self.detailsCell.selectionStyle = UITableViewCellSelectionStyleNone;
         self.detailsCell.musicVisitL.text = model.musicVisit;
         self.detailsCell.musicVisitL.font = [UIFont systemFontOfSize:11];
     }

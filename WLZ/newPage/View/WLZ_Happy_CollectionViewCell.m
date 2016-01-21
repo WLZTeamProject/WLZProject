@@ -40,6 +40,7 @@
     self.tableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, VWIDTH, VHEIGHT - 120 ) style:UITableViewStylePlain];
     self.tableV.delegate = self;
     self.tableV.dataSource = self;
+    self.tableV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self addSubview:self.tableV];
     [_tableV release];
     [WLZ_GIFT setGifWithImageName:@"pika2.gif"];
@@ -77,38 +78,39 @@
 //注册cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        WLZ_News_Model *model = self.happyArr[indexPath.row];
+    WLZ_News_Model *model = self.happyArr[indexPath.row];
+    
+    if (model.pic_path.length != 0) {
         
-        if (model.pic_path.length != 0) {
-            
-            
-            static NSString *celld = @"celld";
-            self.listCell = [tableView dequeueReusableCellWithIdentifier:celld];
-            if (nil == self.listCell) {
-                self.listCell = [[WLZ_Happy_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celld];
-            }
-
-            
-            
-            self.listCell.pic_pathV.image = [UIImage imageNamed:@"kafei"] ;
-            [self.listCell.pic_pathV sd_setImageWithURL:[NSURL URLWithString:model.pic_path]];
-            self.listCell.titleLL.text = model.title;
-            self.listCell.summaryL.text = model.summary;
-            return self.listCell;
+        
+        static NSString *celld = @"celld";
+        self.listCell = [tableView dequeueReusableCellWithIdentifier:celld];
+        if (nil == self.listCell) {
+            self.listCell = [[WLZ_Happy_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:celld];
         }
-         
-         
-         static NSString *cellstr = @"happy";
-         self.happyCell = [tableView dequeueReusableCellWithIdentifier:cellstr];
-         if (nil == self.happyCell) {
-             self.happyCell = [[WLZ_Happy_No_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellstr];
-         }
-         
-         self.happyCell.titleLL.text = model.title;
-            self.happyCell.summaryL.text = model.summary;
-         
-            return self.happyCell;
-
+        
+        
+        
+        self.listCell.pic_pathV.image = [UIImage imageNamed:@"kafei"] ;
+        [self.listCell.pic_pathV sd_setImageWithURL:[NSURL URLWithString:model.pic_path]];
+        self.listCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.listCell.titleLL.text = model.title;
+        self.listCell.summaryL.text = model.summary;
+        return self.listCell;
+    }
+    
+    
+    static NSString *cellstr = @"happy";
+    self.happyCell = [tableView dequeueReusableCellWithIdentifier:cellstr];
+    if (nil == self.happyCell) {
+        self.happyCell = [[WLZ_Happy_No_TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellstr];
+    }
+    self.happyCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.happyCell.titleLL.text = model.title;
+    self.happyCell.summaryL.text = model.summary;
+    
+    return self.happyCell;
+    
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
