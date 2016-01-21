@@ -222,6 +222,7 @@
     
     WLZUserRootViewController *userVC = [[WLZUserRootViewController alloc] init];
      self.leftVC = [[LeftSlideViewController alloc] initWithLeftView:userVC andMainView:self.tabBar];
+    [self.leftVC setPanEnabled:NO];
     self.window.rootViewController = self.leftVC;
     [_leftVC release];
     [userVC release];
