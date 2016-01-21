@@ -88,14 +88,14 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
-- (void)layoutSubviews
-{
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
-        self.contentView.backgroundColor = [UIColor blackColor];
-    } else {
-        self.contentView.backgroundColor = [UIColor whiteColor];
-    }
-}
+//- (void)layoutSubviews
+//{
+//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"night"]) {
+//        self.contentView.backgroundColor = [UIColor blackColor];
+//    } else {
+//        self.contentView.backgroundColor = [UIColor whiteColor];
+//    }
+//}
 - (void)awakeFromNib {
     // Initialization code
 }
