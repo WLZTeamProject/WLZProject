@@ -99,11 +99,7 @@
     }];
     self.tableV.rowHeight = [[UIScreen mainScreen] bounds].size.height / 3.0;
     //设置上拉刷新
-    
-    
-        [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
-    
-    
+    [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
 }
 
 - (void)addrefresh
@@ -115,8 +111,6 @@
         
     }];
     [self.tableV reloadData];
-    
-    NSLog(@"哇哇哇哇哇哇哇哇哇%ld", self.page);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -157,15 +151,6 @@
         [cell.imageV sd_setImageWithURL:[NSURL URLWithString:wlzlist.item_image]placeholderImage:[UIImage imageNamed:@"kafei"]];
         return cell;
     }
-//    else {
-//        static NSString *cellStr = @"cell2";
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
-//        if (nil == cell) {
-//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
-//        }
-//        return cell;
-//    }
-   
     return 0;
 }
 

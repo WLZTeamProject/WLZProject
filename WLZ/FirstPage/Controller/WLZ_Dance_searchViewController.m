@@ -56,10 +56,6 @@
     for (NSString *str in newArr) {
         [self.arr addObject:str];
     }
-    
-    
-    
-    
     [self createheadView];
     
 }
@@ -68,7 +64,6 @@
 {
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 10 * 3 + 10)];
-//    view.backgroundColor = [UIColor colorWithRed:158 / 255.0 green:208 / 255.0 blue:91 / 255.0 alpha:1.0];
     view.backgroundColor = [UIColor colorWithRed:210 / 255.0 green:150 / 255.0 blue:250 / 255.0 alpha:1.0];
     [self.view addSubview:view];
     
@@ -220,9 +215,6 @@
 
 - (void)searchButAction
 {
-    
-    
-    
     NSInteger num = 0;
     if (self.searchField.text != nil) {
         for (NSString *str in self.arr) {
@@ -257,22 +249,6 @@
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *filePath = [path stringByAppendingPathComponent:@"stuData.plist"];
     [NSKeyedArchiver archiveRootObject:self.arr toFile:filePath];
-    NSLog(@"%@", filePath);
-//    NSFileManager *fileM = [NSFileManager defaultManager];
-//    BOOL isExists = [fileM fileExistsAtPath:filePath];
-//    if (isExists) {
-//        BOOL isRemove = [fileM removeItemAtPath:path error:nil];
-//        if (isRemove) {
-//            NSLog(@"删除成功");
-//        } else {
-//            NSLog(@"删除失败");
-//        }
-//    }
-    
-    
-    
-    
-    
 }
 
 
@@ -300,13 +276,8 @@
 //删除
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSString *key = [self.arr objectAtIndex:indexPath.row];
-//    if (UITableViewCellEditingStyleDelete == editingStyle) {
         [self.arr removeObjectAtIndex:indexPath.row];
         [self.tableV reloadData];
-//    }
-    
-    
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
