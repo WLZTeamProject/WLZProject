@@ -93,7 +93,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:131 / 256.0 green:59 / 256.0 blue:149 / 256.0 alpha:1.0];
+    self.view.backgroundColor = [UIColor blackColor];
     self.numtime = 0;
     self.page = 1;
     self.arr = [NSMutableArray array];
@@ -531,20 +531,20 @@
 - (void)createunderView
 {
     self.butView = [[UIView alloc] initWithFrame:CGRectMake(0, self.container.frame.origin.y + self.container.frame.size.height, self.container.frame.size.width, ([[UIScreen mainScreen] bounds].size.height / 2 -  [[UIScreen mainScreen] bounds].size.height / 3) / 2)];
-    self.butView.backgroundColor = [UIColor orangeColor];
+    self.butView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.butView];
     
     self.detailBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.detailBut.frame = CGRectMake(0, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
     [self.detailBut setTitle:@"详情" forState:UIControlStateNormal];
     [self.detailBut setTitleColor:[UIColor colorWithRed:79 / 255.0 green:0 blue:40 / 255.0 alpha:1.0] forState:UIControlStateNormal];
-    self.detailBut.backgroundColor = [UIColor colorWithRed:49 / 255.0 green:1 / 255.0 blue:47 / 255.0 alpha:1.0];
+    self.detailBut.backgroundColor = [UIColor blackColor];
     [self.detailBut addTarget:self action:@selector(detailButAction) forControlEvents:UIControlEventTouchUpInside];
     [self.butView addSubview:self.detailBut];
     
     self.relateBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.relateBut.frame = CGRectMake(self.detailBut.frame.size.width, 0, self.butView.frame.size.width / 2, self.butView.frame.size.height);
-    self.relateBut.backgroundColor = [UIColor colorWithRed:49 / 255.0 green:1 / 255.0 blue:47 / 255.0 alpha:1.0];
+    self.relateBut.backgroundColor = [UIColor blackColor];
     [self.relateBut setTitle:@"相关" forState:UIControlStateNormal];
     [self.relateBut addTarget:self action:@selector(relateButAction) forControlEvents:UIControlEventTouchUpInside];
     [self.butView addSubview:self.relateBut];

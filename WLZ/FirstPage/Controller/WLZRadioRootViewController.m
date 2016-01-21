@@ -15,11 +15,13 @@
 #import "WLZ_Dance_detailViewController.h"
 #import "WLZ_Dance_videoModel.h"
 #import "WLZ_Dance_searchViewController.h"
+#import "WLZ_MumView.h"
 @interface WLZRadioRootViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, retain) NSMutableArray *danceLunboArr;
 @property (nonatomic, retain) NSMutableArray *danceArr;
 @property (nonatomic, retain) UITableView *tableV;
 @property (nonatomic, assign) NSInteger page;
+@property (nonatomic, retain) WLZ_MumView *wlzMum;
 
 @end
 
@@ -43,6 +45,7 @@
     [_danceArr release];
     [_tableV release];
     [_urlStr release];
+    [_wlzMum release];
     [super dealloc];
     
 }
@@ -69,6 +72,10 @@
     [self getTableVData];
     [self addrefresh];
     
+    self.wlzMum = [[WLZ_MumView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:self.wlzMum];
+    [_wlzMum release];
+    
 }
 
 - (void)rightAction
@@ -91,9 +98,8 @@
     }];
     self.tableV.rowHeight = [[UIScreen mainScreen] bounds].size.height / 3.0;
     //设置上拉刷新
-    
-    
-        [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
+
+    [self.tableV registerClass:[WLZ_DanceTableViewCell class] forCellReuseIdentifier:@"cell"];
     
     
 }
@@ -108,7 +114,7 @@
     }];
     [self.tableV reloadData];
     
-    NSLog(@"哇哇哇哇哇哇哇哇哇%ld", self.page);
+//    NSLog(@"哇哇哇哇哇哇哇哇哇%ld", self.page);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -179,6 +185,7 @@
         }
         [self.tableV.mj_footer endRefreshing];
         [self.tableV reloadData];
+        [self.wlzMum stopActivityIndicator];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
@@ -195,9 +202,7 @@
         NSMutableArray *commonArr = [responseObject objectForKey:@"common"];
         self.danceLunboArr = [WLZ_Dance_Model baseModelWithArr:commonArr];
         [self.tableV reloadData];
-        
-        
-        
+
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
         

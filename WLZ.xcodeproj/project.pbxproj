@@ -17,6 +17,7 @@
 		49487E5F1C46840A00B58507 /* WLZ_Dance_detailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49487E5E1C46840A00B58507 /* WLZ_Dance_detailCollectionViewCell.m */; };
 		494DD5AD1C489D6A007B5F77 /* WLZUserCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494DD5AC1C489D6A007B5F77 /* WLZUserCollectViewController.m */; };
 		4954B7851C448C85001A1CD3 /* WLZ_Dance_videoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4954B7841C448C85001A1CD3 /* WLZ_Dance_videoModel.m */; };
+		495FB4041C5065ED00BD8727 /* WLZ_MumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 495FB4031C5065ED00BD8727 /* WLZ_MumView.m */; };
 		4966E11D1C43D410009CFE51 /* WLZBaseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966E11C1C43D410009CFE51 /* WLZBaseWebView.m */; };
 		4966E13F1C43DDEF009CFE51 /* WLZ_Details_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966E1241C43DDEF009CFE51 /* WLZ_Details_ViewController.m */; };
 		4966E1401C43DDEF009CFE51 /* WLZ_Music_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4966E1261C43DDEF009CFE51 /* WLZ_Music_ViewController.m */; };
@@ -154,6 +155,8 @@
 		494DD5AC1C489D6A007B5F77 /* WLZUserCollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZUserCollectViewController.m; sourceTree = "<group>"; };
 		4954B7831C448C85001A1CD3 /* WLZ_Dance_videoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Dance_videoModel.h; sourceTree = "<group>"; };
 		4954B7841C448C85001A1CD3 /* WLZ_Dance_videoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_Dance_videoModel.m; sourceTree = "<group>"; };
+		495FB4021C5065ED00BD8727 /* WLZ_MumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_MumView.h; sourceTree = "<group>"; };
+		495FB4031C5065ED00BD8727 /* WLZ_MumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZ_MumView.m; sourceTree = "<group>"; };
 		4966E11B1C43D410009CFE51 /* WLZBaseWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZBaseWebView.h; sourceTree = "<group>"; };
 		4966E11C1C43D410009CFE51 /* WLZBaseWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLZBaseWebView.m; sourceTree = "<group>"; };
 		4966E1231C43DDEF009CFE51 /* WLZ_Details_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLZ_Details_ViewController.h; sourceTree = "<group>"; };
@@ -514,6 +517,8 @@
 				4916162D1C473D45003F2BCC /* WLZ_Dance_relateTableViewCell.m */,
 				49FC3BD51C4748C000141A1E /* WLZ_Dance_detailTableViewCell.h */,
 				49FC3BD61C4748C000141A1E /* WLZ_Dance_detailTableViewCell.m */,
+				495FB4021C5065ED00BD8727 /* WLZ_MumView.h */,
+				495FB4031C5065ED00BD8727 /* WLZ_MumView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1172,6 +1177,7 @@
 				92D7C3441C4DD16400598C87 /* WLZ_Happy_TableViewCell.m in Sources */,
 				49C93B0C1C42326400898F22 /* WLZBaseLabel.m in Sources */,
 				496A1DA31C45EDF3004A1658 /* WLZNewsListViewController.m in Sources */,
+				495FB4041C5065ED00BD8727 /* WLZ_MumView.m in Sources */,
 				49C93B061C42319200898F22 /* WLZBaseCollectionViewCell.m in Sources */,
 				49712BC01C474E6800B39887 /* LQQCoreDataManager.m in Sources */,
 				4966E15E1C43DE80009CFE51 /* WLZ_Details_TableViewCell.m in Sources */,

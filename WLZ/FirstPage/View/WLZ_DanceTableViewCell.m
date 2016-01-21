@@ -32,7 +32,7 @@
 {
     self.backgroundColor = [UIColor clearColor];
     self.imageV = [[UIImageView alloc] init];
-    self.imageV.backgroundColor = [UIColor blueColor];
+    self.imageV.backgroundColor = [UIColor blackColor];
     [self.contentView addSubview:self.imageV];
     [_imageV release];
     

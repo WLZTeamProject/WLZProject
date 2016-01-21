@@ -129,8 +129,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void)getData
 {
-    NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/search?word=%@&perpage=10&page=1",self.title];
-    ;
+//    NSString *urlStr = [NSString stringWithFormat:@"http://api3.dance365.com/video/search?word=%@&perpage=10&page=1",self.title];
+//    ;
 //    [LQQAFNetTool getNetWithURL:urlStr body:nil headFile:nil responseStyle:LQQJSON success:^(NSURLSessionDataTask *task, id responseObject) {
 //        NSMutableArray *resultArr = [responseObject objectForKey:@"result"];
 //        

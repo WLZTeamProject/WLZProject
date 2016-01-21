@@ -123,32 +123,45 @@
     CGRect framel = self.titleL.frame;
     framel.size.height = height;
     self.titleL.frame = framel;
+    self.titleL.textColor = [UIColor whiteColor];
     
     self.catalogthemrL.frame = CGRectMake(self.titleL.frame.origin.x, self.titleL.frame.size.height + self.titleL.frame.origin.y, self.contentView.frame.size.width / 4, [[UIScreen mainScreen] bounds].size.height / 27);
+    self.catalogthemrL.textColor = [UIColor whiteColor];
     self.catalogL.frame = CGRectMake(self.catalogthemrL.frame.size.width + self.catalogthemrL.frame.origin.x, self.catalogthemrL.frame.origin.y, self.contentView.frame.size.width / 4 * 3 - 20, self.catalogthemrL.frame.size.height);
-    
+    self.catalogL.textColor = [UIColor whiteColor];
     
     self.productthemeL.frame = CGRectMake(self.titleL.frame.origin.x, self.catalogthemrL.frame.size.height + self.catalogthemrL.frame.origin.y, self.contentView.frame.size.width / 4, self.catalogthemrL.frame.size.height);
+    self.productthemeL.textColor = [UIColor whiteColor];
     self.productL.frame = CGRectMake(self.catalogthemrL.frame.size.width + self.catalogthemrL.frame.origin.x, self.productthemeL.frame.origin.y, self.contentView.frame.size.width / 4 * 3 - 20, self.catalogthemrL.frame.size.height);
-    
+    self.productL.textColor = [UIColor whiteColor];
 //    self.productthemeL.frame = CGRectMake(self.titleL.frame.origin.x, self.catalogthemrL.frame.size.height + self.catalogthemrL.frame.origin.y, self.contentView.frame.size.width / 4, [[UIScreen mainScreen] bounds].size.height / 30);
 //    self.productL.frame = CGRectMake(self.catalogthemrL.frame.size.width + self.catalogthemrL.frame.origin.x, self.productthemeL.frame.origin.y, self.contentView.frame.size.width / 4 * 3, self.catalogthemrL.frame.size.height);
     
     self.purposethemeL.frame = CGRectMake(self.titleL.frame.origin.x, self.productthemeL.frame.size.height + self.productthemeL.frame.origin.y, self.contentView.frame.size.width / 4, self.catalogthemrL.frame.size.height);
     self.purposeL.frame = CGRectMake(self.catalogthemrL.frame.size.width + self.catalogthemrL.frame.origin.x, self.purposethemeL.frame.origin.y, self.contentView.frame.size.width / 4 * 3 - 20, self.catalogthemrL.frame.size.height);
+    self.purposeL.textColor = [UIColor whiteColor];
+    self.purposethemeL.textColor = [UIColor whiteColor];
     
     
     self.suitablethemeL.frame = CGRectMake(self.titleL.frame.origin.x, self.purposethemeL.frame.size.height + self.purposethemeL.frame.origin.y, self.contentView.frame.size.width / 4, self.catalogthemrL.frame.size.height);
     self.suitableL.frame = CGRectMake(self.catalogthemrL.frame.size.width + self.catalogthemrL.frame.origin.x, self.suitablethemeL.frame.origin.y, self.contentView.frame.size.width / 4 * 3 - 20, self.catalogthemrL.frame.size.height);
+    self.suitablethemeL.textColor = [UIColor whiteColor];
+    self.suitableL.textColor = [UIColor whiteColor];
     
     self.groupthemeL.frame = CGRectMake(self.titleL.frame.origin.x, self.suitablethemeL.frame.size.height + self.suitablethemeL.frame.origin.y, self.contentView.frame.size.width / 4, self.catalogthemrL.frame.size.height);
     self.groupL.frame = CGRectMake(self.catalogthemrL.frame.size.width + self.catalogthemrL.frame.origin.x, self.groupthemeL.frame.origin.y, self.contentView.frame.size.width / 4 * 3 - 20, self.catalogthemrL.frame.size.height);
+    self.genderthemeL.textColor = [UIColor whiteColor];
+    self.groupL.textColor = [UIColor whiteColor];
     
     self.genderthemeL.frame = CGRectMake(self.titleL.frame.origin.x, self.groupthemeL.frame.size.height + self.groupthemeL.frame.origin.y, self.contentView.frame.size.width / 4, self.catalogthemrL.frame.size.height);
+    self.genderthemeL.textColor = [UIColor whiteColor];
     self.genderL.frame = CGRectMake(self.catalogthemrL.frame.size.width + self.catalogthemrL.frame.origin.x, self.genderthemeL.frame.origin.y, self.contentView.frame.size.width / 4 * 3 - 20, self.catalogthemrL.frame.size.height);
+    self.genderL.textColor = [UIColor whiteColor];
     
     self.summarythemeL.frame = CGRectMake(self.titleL.frame.origin.x, self.genderthemeL.frame.size.height + self.genderthemeL.frame.origin.y, self.contentView.frame.size.width / 4, self.catalogthemrL.frame.size.height);
+    self.summarythemeL.textColor = [UIColor whiteColor];
     self.summaryL.frame = CGRectMake(self.catalogthemrL.frame.size.width + self.catalogthemrL.frame.origin.x, self.summarythemeL.frame.origin.y, self.contentView.frame.size.width / 4 * 3 - 20, self.catalogthemrL.frame.size.height);
+    self.summaryL.textColor = [UIColor whiteColor];
     
     
     CGFloat sunHeight = [[self class] heightWithStr:self.summaryL.text];
@@ -158,12 +171,6 @@
     
     
     CGFloat allHeight = self.titleL.frame.size.height + self.catalogL.frame.size.height + self.productL.frame.size.height + self.purposeL.frame.size.height + self.suitableL.frame.size.height + self.groupL.frame.size.height + self.genderL.frame.size.height + self.summaryL.frame.size.height;
-    
-    
-    
-    
-    
-    
     
     
     self.scrollV.contentSize = CGSizeMake(0, allHeight);

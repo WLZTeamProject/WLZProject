@@ -67,13 +67,13 @@
 - (void)createheadView
 {
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 10 * 3 + 10)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 20, [[UIScreen mainScreen] bounds].size.width, 160)];
 //    view.backgroundColor = [UIColor colorWithRed:158 / 255.0 green:208 / 255.0 blue:91 / 255.0 alpha:1.0];
-    view.backgroundColor = [UIColor colorWithRed:210 / 255.0 green:150 / 255.0 blue:250 / 255.0 alpha:1.0];
+    view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:view];
     
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height / 10)];
-    headView.backgroundColor = [UIColor colorWithRed:115 / 255.0 green:0 blue:190 / 255.0 alpha:1.0];
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 50)];
+    headView.backgroundColor = [UIColor blackColor];
     [view addSubview:headView];
     
     self.searchBut = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -92,7 +92,7 @@
     
     self.cancelBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.cancelBut.frame = CGRectMake(self.searchField.frame.size.width + self.searchField.frame.origin.x + 10, self.searchField.frame.origin.y, self.searchBut.frame.size.width, self.searchBut.frame.size.height);
-    self.cancelBut.backgroundColor = [UIColor clearColor];
+    self.cancelBut.backgroundColor = [UIColor blackColor];
     [self.cancelBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.cancelBut.alpha = 0.5;
     
@@ -110,7 +110,7 @@
     
     
     self.jazzBut = [[UIButton alloc] initWithFrame:CGRectMake(20, hotLabel.frame.size.height + hotLabel.frame.origin.y, self.searchBut.frame.size.width, hotLabel.frame.size.height)];
-    self.jazzBut.backgroundColor = [UIColor colorWithRed:201 / 255.0 green:0 blue:201 / 255.0 alpha:1.0];
+    self.jazzBut.backgroundColor = [UIColor blackColor];
     [self.jazzBut setTitle:@"爵士" forState:UIControlStateNormal];
     self.jazzBut.tag = 10000;
     [self.jazzBut addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -119,7 +119,7 @@
     
     
     self.childBut = [[UIButton alloc] initWithFrame:CGRectMake(self.jazzBut.frame.size.width + self.jazzBut.frame.origin.x + 10, self.jazzBut.frame.origin.y, self.jazzBut.frame.size.width * 2, self.jazzBut.frame.size.height)];
-    self.childBut.backgroundColor = [UIColor colorWithRed:201 / 255.0 green:0 blue:201 / 255.0 alpha:1.0];
+    self.childBut.backgroundColor = [UIColor blackColor];
     self.childBut.layer.cornerRadius = hotLabel.frame.size.height / 2;
     self.childBut.tag = 10001;
     [self.childBut addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -127,7 +127,7 @@
     [view addSubview:self.childBut];
     
     self.solodanceBut = [[UIButton alloc] initWithFrame:CGRectMake(self.childBut.frame.size.width + self.childBut.frame.origin.x + 10, self.jazzBut.frame.origin.y, self.jazzBut.frame.size.width, self.jazzBut.frame.size.height)];
-    self.solodanceBut.backgroundColor = [UIColor colorWithRed:201 / 255.0 green:0 blue:201 / 255.0 alpha:1.0];
+    self.solodanceBut.backgroundColor = [UIColor blackColor];
     self.solodanceBut.layer.cornerRadius = hotLabel.frame.size.height / 2;
     self.solodanceBut.tag = 10002;
     [self.solodanceBut addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -135,7 +135,7 @@
     [view addSubview:self.solodanceBut];
     
     self.teachBut = [[UIButton alloc] initWithFrame:CGRectMake(self.jazzBut.frame.origin.x, self.jazzBut.frame.origin.y + self.jazzBut.frame.size.height + 10, self.jazzBut.frame.size.width * 2, self.jazzBut.frame.size.height)];
-    self.teachBut.backgroundColor = [UIColor colorWithRed:201 / 255.0 green:0 blue:201 / 255.0 alpha:1.0];
+    self.teachBut.backgroundColor = [UIColor blackColor];
     self.teachBut.layer.cornerRadius = hotLabel.frame.size.height / 2;
     self.teachBut.tag = 10003;
     [self.teachBut addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -148,9 +148,10 @@
     
     self.deleteBut = [UIButton buttonWithType:UIButtonTypeCustom];
     self.deleteBut.frame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - hotLabel.frame.size.height, [[UIScreen mainScreen] bounds].size.width, hotLabel.frame.size.height);
-    self.deleteBut.backgroundColor = [UIColor colorWithRed:115 / 255.0 green:0 blue:190 / 255.0 alpha:1.0];
+    self.deleteBut.backgroundColor = [UIColor blackColor];
 //    [UIColor colorWithRed:201 / 255.0 green:0 blue:201 / 255.0 alpha:1.0];
     [self.deleteBut setTitle:@"清除所有搜索内容" forState:UIControlStateNormal];
+    [self.deleteBut setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.deleteBut addTarget:self action:@selector(deleteButAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.deleteBut];
     

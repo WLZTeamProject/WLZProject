@@ -34,11 +34,13 @@
 //    self.imageV.backgroundColor = [UIColor magentaColor];
     [self.contentView addSubview:self.imageV];
     self.titleL = [[UILabel alloc] init];
+    self.titleL.textColor = [UIColor whiteColor];
     self.titleL.numberOfLines = 0;
     
 //    self.titleL.backgroundColor = [UIColor grayColor];
     [self.contentView addSubview:self.titleL];
     self.catalogL = [[UILabel alloc] init];
+    self.catalogL.textColor = [UIColor whiteColor];
 //    self.catalogL.backgroundColor = [UIColor purpleColor];
     [self.contentView addSubview:self.catalogL];
 
